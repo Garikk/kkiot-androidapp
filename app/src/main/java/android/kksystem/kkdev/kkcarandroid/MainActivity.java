@@ -3,6 +3,8 @@ package android.kksystem.kkdev.kkcarandroid;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -77,20 +79,39 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camara) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_Info) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.drawer_layout, frg_Info.newInstance())
+                    .commit();
+        } else if (id == R.id.nav_diag) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.drawer_layout, frg_Diag.newInstance())
+                    .commit();
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_media) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.drawer_layout, frg_Media.newInstance())
+                    .commit();
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_remdisplay_a) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.drawer_layout, frg_RemoteDisplayAndr.newInstance())
+                    .commit();
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_remdisplay_l) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.drawer_layout, frg_RemoteDisplayLED.newInstance())
+                    .commit();
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_display_settings) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.drawer_layout, frg_Settings.newInstance())
+                    .commit();
 
         }
 

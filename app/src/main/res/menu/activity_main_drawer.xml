@@ -2,21 +2,21 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <item android:id="@+id/nav_camara" android:icon="@android:drawable/ic_menu_camera"
-            android:title="Import" />
-        <item android:id="@+id/nav_gallery" android:icon="@android:drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item android:id="@+id/nav_slideshow" android:icon="@android:drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item android:id="@+id/nav_manage" android:icon="@android:drawable/ic_menu_manage"
-            android:title="Tools" />
+        <item android:id="@+id/nav_Info" android:icon="@android:drawable/ic_menu_camera"
+            android:title="Информация" />
+        <item android:id="@+id/nav_diag" android:icon="@android:drawable/ic_menu_gallery"
+            android:title="Диагностика" />
+        <item android:id="@+id/nav_media" android:icon="@android:drawable/ic_menu_slideshow"
+            android:title="Медиацентр" />
+        <item android:id="@+id/nav_remdisplay_a" android:icon="@android:drawable/ic_menu_manage"
+            android:title="Параметры" />
     </group>
 
     <item android:title="Communicate">
         <menu>
-            <item android:id="@+id/nav_share" android:icon="@android:drawable/ic_menu_share"
+            <item android:id="@+id/nav_remdisplay_l" android:icon="@android:drawable/ic_menu_share"
                 android:title="Share" />
-            <item android:id="@+id/nav_send" android:icon="@android:drawable/ic_menu_send"
+            <item android:id="@+id/nav_display_settings" android:icon="@android:drawable/ic_menu_send"
                 android:title="Send" />
         </menu>
     </item>
