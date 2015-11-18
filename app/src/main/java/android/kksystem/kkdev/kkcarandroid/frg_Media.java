@@ -1,6 +1,7 @@
 package android.kksystem.kkdev.kkcarandroid;
 
 import android.app.Activity;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -67,16 +68,9 @@ public class frg_Media extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+    public void onAttach(Context context) {
+        super.onAttach(context);
     }
-
     @Override
     public void onDetach() {
         super.onDetach();

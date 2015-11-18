@@ -1,12 +1,17 @@
 package android.kksystem.kkdev.kkcarandroid;
 
 import android.app.Activity;
+import android.content.Context;
+import android.kksystem.kkdev.kkcarandroid.android.kksystem.kkdev.kkcarandroid.manager.InfoOperations;
+import android.kksystem.kkdev.kkcarandroid.android.kksystem.kkdev.kkcarandroid.manager.types.ConfigurationInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 
 /**
@@ -60,14 +65,10 @@ public class frg_Info extends Fragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        RefreshInfo();
     }
 
     @Override
@@ -89,6 +90,48 @@ public class frg_Info extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
+    }
+
+    private void RefreshInfo()
+    {
+        ConfigurationInfo CI=InfoOperations.GetConfInfo();
+        Activity act;
+
+        act=getActivity();
+
+        TextView txtName=(TextView)act.findViewById(R.id.txtInfoConfName);
+        txtName.setText(CI.ConfName);
+
+        TextView txtDesc=(TextView)act.findViewById(R.id.txtInfoConfDescription);
+        txtDesc.setText(CI.ConfDescription);
+
+
+        ImageView imgCarConn=(ImageView)act.findViewById(R.id.imgInfoCarState);
+        if (CI.CarConnectionState == ConfigurationInfo.CarConnection.Active | CI.CarConnectionState == ConfigurationInfo.CarConnection.Idle)
+        {
+            imgCarConn.setImageResource(R.drawable.info_carconnecton);
+        }
+        else if (CI.CarConnectionState == ConfigurationInfo.CarConnection.Inactive)
+        {
+            imgCarConn.setImageResource(R.drawable.info_carnnoconnection);
+        }
+
+        ImageView imgCarState=(ImageView)act.findViewById(R.id.imgInfoCarState);
+        if (CI.CarStatus == ConfigurationInfo.CarStatus.Ok)
+        {
+            imgCarState.setImageResource(R.drawable.info_engineok);
+        }
+        else if (CI.CarStatus == ConfigurationInfo.CarStatus.MILError)
+        {
+            imgCarState.setImageResource(R.drawable.info_enginece);
+        }
+        else if (CI.CarStatus == ConfigurationInfo.CarStatus.Inactive)
+        {
+            imgCarState.setImageResource(R.drawable.info_enginens);
+        }
+
+
+
     }
 
 }

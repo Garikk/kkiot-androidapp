@@ -86,31 +86,31 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_Info) {
             fragmentManager.beginTransaction()
-                    .replace(R.id.drawer_layout, frg_Info.newInstance())
+                    .replace(R.id.main_layout, frg_Info.newInstance())
                     .commit();
         } else if (id == R.id.nav_diag) {
             fragmentManager.beginTransaction()
-                    .replace(R.id.drawer_layout, frg_Diag.newInstance())
+                    .replace(R.id.main_layout, frg_Diag.newInstance())
                     .commit();
 
         } else if (id == R.id.nav_media) {
             fragmentManager.beginTransaction()
-                    .replace(R.id.drawer_layout, frg_Media.newInstance())
+                    .replace(R.id.main_layout, frg_Media.newInstance())
                     .commit();
 
         } else if (id == R.id.nav_remdisplay_a) {
             fragmentManager.beginTransaction()
-                    .replace(R.id.drawer_layout, frg_RemoteDisplayAndr.newInstance())
+                    .replace(R.id.main_layout, frg_RemoteDisplayAndr.newInstance())
                     .commit();
 
         } else if (id == R.id.nav_remdisplay_l) {
             fragmentManager.beginTransaction()
-                    .replace(R.id.drawer_layout, frg_RemoteDisplayLED.newInstance())
+                    .replace(R.id.main_layout, frg_RemoteDisplayLED.newInstance())
                     .commit();
 
         } else if (id == R.id.nav_display_settings) {
             fragmentManager.beginTransaction()
-                    .replace(R.id.drawer_layout, frg_Settings.newInstance())
+                    .replace(R.id.main_layout, frg_Settings.newInstance())
                     .commit();
 
         }
