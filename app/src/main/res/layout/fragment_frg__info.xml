@@ -1,7 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="android.kksystem.kkdev.kkcarandroid.frg_Info">
+    tools:context="kkdev.kksystem.kkdev.kkcarandroid.frg_Info">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -64,7 +64,7 @@
                 android:id="@+id/imgInfoCarState"
                 android:minWidth="100dp"
                 android:minHeight="100dp"
-                android:src="@drawable/info_enginens" />
+                android:src="@drawable/info_engineok" />
 
             <ImageView
                 android:layout_width="wrap_content"

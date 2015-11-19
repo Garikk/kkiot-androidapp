@@ -1,11 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+    }
     compileSdkVersion 23
     buildToolsVersion '23.0.2'
-
     defaultConfig {
-        applicationId "android.kksystem.kkdev.kkcarandroid"
+        applicationId 'kkdev.kksystem.kkdev.kkcarandroid'
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
@@ -15,7 +16,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            zipAlignEnabled true
         }
+    }
+    productFlavors {
     }
 }
 

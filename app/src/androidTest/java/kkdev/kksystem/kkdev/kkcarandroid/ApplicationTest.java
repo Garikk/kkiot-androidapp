@@ -1,4 +1,4 @@
-package android.kksystem.kkdev.kkcarandroid;
+package kkdev.kksystem.kkdev.kkcarandroid;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
