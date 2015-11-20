@@ -6,7 +6,7 @@ android {
     compileSdkVersion 23
     buildToolsVersion '23.0.2'
     defaultConfig {
-        applicationId 'kkdev.kksystem.kkdev.kkcarandroid'
+        applicationId 'kkdev.kksystem.kkcarandroid'
         minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
