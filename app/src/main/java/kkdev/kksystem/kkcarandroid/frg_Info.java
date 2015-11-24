@@ -97,16 +97,16 @@ public class frg_Info extends Fragment {
         ConfigurationInfo CI= InfoOperations.GetConfInfo();
         Activity act;
 
-        act=getActivity();
 
-        TextView txtName=(TextView)act.findViewById(R.id.txtInfoConfName);
+
+        TextView txtName=(TextView)getView().findViewById(R.id.txtInfoConfName);
         txtName.setText(CI.ConfName);
 
-        TextView txtDesc=(TextView)act.findViewById(R.id.txtInfoConfDescription);
+        TextView txtDesc=(TextView)getView().findViewById(R.id.txtInfoConfDescription);
         txtDesc.setText(CI.ConfDescription);
 
 
-        ImageView imgCarConn=(ImageView)act.findViewById(R.id.imgInfoCarState);
+        ImageView imgCarConn=(ImageView)getView().findViewById(R.id.imgInfoCarState);
         if (CI.CConnectionState == ConfigurationInfo.CarConnection.Active | CI.CConnectionState == ConfigurationInfo.CarConnection.Idle)
         {
             imgCarConn.setImageResource(R.drawable.info_carconnecton);
@@ -116,7 +116,7 @@ public class frg_Info extends Fragment {
             imgCarConn.setImageResource(R.drawable.info_carnnoconnection);
         }
 
-        ImageView imgCarState=(ImageView)act.findViewById(R.id.imgInfoCarState);
+        ImageView imgCarState=(ImageView)getView().findViewById(R.id.imgInfoCarState);
         if (CI.CStatus == ConfigurationInfo.CarStatus.Ok)
         {
             imgCarState.setImageResource(R.drawable.info_engineok);
