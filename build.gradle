@@ -11,13 +11,18 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
-
-allprojects {
-    repositories {
-        jcenter()
-    }
+//
+//allprojects {
+//    repositories {
+//        jcenter()
+//    }
+//}
+repositories {
+    jcenter
+            {
+                url 'http://jcenter.bintray.com'
+            }
 }
-
 task clean(type: Delete) {
     delete rootProject.buildDir
 }

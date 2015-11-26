@@ -65,10 +65,16 @@ public class frg_Info extends Fragment {
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        RefreshInfo();
+    }
+
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        RefreshInfo();
+
     }
 
     @Override
