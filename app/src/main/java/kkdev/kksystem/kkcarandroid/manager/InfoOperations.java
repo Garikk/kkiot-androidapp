@@ -1,6 +1,7 @@
 package kkdev.kksystem.kkcarandroid.manager;
 
 import kkdev.kksystem.kkcarandroid.manager.types.ConfigurationInfo;
+import kkdev.kksystem.kkcarandroid.wmhttp.WebManager;
 
 /**
  * Created by blinov_is on 18.11.2015.
@@ -11,13 +12,7 @@ public class InfoOperations {
     {
         ConfigurationInfo Ret;
 
-        Ret=new ConfigurationInfo();
-        Ret.ConfName="test";
-        Ret.ConfDescription="test desc";
-
-        Ret.CStatus= ConfigurationInfo.CarStatus.Ok;
-        Ret.CConnectionState= ConfigurationInfo.CarConnection.Idle;
-        Ret.EState= ConfigurationInfo.EngineStatus.Active;
+        Ret=WebManager.GetMyConfInfo();
 
         return Ret;
 

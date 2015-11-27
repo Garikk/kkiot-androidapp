@@ -27,6 +27,11 @@ public  class ConfigurationInfo {
 
     }
 
+    public String carinfo;
+    public String confname;
+    public String confversion;
+    public String confversion_kkcl;
+
 
     public  String ConfName;
     public  String ConfDescription;
@@ -36,5 +41,19 @@ public  class ConfigurationInfo {
     public  CarConnection CConnectionState;
     public  CarStatus CStatus;
     public  EngineStatus EState;
+
+   /*
+    "  kkcar_confinfo.id as paramid, "
+            . "  kkcar_confinfo.carinfo as carinfo, "
+            . "  configurations.name as confname, "
+            . "  configurations.stamp as confversion_act, "
+            . "  kkcar_confinfo.configversion as confversion_kkc, "
+            . "  kkcar_confinfo.kkcontrollerversion as kkcversion,	"
+            . "  kkcar_confinfo.osversion as osversion,	"
+            . "  kkcar_confinfo.confstatus as kkcconfstatus,	"
+            . "  kkcar_confinfo.carstatus as carstatus,	"
+            . "  kkcar_confinfo.timestamp as timestamp	"
+            . "  kkcar_confinfo.enginestatus as enginestatus	"
+            */
             
 }
