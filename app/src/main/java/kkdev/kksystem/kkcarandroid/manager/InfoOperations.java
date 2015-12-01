@@ -1,6 +1,6 @@
 package kkdev.kksystem.kkcarandroid.manager;
 
-import kkdev.kksystem.kkcarandroid.manager.types.ConfigurationInfo;
+import kkdev.kksystem.kkcarandroid.manager.types.KKConfigurationInfo;
 import kkdev.kksystem.kkcarandroid.wmhttp.WebManager;
 
 /**
@@ -8,12 +8,12 @@ import kkdev.kksystem.kkcarandroid.wmhttp.WebManager;
  */
 public class InfoOperations {
 
-    public static ConfigurationInfo GetConfInfo()
+    public static KKConfigurationInfo GetConfInfo()
     {
-        ConfigurationInfo Ret;
+        KKConfigurationInfo Ret;
 
         Ret=WebManager.GetMyConfInfo();
-
+        Ret.InitParams();
         return Ret;
 
     }

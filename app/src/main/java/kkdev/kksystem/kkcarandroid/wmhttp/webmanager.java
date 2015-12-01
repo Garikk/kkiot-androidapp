@@ -1,10 +1,10 @@
 package kkdev.kksystem.kkcarandroid.wmhttp;
 
+import android.os.StrictMode;
+import android.util.Log;
+
 import com.google.gson.Gson;
 
-import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,14 +12,13 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
-import kkdev.kksystem.kkcarandroid.manager.types.ConfigurationInfo;
+import kkdev.kksystem.kkcarandroid.manager.types.KKConfigurationInfo;
+import kkdev.kksystem.kkcarandroid.manager.types.KKDiagInfo;
 
 /**
  * Created by blinov_is on 24.11.2015.
@@ -27,7 +26,7 @@ import kkdev.kksystem.kkcarandroid.manager.types.ConfigurationInfo;
 public abstract class WebManager {
 
     final static String ___TEST_KKCAR_UUID_ = "2e2efd7b-ab83-42fa-9c00-2e45bb4b3ba1";
-    final static String WEBMASTER_URL = "http://localhost/";
+    final static String WEBMASTER_URL = "http://172.24.10.77/"; //!!CHANGE THIS!!
     final static String WEBMASTER_URL_SERVICE = "phoneapp/request";
     final static String WEBMASTER_URL_FULL = WEBMASTER_URL+WEBMASTER_URL_SERVICE;
     final static int WEBMASTER_MYFORMAT_VERSION=1;
@@ -47,19 +46,48 @@ public abstract class WebManager {
 
     }
 
-    public static ConfigurationInfo GetMyConfInfo() {
-        ConfigurationInfo Ret;
+    public static KKConfigurationInfo GetMyConfInfo() {
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        KKConfigurationInfo Ret;
         Gson gson = new Gson() ;
         String ConfDataRawJSON;
 
         ConfDataRawJSON=ExecuteWMRequest(WM_RequestTypes.WM_GetMyState);
-        Ret=(ConfigurationInfo)gson.fromJson(ConfDataRawJSON,ConfigurationInfo.class);
+        //Ugly!! remove json array // FIXME: 01.12.2015
+        ConfDataRawJSON=ConfDataRawJSON.substring(1,ConfDataRawJSON.length()-1);
+        Ret=(KKConfigurationInfo)gson.fromJson(ConfDataRawJSON,KKConfigurationInfo.class);
+
+        if (Ret==null)
+            Ret=new KKConfigurationInfo();
+
+        return Ret;
+    }
+
+    public static KKDiagInfo GetDiagInfo() {
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        KKDiagInfo Ret=new KKDiagInfo();
+        Gson gson = new Gson() ;
+        String ConfDataRawJSON;
+
+        ConfDataRawJSON=ExecuteWMRequest(WM_RequestTypes.WM_GetDiagnosticInfo);
+
+        Ret.CurrentDTC=gson.fromJson(ConfDataRawJSON,KKDiagInfo.KKDTCCode[].class);
+
         return Ret;
     }
 
 
     private static String ExecuteWMRequest(WM_RequestTypes RequestType)
     {
+        String Ret="{}";
         WMAnswer WAns;
         Gson gson = new Gson() ;
         String RawJSONAnswer;
@@ -69,14 +97,14 @@ public abstract class WebManager {
         //
         if (WAns!=null)
         {
-            if (WAns.FormatVersion==WEBMASTER_MYFORMAT_VERSION) {
-                if (WAns.AnswerState == '0') {
-                    return WAns.JsonData;
+            if (WAns.Version==WEBMASTER_MYFORMAT_VERSION) {
+                if (WAns.AnswerState.equals("0")) {
+                    Ret= WAns.JsonData;
                 }
             }
         }
         //
-        return "";
+        return Ret;
     }
 
 
@@ -91,6 +119,7 @@ public abstract class WebManager {
                 PostParams=GetPostParameters(RequestConfInfoParams());
                 break;
             case WM_GetDiagnosticInfo:
+                PostParams=GetPostParameters(RequestDiagInfoParams());
                 break;
             case WM_GetMediaInfo:
                 break;
@@ -111,7 +140,7 @@ public abstract class WebManager {
                 out.close();
 
                 InputStream in;
-                if(urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK){
+                if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                     in = urlConnection.getInputStream();
                 } else {
                     in = urlConnection.getErrorStream();
@@ -129,15 +158,16 @@ public abstract class WebManager {
                     Ret = sb.toString();
                     //Log.e("JSON", response);
                 } catch (Exception e) {
-                    //Log.e("Buffer Error", "Error converting result " + e.toString());
+                    Log.e("Buffer Error", "Error converting result " + e.toString());
                 }
 
-
-            } finally {
-                urlConnection.disconnect();
+            }catch (Exception e){
+                Log.e("Buffer Error", "Error converting result " + e.toString());
+            //} finally {
+            //    urlConnection.disconnect();
             }
         } catch (IOException e) {
-        } finally {
+
         }
 
 
@@ -168,6 +198,14 @@ public abstract class WebManager {
     private static Map<String, String> RequestConfInfoParams() {
         Map<String,String> Params=new HashMap<>();
         Params.put(PARAM_PHONEAPP_POST_REQUEST_ACT,ACT_PHONEAPP_GET_CARINFO);
+        Params.put(PARAM_PHONEAPP_POST_REQUEST_MYUUID,___TEST_KKCAR_UUID_);
+        return Params;
+
+    }
+
+    private static Map<String, String> RequestDiagInfoParams() {
+        Map<String,String> Params=new HashMap<>();
+        Params.put(PARAM_PHONEAPP_POST_REQUEST_ACT,ACT_PHONEAPP_GET_DIAGINFO);
         Params.put(PARAM_PHONEAPP_POST_REQUEST_MYUUID,___TEST_KKCAR_UUID_);
         return Params;
 

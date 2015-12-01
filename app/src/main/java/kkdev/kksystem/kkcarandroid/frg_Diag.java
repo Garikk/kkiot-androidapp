@@ -7,8 +7,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-
+import kkdev.kksystem.kkcarandroid.manager.DiagOperations;
+import kkdev.kksystem.kkcarandroid.manager.InfoOperations;
+import kkdev.kksystem.kkcarandroid.manager.types.KKConfigurationInfo;
+import kkdev.kksystem.kkcarandroid.manager.types.KKDiagInfo;
 
 
 /**
@@ -94,6 +99,20 @@ public class frg_Diag extends Fragment {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        RefreshInfo();
+    }
 
+    private void RefreshInfo()
+    {
+        KKDiagInfo DI= DiagOperations.GetDiagErrInfo();
+        //
+        TextView txtName=(TextView)getView().findViewById(R.id.txt_Diag_CEState);
+        txtName.setText(DI.MILString);
+        //
+
+    }
 
 }

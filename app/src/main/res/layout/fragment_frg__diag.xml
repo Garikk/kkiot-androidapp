@@ -22,13 +22,13 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="No connection"
-            android:id="@+id/txtCEState"
+            android:id="@+id/txt_Diag_CEState"
             android:layout_gravity="center_horizontal|top" />
 
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/lstDiagCEErrors"
+            android:id="@+id/lst_Diag_DTC"
             android:layout_gravity="center" />
 
     </LinearLayout>

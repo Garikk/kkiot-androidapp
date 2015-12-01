@@ -45,6 +45,64 @@
 
         </LinearLayout>
 
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Platform:"
+                    android:id="@+id/txt_Info_Platf_l" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="unknown"
+                    android:id="@+id/txt_Info_Platf" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sync Date:"
+                    android:id="@+id/txt_Info_SyncDate_l" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="none"
+                    android:id="@+id/txt_Info_SyncDate" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sync state:"
+                    android:id="@+id/txt_Info_syncState_l" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="not sync"
+                    android:id="@+id/txt_Info_syncState"
+                    android:layout_column="1" />
+            </TableRow>
+
+        </TableLayout>
+
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"

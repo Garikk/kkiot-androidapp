@@ -3,7 +3,7 @@ package kkdev.kksystem.kkcarandroid;
 import android.app.Activity;
 import android.content.Context;
 import kkdev.kksystem.kkcarandroid.manager.InfoOperations;
-import kkdev.kksystem.kkcarandroid.manager.types.ConfigurationInfo;
+import kkdev.kksystem.kkcarandroid.manager.types.KKConfigurationInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -100,10 +100,7 @@ public class frg_Info extends Fragment {
 
     private void RefreshInfo()
     {
-        ConfigurationInfo CI= InfoOperations.GetConfInfo();
-        Activity act;
-
-
+        KKConfigurationInfo CI= InfoOperations.GetConfInfo();
 
         TextView txtName=(TextView)getView().findViewById(R.id.txtInfoConfName);
         txtName.setText(CI.ConfName);
@@ -111,27 +108,36 @@ public class frg_Info extends Fragment {
         TextView txtDesc=(TextView)getView().findViewById(R.id.txtInfoConfDescription);
         txtDesc.setText(CI.ConfDescription);
 
+        TextView txtPlatf=(TextView)getView().findViewById(R.id.txt_Info_Platf);
+        txtPlatf.setText(CI.Platf);
+
+        TextView txtSyncState=(TextView)getView().findViewById(R.id.txt_Info_syncState);
+        txtSyncState.setText(CI.SyncState);
+
+        TextView txtsyncDate=(TextView)getView().findViewById(R.id.txt_Info_SyncDate);
+        txtsyncDate.setText(CI.ConfStamp);
+
 
         ImageView imgCarConn=(ImageView)getView().findViewById(R.id.imgInfoCarState);
-        if (CI.CConnectionState == ConfigurationInfo.CarConnection.Active | CI.CConnectionState == ConfigurationInfo.CarConnection.Idle)
+        if (CI.CConnectionState == KKConfigurationInfo.CarConnection.Active | CI.CConnectionState == KKConfigurationInfo.CarConnection.Idle)
         {
             imgCarConn.setImageResource(R.drawable.info_carconnecton);
         }
-        else if (CI.CConnectionState == ConfigurationInfo.CarConnection.Inactive)
+        else if (CI.CConnectionState == KKConfigurationInfo.CarConnection.Inactive)
         {
             imgCarConn.setImageResource(R.drawable.info_carnnoconnection);
         }
 
         ImageView imgCarState=(ImageView)getView().findViewById(R.id.imgInfoCarState);
-        if (CI.CStatus == ConfigurationInfo.CarStatus.Ok)
+        if (CI.CStatus == KKConfigurationInfo.CarStatus.Ok)
         {
             imgCarState.setImageResource(R.drawable.info_engineok);
         }
-        else if (CI.CStatus == ConfigurationInfo.CarStatus.MILError)
+        else if (CI.CStatus == KKConfigurationInfo.CarStatus.MILError)
         {
             imgCarState.setImageResource(R.drawable.info_enginece);
         }
-        else if (CI.CStatus == ConfigurationInfo.CarStatus.Inactive)
+        else if (CI.CStatus == KKConfigurationInfo.CarStatus.Inactive)
         {
             imgCarState.setImageResource(R.drawable.info_carnnoconnection);
         }
