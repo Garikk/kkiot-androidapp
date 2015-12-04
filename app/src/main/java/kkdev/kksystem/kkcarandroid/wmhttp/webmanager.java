@@ -26,7 +26,7 @@ import kkdev.kksystem.kkcarandroid.manager.types.KKDiagInfo;
 public abstract class WebManager {
 
     final static String ___TEST_KKCAR_UUID_ = "2e2efd7b-ab83-42fa-9c00-2e45bb4b3ba1";
-    final static String WEBMASTER_URL = "http://172.24.10.77/"; //!!CHANGE THIS!!
+    final static String WEBMASTER_URL = "http://kkdev-kkcar.tk/";
     final static String WEBMASTER_URL_SERVICE = "phoneapp/request";
     final static String WEBMASTER_URL_FULL = WEBMASTER_URL+WEBMASTER_URL_SERVICE;
     final static int WEBMASTER_MYFORMAT_VERSION=1;
