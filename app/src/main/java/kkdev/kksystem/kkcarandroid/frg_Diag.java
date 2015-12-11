@@ -7,7 +7,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import kkdev.kksystem.kkcarandroid.manager.DiagOperations;
@@ -112,6 +115,15 @@ public class frg_Diag extends Fragment {
         TextView txtName=(TextView)getView().findViewById(R.id.txt_Diag_CEState);
         txtName.setText(DI.MILString);
         //
+        // находим список
+        ListView lvMain = (ListView) getView().findViewById(R.id.lst_Diag_DTC);
+
+        //
+        SimpleAdapter adapter = new SimpleAdapter(getView().getContext(),DI.GetDTCErrArray(),android.R.layout.simple_list_item_2,
+                 new String[] {"DTC_ID", "Description"},
+                 new int[] {android.R.id.text1, android.R.id.text2});
+
+        lvMain.setAdapter(adapter);
 
     }
 

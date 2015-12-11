@@ -2,7 +2,10 @@
 
 buildscript {
     repositories {
-        jcenter()
+        jcenter
+                {
+                    url 'http://jcenter.bintray.com'
+                }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.0.0-alpha2'
@@ -19,8 +22,8 @@ buildscript {
 //}
 repositories {
     jcenter
-            {
-                url 'http://jcenter.bintray.com'
+           {
+              url 'http://jcenter.bintray.com'
             }
 }
 task clean(type: Delete) {
