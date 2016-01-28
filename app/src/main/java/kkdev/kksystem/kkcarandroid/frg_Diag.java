@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import kkdev.kksystem.kkcarandroid.manager.DiagOperations;
 import kkdev.kksystem.kkcarandroid.manager.InfoOperations;
+import kkdev.kksystem.kkcarandroid.manager.KKCarAndroidManager;
 import kkdev.kksystem.kkcarandroid.manager.types.KKConfigurationInfo;
 import kkdev.kksystem.kkcarandroid.manager.types.KKDiagInfo;
 
@@ -110,7 +111,7 @@ public class frg_Diag extends Fragment {
 
     private void RefreshInfo()
     {
-        KKDiagInfo DI= DiagOperations.GetDiagErrInfo();
+        KKDiagInfo DI= KKCarAndroidManager.GetODB2Errors();
         //
         TextView txtName=(TextView)getView().findViewById(R.id.txt_Diag_CEState);
         txtName.setText(DI.MILString);

@@ -1,4 +1,4 @@
-package kkdev.kksystem.kkcarandroid.wmhttp;
+package kkdev.kksystem.kkcarandroid.manager.wmhttp;
 
 /**
  * Created by blinov_is on 24.11.2015.

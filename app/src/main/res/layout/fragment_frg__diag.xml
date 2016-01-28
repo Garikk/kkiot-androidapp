@@ -10,12 +10,40 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Обновить"
-            android:id="@+id/btnCERefresh"
-            android:layout_gravity="center_horizontal" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_gravity="center_horizontal">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Обновить"
+                android:id="@+id/btnCERefresh"
+                android:layout_gravity="center_horizontal"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/img_diag_connectiontype_bt"
+                android:layout_alignParentTop="true"
+                android:src="@drawable/bt"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/btnCERefresh"
+                android:visibility="visible" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/img_diag_connectiontype_inet"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@+id/btnCERefresh"
+                android:visibility="invisible"
+                android:src="@drawable/ineticon" />
+        </RelativeLayout>
 
         <TextView
             android:layout_width="wrap_content"

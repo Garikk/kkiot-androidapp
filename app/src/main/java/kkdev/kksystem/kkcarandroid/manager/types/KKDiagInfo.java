@@ -5,22 +5,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import kkdev.kksystem.base.classes.odb2.ODBConstants;
+import kkdev.kksystem.base.classes.odb2.PinOdb2Data;
+
 /**
  * Created by blinov_is on 01.12.2015.
  */
 public class KKDiagInfo {
     public String MILString;
     public KKDTCCode[] CurrentDTC;
-
-
-    public class KKDTCCode
-    {
-        public String paramid;
-        public String timestamp;
-        public String value;
-        public String localdesc;
-    }
-
+    public int Timestamp;
 
     public ArrayList<HashMap<String, String>>  GetDTCErrArray()
     {
@@ -49,6 +43,30 @@ public class KKDiagInfo {
             MILString="CHECK ENGINE";
 
         }
+    }
+
+    public static KKDiagInfo FillFromPinODB2(PinOdb2Data Dat)
+    {
+        KKDiagInfo Ret;
+        Ret=new KKDiagInfo();
+
+        List<KKDTCCode> RetCE;
+        RetCE=new ArrayList<>();
+
+        if (Dat.DataType== ODBConstants.KK_ODB_DATATYPE.ODB_DIAG_CE_ERRORS)
+        {
+            for (Integer Pfx:Dat.ODBData.GetCEError().keySet())
+            {
+                for (Byte Err:Dat.ODBData.GetCEError().get(Pfx))
+                {
+                    RetCE.add(new KKDTCCode(Pfx.toString(),Err.toString(),"0"));
+                }
+
+            }
+            Ret.CurrentDTC=(KKDTCCode[]) RetCE.toArray();
+        }
+
+        return  Ret;
     }
 
 }
