@@ -1,6 +1,7 @@
 package kkdev.kksystem.kkcarandroid;
 
 import android.content.Context;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import kkdev.kksystem.kkcarandroid.manager.DiagOperations;
 import kkdev.kksystem.kkcarandroid.manager.InfoOperations;
 import kkdev.kksystem.kkcarandroid.manager.KKCarAndroidManager;
+import kkdev.kksystem.kkcarandroid.manager.callback.IDiagUI;
 import kkdev.kksystem.kkcarandroid.manager.types.KKConfigurationInfo;
 import kkdev.kksystem.kkcarandroid.manager.types.KKDiagInfo;
 
@@ -28,7 +30,7 @@ import kkdev.kksystem.kkcarandroid.manager.types.KKDiagInfo;
  * Use the {@link frg_Diag#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class frg_Diag extends Fragment {
+public class frg_Diag extends Fragment implements IDiagUI {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -40,14 +42,7 @@ public class frg_Diag extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment frg_Diag.
-     */
+
     // TODO: Rename and change types and number of parameters
     public static frg_Diag newInstance() {
         frg_Diag fragment = new frg_Diag();
@@ -89,32 +84,45 @@ public class frg_Diag extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+    @Override
+    public void UpdateErrorsList(KKDiagInfo DiagInfo) {
+        RefreshInfo(DiagInfo);
+    }
+
+    @Override
+    public void UpdateMonitorInfo(KKDiagInfo DiagInfo) {
+        RefreshInfo(DiagInfo);
+    }
+
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);
     }
+
     @Override
     public void onStart() {
         super.onStart();
-        RefreshInfo();
+        DiagOperations.SetAcviteUI(this);
     }
 
-    private void RefreshInfo()
+    private void RefreshInfo( KKDiagInfo DI)
     {
-        KKDiagInfo DI= KKCarAndroidManager.GetODB2Errors();
         //
         TextView txtName=(TextView)getView().findViewById(R.id.txt_Diag_CEState);
         txtName.setText(DI.MILString);
+        ImageView imgConnBT=(ImageView)getView().findViewById(R.id.img_diag_connectiontype_bt);
+        ImageView imgConnINET=(ImageView)getView().findViewById(R.id.img_diag_connectiontype_bt);
+        //
+        //
+        if (DI.DataFromBT) {
+            imgConnBT.setVisibility(View.VISIBLE);
+            imgConnINET.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            imgConnBT.setVisibility(View.INVISIBLE);
+            imgConnINET.setVisibility(View.VISIBLE);
+
+        }
         //
         // находим список
         ListView lvMain = (ListView) getView().findViewById(R.id.lst_Diag_DTC);

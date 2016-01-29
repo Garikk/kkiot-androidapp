@@ -15,6 +15,7 @@ public class KKDiagInfo {
     public String MILString;
     public KKDTCCode[] CurrentDTC;
     public int Timestamp;
+    public boolean DataFromBT;
 
     public ArrayList<HashMap<String, String>>  GetDTCErrArray()
     {
