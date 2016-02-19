@@ -4,9 +4,13 @@ package kkdev.kksystem.kkcarandroid.manager.exaconnector;
  * Created by blinov_is on 28.01.2016.
  */
 
+ import java.io.BufferedReader;
+ import java.io.BufferedWriter;
  import java.io.IOException;
  import java.io.InputStream;
+ import java.io.InputStreamReader;
  import java.io.OutputStream;
+ import java.io.OutputStreamWriter;
  import java.util.UUID;
 
  import android.bluetooth.BluetoothAdapter;
@@ -22,14 +26,18 @@ package kkdev.kksystem.kkcarandroid.manager.exaconnector;
 
 public class BTConnector  {
 //
-    private String _____TEMPRORARY_DEV_ADDR="____";
+    private String _____TEMPRORARY_DEV_ADDR="00:15:83:3D:0A:57";
     //
 
 
     private BluetoothAdapter btAdapter = null;
     private BluetoothSocket btSocket = null;
     private OutputStream outStream = null;
+    private InputStream inStream = null;
+    private BufferedWriter bw;
     private boolean ConnectorState=false;
+    public boolean ConnectionEnabled=false;
+
 
     public void InitConnector()
     {
@@ -43,16 +51,23 @@ public class BTConnector  {
         ConnectToEXADevice();
     }
 
+    public void SendData(String Data)
+    {
+        btSendData(Data);
+    }
+
     private void ConnectToEXADevice()
     {
         BluetoothDevice device = btAdapter.getRemoteDevice(_____TEMPRORARY_DEV_ADDR);
         try {
-            btSocket = device.createRfcommSocketToServiceRecord(UUID.fromString(PluginConsts.KK_PLUGIN_BASE_PLUGIN_BLUETOOTH_BTSERVICE_KKEXCONNECTION_UUID));
+
+            btSocket = device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
         } catch (IOException e) {
             Log.d("BTEXA", "BT Socket create failed: " + e.getMessage() + ".");
         }
         //
         try {
+            ConnectionEnabled=true;
             btSocket.connect();
             Log.d("BTEXA", "...Соединение установлено и готово к передачи данных...");
         } catch (IOException e) {
@@ -64,17 +79,20 @@ public class BTConnector  {
         }
         try {
             outStream = btSocket.getOutputStream();
+            bw=new BufferedWriter(new OutputStreamWriter(outStream));
+            DataReader.start();
         } catch (IOException e) {
             Log.d("BTEXA", "In onResume() and output stream creation failed:" + e.getMessage() + ".");
         }
     }
-    private void sendData(String message) {
-        byte[] msgBuffer = message.getBytes();
+    private void btSendData(String message) {
+       // byte[] msgBuffer = message.getBytes();
 
         Log.d("BTEXA", "...Send data: " + message + "...");
 
         try {
-            outStream.write(msgBuffer);
+           // outStream.write(msgBuffer);
+            bw.write(message);
         } catch (IOException e) {
             Log.d("BTEXA", "Exception occurred during write: " + e.getMessage());
         }
@@ -97,4 +115,23 @@ public class BTConnector  {
             }
         }
     }
+
+    Thread DataReader = new Thread(new Runnable() {
+        private BufferedReader br;
+        @Override
+        public void run() {
+            br= new BufferedReader(new InputStreamReader(inStream));
+            while (ConnectionEnabled)
+            {
+                try {
+                    EXARequestProcessor.DecodeAndProcessPin( br.readLine());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    ConnectionEnabled=false;
+                }
+
+            }
+
+        }
+    });
 }

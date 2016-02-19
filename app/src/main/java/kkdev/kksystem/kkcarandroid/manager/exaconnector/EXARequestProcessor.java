@@ -12,7 +12,6 @@ import kkdev.kksystem.base.constants.PluginConsts;
  */
 public class EXARequestProcessor {
 
-
     public static void DecodeAndProcessPin(String JSONPin)
     {
         Gson gson=new Gson();
