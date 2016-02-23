@@ -49,6 +49,9 @@ public class BTConnector  {
             return;
         //
         ConnectToEXADevice();
+        //
+        btSendData("test link");
+        btSendData("Ещё");
     }
 
     public void SendData(String Data)
@@ -79,6 +82,7 @@ public class BTConnector  {
         }
         try {
             outStream = btSocket.getOutputStream();
+            inStream = btSocket.getInputStream();
             bw=new BufferedWriter(new OutputStreamWriter(outStream));
             DataReader.start();
         } catch (IOException e) {
@@ -93,6 +97,8 @@ public class BTConnector  {
         try {
            // outStream.write(msgBuffer);
             bw.write(message);
+            bw.newLine();
+            bw.flush();
         } catch (IOException e) {
             Log.d("BTEXA", "Exception occurred during write: " + e.getMessage());
         }
