@@ -76,11 +76,13 @@ public class frg_Diag extends Fragment implements IDiagUI {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        DiagOperations.RegisterCallback(this);
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
+        DiagOperations.UnRegisterCallback();
         mListener = null;
     }
 
@@ -101,7 +103,6 @@ public class frg_Diag extends Fragment implements IDiagUI {
     @Override
     public void onStart() {
         super.onStart();
-        DiagOperations.SetAcviteUI(this);
     }
 
     private void RefreshInfo( KKDiagInfo DI)

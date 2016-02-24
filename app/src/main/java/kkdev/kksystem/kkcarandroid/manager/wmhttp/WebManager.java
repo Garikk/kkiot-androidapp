@@ -18,12 +18,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import kkdev.kksystem.kkcarandroid.manager.types.KKConfigurationInfo;
+import kkdev.kksystem.kkcarandroid.manager.types.KKDTCCode;
 import kkdev.kksystem.kkcarandroid.manager.types.KKDiagInfo;
 
 /**
  * Created by blinov_is on 24.11.2015.
  */
-public abstract class WebManager {
+public class WebManager {
 
     final static String ___TEST_KKCAR_UUID_ = "2e2efd7b-ab83-42fa-9c00-2e45bb4b3ba1";
     final static String WEBMASTER_URL ="http://kkdev-kkcar.tk/";
@@ -79,7 +80,7 @@ public abstract class WebManager {
 
         ConfDataRawJSON=ExecuteWMRequest(WM_RequestTypes.WM_GetDiagnosticInfo);
 
-        Ret.CurrentDTC=gson.fromJson(ConfDataRawJSON,KKDiagInfo.KKDTCCode[].class);
+        Ret.CurrentDTC=gson.fromJson(ConfDataRawJSON,KKDTCCode[].class);
 
         return Ret;
     }
