@@ -19,11 +19,6 @@ package kkdev.kksystem.kkcarandroid.manager.exaconnector;
  import android.content.Intent;
  import android.util.Log;
 
- import kkdev.kksystem.base.constants.PluginConsts;
-
- import static android.support.v4.app.ActivityCompat.invalidateOptionsMenu;
- import static android.support.v4.app.ActivityCompat.startActivityForResult;
-
 public class BTConnector  {
 //
     private String _____TEMPRORARY_DEV_ADDR="00:15:83:3D:0A:57";
@@ -50,8 +45,6 @@ public class BTConnector  {
         //
         ConnectToEXADevice();
         //
-        btSendData("test link");
-        btSendData("Ещё");
     }
 
     public void SendData(String Data)
@@ -72,7 +65,7 @@ public class BTConnector  {
         try {
             ConnectionEnabled=true;
             btSocket.connect();
-            Log.d("BTEXA", "...Соединение установлено и готово к передачи данных...");
+            Log.d("BTEXA", "...Connect OK...");
         } catch (IOException e) {
             try {
                 btSocket.close();
