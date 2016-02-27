@@ -32,7 +32,6 @@ public class DiagOperations {
 
     public static void ReceiveExtData(PinOdb2Data Dat) {
         if (Dat.DataType == ODBConstants.KK_ODB_DATATYPE.ODB_DIAG_CE_ERRORS) {
-
             UpdateDiagInfoCE(KKDiagInfo.FillFromPinODB2(Dat));
         } else if (Dat.DataType == ODBConstants.KK_ODB_DATATYPE.ODB_DIAG_DATA) {
             UpdateDiagInfoInf(KKDiagInfo.FillFromPinODB2(Dat));
