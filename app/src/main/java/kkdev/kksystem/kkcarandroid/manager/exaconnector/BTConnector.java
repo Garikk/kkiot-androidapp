@@ -56,8 +56,8 @@ public class BTConnector  {
     {
         BluetoothDevice device = btAdapter.getRemoteDevice(_____TEMPRORARY_DEV_ADDR);
         try {
-
-            btSocket = device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
+             btSocket = device.createRfcommSocketToServiceRecord(UUID.fromString("09846431-0000-1000-8000-00805F9B34FB"));
+           // btSocket = device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
         } catch (IOException e) {
             Log.d("BTEXA", "BT Socket create failed: " + e.getMessage() + ".");
         }
