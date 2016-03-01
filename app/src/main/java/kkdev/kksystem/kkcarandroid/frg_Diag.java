@@ -1,24 +1,20 @@
 package kkdev.kksystem.kkcarandroid;
 
 import android.content.Context;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import kkdev.kksystem.kkcarandroid.manager.DiagOperations;
-import kkdev.kksystem.kkcarandroid.manager.InfoOperations;
-import kkdev.kksystem.kkcarandroid.manager.KKCarAndroidManager;
 import kkdev.kksystem.kkcarandroid.manager.callback.IDiagUI;
-import kkdev.kksystem.kkcarandroid.manager.types.KKConfigurationInfo;
 import kkdev.kksystem.kkcarandroid.manager.types.KKDiagInfo;
 
 
@@ -31,19 +27,9 @@ import kkdev.kksystem.kkcarandroid.manager.types.KKDiagInfo;
  * create an instance of this fragment.
  */
 public class frg_Diag extends Fragment implements IDiagUI {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
-
-    // TODO: Rename and change types and number of parameters
     public static frg_Diag newInstance() {
         frg_Diag fragment = new frg_Diag();
 
@@ -64,9 +50,11 @@ public class frg_Diag extends Fragment implements IDiagUI {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_frg__diag, container, false);
+
+
+
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -103,6 +91,13 @@ public class frg_Diag extends Fragment implements IDiagUI {
     @Override
     public void onStart() {
         super.onStart();
+        Button btnRefresh=(Button)getView().findViewById(R.id.btnCERefresh);
+        btnRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DiagOperations.RequestDiagCE();
+            }
+        });
     }
 
     private void RefreshInfo( KKDiagInfo DI)

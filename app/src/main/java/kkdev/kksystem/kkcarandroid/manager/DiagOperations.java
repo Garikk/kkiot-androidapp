@@ -55,15 +55,22 @@ public class DiagOperations {
         CurrentDiagUI.UpdateErrorsList(Info);
     }
 
-    public static KKDiagInfo GetDiagErrInfo() {
-        //ConnectionManager.DIAG_RequestDiagInfo();
+    public static void RequestDiagCE()
+    {
+        ConnectionManager.DIAG_RequestDiagInfoCE();
 
+    }
+
+    /*
+    public static KKDiagInfo GetDiagErrInfo() {
+        ConnectionManager.DIAG_RequestDiagInfo();
 
         KKDiagInfo Ret;
         Ret = CachedInfoCE;
         Ret.InitValues();
         return Ret;
     }
+    */
 
 
 }

@@ -1,6 +1,7 @@
 package kkdev.kksystem.kkcarandroid.manager;
 
 import kkdev.kksystem.kkcarandroid.manager.exaconnector.BTConnector;
+import kkdev.kksystem.kkcarandroid.manager.exaconnector.EXARequestProcessor;
 import kkdev.kksystem.kkcarandroid.manager.wmhttp.WebManager;
 
 /**
@@ -27,11 +28,12 @@ public class ConnectionManager {
 
 
     //DIAGINFO
-    public static void DIAG_RequestDiagInfo(String Data)
+    public static void DIAG_RequestDiagInfoCE()
     {
 
-        if (BTC.ConnectionEnabled)
-            BTC.SendData(Data);
+        if (BTC.ConnectionEnabled) {
+            BTC.SendData(EXARequestProcessor.RequestDiag_ODB2Data());
+        }
 
     }
     //CONFINFO
