@@ -57,16 +57,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -89,11 +86,14 @@ public class MainActivity extends AppCompatActivity
             fragmentManager.beginTransaction()
                     .replace(R.id.main_layout, frg_Info.newInstance())
                     .commit();
-        } else if (id == R.id.nav_diag) {
+        } else if (id == R.id.nav_diag_ce) {
             fragmentManager.beginTransaction()
                     .replace(R.id.main_layout, frg_Diag.newInstance())
                     .commit();
-
+        } else if (id == R.id.nav_diag_full) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.main_layout, frg_Diag.newInstance())
+                    .commit();
         } else if (id == R.id.nav_media) {
             fragmentManager.beginTransaction()
                     .replace(R.id.main_layout, frg_Media.newInstance())

@@ -119,17 +119,20 @@ public class BTConnector  {
         @Override
         public void run() {
             br= new BufferedReader(new InputStreamReader(inStream));
+            Log.d("BTEXA", "BT Reader start");
             while (ConnectionEnabled)
             {
                 try {
-                    EXARequestProcessor.DecodeAndProcessPin( br.readLine());
+
+                    String RL=br.readLine();
+                    EXARequestProcessor.DecodeAndProcessPin( RL);
                 } catch (IOException e) {
                     e.printStackTrace();
                     ConnectionEnabled=false;
                 }
 
             }
-
+            Log.d("BTEXA", "BT Reader stop");
         }
     });
 }

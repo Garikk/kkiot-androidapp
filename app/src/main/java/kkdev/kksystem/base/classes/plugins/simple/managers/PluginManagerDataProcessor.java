@@ -15,7 +15,6 @@ import static kkdev.kksystem.base.constants.PluginConsts.KK_PLUGIN_BASE_LED_COMM
 import static kkdev.kksystem.base.constants.PluginConsts.KK_PLUGIN_BASE_LED_DATA;
 import static kkdev.kksystem.base.constants.PluginConsts.KK_PLUGIN_BASE_ODB2_COMMAND;
 
-
 /**
  *
  * @author blinov_is
@@ -48,7 +47,7 @@ public class PluginManagerDataProcessor extends PluginManagerBase {
     private void DISPLAY_UpdateUIFrames_Internal(boolean Direct, String FeatureID, String TargetID, String PageName, UIFramesKeySet UIFrames) {
         PinLedData PLD = new PinLedData();
         PLD.UIFrames = UIFrames;
-        PLD.FeatureUID = FeatureID;
+        PLD.FeatureID = FeatureID;
         PLD.TargetPage = PageName;
         PLD.DataType = DisplayConstants.KK_DISPLAY_DATA.DISPLAY_KKSYS_TEXT_UPDATE_FRAME;
 
@@ -106,4 +105,3 @@ public class PluginManagerDataProcessor extends PluginManagerBase {
     }
 
 }
-

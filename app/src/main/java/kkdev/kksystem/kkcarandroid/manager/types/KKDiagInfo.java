@@ -13,7 +13,7 @@ import kkdev.kksystem.base.classes.odb2.PinOdb2Data;
  */
 public class KKDiagInfo {
     public String MILString;
-    public KKDTCCode[] CurrentDTC;
+    public List<KKDTCCode> CurrentDTC;
     public int Timestamp;
     public boolean DataFromBT;
 
@@ -35,7 +35,7 @@ public class KKDiagInfo {
     public void InitValues()
     {
 
-        if (CurrentDTC!=null && CurrentDTC.length==0)
+        if (CurrentDTC!=null && CurrentDTC.size()==0)
         {
             MILString="OK";
         }
@@ -54,7 +54,7 @@ public class KKDiagInfo {
         List<KKDTCCode> RetCE;
         RetCE=new ArrayList<>();
 
-        if (Dat.DataType== ODBConstants.KK_ODB_DATATYPE.ODB_DIAG_CE_ERRORS)
+        if (Dat.Odb2DataType== ODBConstants.KK_ODB_DATATYPE.ODB_DIAG_CE_ERRORS)
         {
             for (Integer Pfx:Dat.ODBData.GetCEError().keySet())
             {
@@ -64,8 +64,13 @@ public class KKDiagInfo {
                 }
 
             }
-            Ret.CurrentDTC=(KKDTCCode[]) RetCE.toArray();
+
+            Ret.CurrentDTC=RetCE;
         }
+
+        Ret.Timestamp=0;
+        Ret.DataFromBT=true;
+        Ret.InitValues();
 
         return  Ret;
     }
