@@ -3,10 +3,23 @@ package kkdev.kksystem.kkcarandroid;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.TextView;
+
+import kkdev.kksystem.base.classes.controls.PinControlData;
+import kkdev.kksystem.kkcarandroid.manager.DiagOperations;
+import kkdev.kksystem.kkcarandroid.manager.LedDisplayDiag;
+import kkdev.kksystem.kkcarandroid.manager.callback.ILedDebugUI;
+import kkdev.kksystem.kkcarandroid.manager.types.KKDiagInfo;
 
 
 /**
@@ -17,27 +30,12 @@ import android.view.ViewGroup;
  * Use the {@link frg_RemoteDisplayLED#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class frg_RemoteDisplayLED extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class frg_RemoteDisplayLED extends Fragment implements ILedDebugUI {
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+     TextView TEXT1;
+    TextView TEXT2;
     private OnFragmentInteractionListener mListener;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment frg_RemoteDisplayLED.
-     */
-    // TODO: Rename and change types and number of parameters
     public static frg_RemoteDisplayLED newInstance() {
         frg_RemoteDisplayLED fragment = new frg_RemoteDisplayLED();
 
@@ -52,13 +50,52 @@ public class frg_RemoteDisplayLED extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View Ret;
+        Ret = inflater.inflate(R.layout.fragment_frg__remote_display_led, container, false);
+
+
+        Button btn_UP = (Button) Ret.findViewById(R.id.btn_LedDiag_UP);
+        Button btn_DOWN = (Button) Ret.findViewById(R.id.btn_LedDiag_DOWN);
+        Button btn_ENTER = (Button) Ret.findViewById(R.id.btn_LedDiag_ENTER);
+        Button btn_BACK = (Button) Ret.findViewById(R.id.btn_LedDiag_BACK);
+
+        TEXT1 = (TextView)Ret.findViewById(R.id.txtLEDD_Row1);
+        TEXT2 = (TextView)Ret.findViewById(R.id.txtLEDD_Row_2);
+
+        btn_UP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LedDisplayDiag.ProcessControlButton(PinControlData.DEF_BTN_UP);
+            }
+        });
+        btn_DOWN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LedDisplayDiag.ProcessControlButton(PinControlData.DEF_BTN_DOWN);
+            }
+        });
+
+        btn_ENTER.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LedDisplayDiag.ProcessControlButton(PinControlData.DEF_BTN_ENTER);
+            }
+        });
+
+        btn_BACK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LedDisplayDiag.ProcessControlButton(PinControlData.DEF_BTN_BACK);
+            }
+        });
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_frg__remote_display_led, container, false);
+        return Ret;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -71,24 +108,40 @@ public class frg_RemoteDisplayLED extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        LedDisplayDiag.RegisterCallback(this);
     }
 
     @Override
     public void onDetach() {
+        DiagOperations.UnRegisterCallback();
         super.onDetach();
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+    @Override
+    public void SetRowText(int RowString, String Dat) {
+        Message MS=new Message();
+        Bundle BD=new Bundle();
+        BD.putInt("POS",RowString);
+        BD.putString("DAT",Dat);
+        MS.setData(BD);
+
+        ExecRefreshInfo.sendMessage(MS);
+    }
+
+    Handler ExecRefreshInfo = new Handler() {
+
+        public void handleMessage(android.os.Message msg) {
+            if (msg.getData().getInt("POS")==0)
+                TEXT1.setText(msg.getData().getString("DAT"));
+            else if (msg.getData().getInt("POS")==1)
+                TEXT2.setText(msg.getData().getString("DAT"));
+        }
+    };
+
+
+
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(Uri uri);

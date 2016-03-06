@@ -43,9 +43,11 @@ public class ConnectionManager {
 
     }
     //DISPLAY
-    public static void DISPLAY_SendControlCommands()
+    public static void DISPLAY_SendControlCommands(String ControlID)
     {
-
+        if (BTC.ConnectionEnabled) {
+            BTC.SendData(EXARequestProcessor.Controls_ControlData(ControlID));
+        }
 
     }
 

@@ -99,17 +99,17 @@ public class MainActivity extends AppCompatActivity
                     .replace(R.id.main_layout, frg_Media.newInstance())
                     .commit();
 
-        } else if (id == R.id.nav_remdisplay_a) {
+        } else if (id == R.id.nav_infodisplay) {
             fragmentManager.beginTransaction()
                     .replace(R.id.main_layout, frg_RemoteDisplayAndr.newInstance())
                     .commit();
 
-        } else if (id == R.id.nav_remdisplay_l) {
+        } else if (id == R.id.nav_leddebug) {
             fragmentManager.beginTransaction()
                     .replace(R.id.main_layout, frg_RemoteDisplayLED.newInstance())
                     .commit();
 
-        } else if (id == R.id.nav_display_settings) {
+        } else if (id == R.id.nav_settings) {
             fragmentManager.beginTransaction()
                     .replace(R.id.main_layout, frg_Settings.newInstance())
                     .commit();

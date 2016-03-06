@@ -26,7 +26,7 @@ public class PinControlData extends PinBaseData {
     }
     
     
-    public KK_CONTROL_DATA DataType;
+    public KK_CONTROL_DATA ControlDataType;
     //
     public String ControlID;
     //

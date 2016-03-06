@@ -21,6 +21,9 @@ public class PageMaker {
     PluginManagerDataProcessor PManager;
     IPageMakerExecCommand CallBack;
 
+    
+
+
     public interface IPageMakerExecCommand {
 
         public void ExecCommand(String PageCMD);

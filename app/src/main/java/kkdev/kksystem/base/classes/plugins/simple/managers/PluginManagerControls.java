@@ -14,16 +14,23 @@ import static kkdev.kksystem.base.constants.PluginConsts.KK_PLUGIN_BASE_CONTROL_
  * @author blinov_is
  */
 public class PluginManagerControls extends PluginManagerBase {
- 
+
     public synchronized void CONTROL_SendPluginMessageData(String FeatureID, String ControlID, KK_CONTROL_DATA EventType, int IntValue) {
+
+        PinControlData PData = CONTROL_SendPluginMessageData_PData(FeatureID, ControlID, EventType, IntValue);
+        //
+        this.BASE_SendPluginMessage(FeatureID, KK_PLUGIN_BASE_CONTROL_DATA, PData);
+    }
+
+    public static synchronized PinControlData CONTROL_SendPluginMessageData_PData(String FeatureID, String ControlID, KK_CONTROL_DATA EventType, int IntValue) {
 
         PinControlData PData = new PinControlData();
         //
-        PData.FeatureID=FeatureID;
-        PData.ControlID=ControlID;
-        PData.DataType=EventType;
-        PData.ControlValue=IntValue;
+        PData.FeatureID = FeatureID;
+        PData.ControlID = ControlID;
+        PData.ControlDataType = EventType;
+        PData.ControlValue = IntValue;
         //
-        this.BASE_SendPluginMessage(FeatureID,KK_PLUGIN_BASE_CONTROL_DATA, PData);
+        return PData;
     }
 }

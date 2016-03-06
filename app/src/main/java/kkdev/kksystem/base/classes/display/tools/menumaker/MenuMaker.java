@@ -29,8 +29,12 @@ public class MenuMaker {
     MKMenuView MViewer;
     String SystemLCD;
     String TargetPage;
+    String ActivePage;
     //
-
+    public String GetActivePage()
+    {
+        return ActivePage;
+    }
     public interface IMenuMakerItemSelected {
 
         public void SelectedItem(String ItemCMD);
@@ -92,9 +96,12 @@ public class MenuMaker {
     public void ShowMenu() {
 
         if (InSystemMode) {
+            ActivePage=TargetPage;
             PManager._DISPLAY_ActivatePageDirect(MenuFeatureID, SystemLCD, TargetPage);
             PManager._DISPLAY_UpdateUIFramesDirect(MenuFeatureID, SystemLCD, TargetPage, MViewer.GetMenu());
+            
         } else {
+            ActivePage=TargetPage;
             PManager.DISPLAY_ActivatePage(MenuFeatureID, TargetPage);
             PManager.DISPLAY_UpdateUIFrames(MenuFeatureID, TargetPage, MViewer.GetMenu());
 
