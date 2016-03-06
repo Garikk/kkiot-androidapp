@@ -19,6 +19,8 @@ public class DiagOperations {
     static KKDiagInfo CachedInfoInf;
     static IDiagUI CurrentDiagUI;
 
+
+
     public static void RegisterCallback(IDiagUI Callback) {
         ConnectionManager.CheckConnect();
         CurrentDiagUI = Callback;
@@ -31,9 +33,9 @@ public class DiagOperations {
     }
 
     public static void ReceiveExtData(PinOdb2Data Dat) {
-        if (Dat.DataType == ODBConstants.KK_ODB_DATATYPE.ODB_DIAG_CE_ERRORS) {
+        if (Dat.Odb2DataType == ODBConstants.KK_ODB_DATATYPE.ODB_DIAG_CE_ERRORS) {
             UpdateDiagInfoCE(KKDiagInfo.FillFromPinODB2(Dat));
-        } else if (Dat.DataType == ODBConstants.KK_ODB_DATATYPE.ODB_DIAG_DATA) {
+        } else if (Dat.Odb2DataType == ODBConstants.KK_ODB_DATATYPE.ODB_DIAG_DATA) {
             UpdateDiagInfoInf(KKDiagInfo.FillFromPinODB2(Dat));
 
         }
@@ -41,6 +43,9 @@ public class DiagOperations {
     }
 
     private static void UpdateDiagInfoCE(KKDiagInfo Info) {
+        if (CachedInfoCE==null)
+            CachedInfoCE=Info;
+
         if (Info.Timestamp > CachedInfoCE.Timestamp)
             CachedInfoCE = Info;
 
@@ -55,15 +60,9 @@ public class DiagOperations {
         CurrentDiagUI.UpdateErrorsList(Info);
     }
 
-    public static KKDiagInfo GetDiagErrInfo() {
-        //ConnectionManager.DIAG_RequestDiagInfo();
+    public static void RequestDiagCE()
+    {
+        ConnectionManager.DIAG_RequestDiagInfoCE();
 
-
-        KKDiagInfo Ret;
-        Ret = CachedInfoCE;
-        Ret.InitValues();
-        return Ret;
     }
-
-
 }

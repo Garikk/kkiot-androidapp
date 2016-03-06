@@ -50,7 +50,7 @@ public final class SystemConsts {
 
      //CHANGE THIS
      public static final String KK_BASE_FEATURES_ODB_DIAG_UID="c01287e6-3e5c-48bb-9eae-680a20210531";
-     
+     public static final String KK_BASE_FEATURES_ODB_DIAG_ANDROIDAPP_UID="aaee9986-2d86-46c0-a199-e02785d062f3";
      
      //
      

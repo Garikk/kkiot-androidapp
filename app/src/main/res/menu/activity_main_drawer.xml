@@ -4,8 +4,10 @@
     <group android:checkableBehavior="single">
         <item android:id="@+id/nav_Info" android:icon="@android:drawable/ic_menu_camera"
             android:title="Информация" />
-        <item android:id="@+id/nav_diag" android:icon="@android:drawable/ic_menu_gallery"
-            android:title="Диагностика" />
+        <item android:id="@+id/nav_diag_full" android:icon="@android:drawable/ic_menu_gallery"
+            android:title="Основные параметры авто" />
+        <item android:id="@+id/nav_diag_ce" android:icon="@android:drawable/ic_menu_gallery"
+            android:title="Ошибки Check Engine" />
         <item android:id="@+id/nav_media" android:icon="@android:drawable/ic_menu_slideshow"
             android:title="Медиацентр" />
         <item android:id="@+id/nav_remdisplay_a" android:icon="@android:drawable/ic_menu_manage"

@@ -80,7 +80,7 @@ public class WebManager {
 
         ConfDataRawJSON=ExecuteWMRequest(WM_RequestTypes.WM_GetDiagnosticInfo);
 
-        Ret.CurrentDTC=gson.fromJson(ConfDataRawJSON,KKDTCCode[].class);
+       // Ret.CurrentDTC=gson.fromJson(ConfDataRawJSON,KKDTCCode[].class);
 
         return Ret;
     }

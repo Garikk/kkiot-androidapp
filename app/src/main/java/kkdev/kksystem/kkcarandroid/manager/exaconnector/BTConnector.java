@@ -57,7 +57,6 @@ public class BTConnector  {
         BluetoothDevice device = btAdapter.getRemoteDevice(_____TEMPRORARY_DEV_ADDR);
         try {
              btSocket = device.createRfcommSocketToServiceRecord(UUID.fromString("09846431-0000-1000-8000-00805F9B34FB"));
-           // btSocket = device.createRfcommSocketToServiceRecord(UUID.fromString("00001101-0000-1000-8000-00805F9B34FB"));
         } catch (IOException e) {
             Log.d("BTEXA", "BT Socket create failed: " + e.getMessage() + ".");
         }
@@ -120,17 +119,20 @@ public class BTConnector  {
         @Override
         public void run() {
             br= new BufferedReader(new InputStreamReader(inStream));
+            Log.d("BTEXA", "BT Reader start");
             while (ConnectionEnabled)
             {
                 try {
-                    EXARequestProcessor.DecodeAndProcessPin( br.readLine());
+
+                    String RL=br.readLine();
+                    EXARequestProcessor.DecodeAndProcessPin( RL);
                 } catch (IOException e) {
                     e.printStackTrace();
                     ConnectionEnabled=false;
                 }
 
             }
-
+            Log.d("BTEXA", "BT Reader stop");
         }
     });
 }

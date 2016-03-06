@@ -19,7 +19,7 @@ public class PluginManagerControls extends PluginManagerBase {
 
         PinControlData PData = new PinControlData();
         //
-        PData.FeatureUID=FeatureID;
+        PData.FeatureID=FeatureID;
         PData.ControlID=ControlID;
         PData.DataType=EventType;
         PData.ControlValue=IntValue;

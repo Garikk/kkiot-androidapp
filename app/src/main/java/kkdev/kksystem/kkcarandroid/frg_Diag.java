@@ -1,24 +1,21 @@
 package kkdev.kksystem.kkcarandroid;
 
 import android.content.Context;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import kkdev.kksystem.kkcarandroid.manager.DiagOperations;
-import kkdev.kksystem.kkcarandroid.manager.InfoOperations;
-import kkdev.kksystem.kkcarandroid.manager.KKCarAndroidManager;
 import kkdev.kksystem.kkcarandroid.manager.callback.IDiagUI;
-import kkdev.kksystem.kkcarandroid.manager.types.KKConfigurationInfo;
 import kkdev.kksystem.kkcarandroid.manager.types.KKDiagInfo;
 
 
@@ -31,19 +28,11 @@ import kkdev.kksystem.kkcarandroid.manager.types.KKDiagInfo;
  * create an instance of this fragment.
  */
 public class frg_Diag extends Fragment implements IDiagUI {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    KKDiagInfo CurrDI;
 
     private OnFragmentInteractionListener mListener;
 
-
-    // TODO: Rename and change types and number of parameters
     public static frg_Diag newInstance() {
         frg_Diag fragment = new frg_Diag();
 
@@ -64,9 +53,11 @@ public class frg_Diag extends Fragment implements IDiagUI {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_frg__diag, container, false);
+
+
+
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -88,12 +79,14 @@ public class frg_Diag extends Fragment implements IDiagUI {
 
     @Override
     public void UpdateErrorsList(KKDiagInfo DiagInfo) {
-        RefreshInfo(DiagInfo);
+        CurrDI=DiagInfo;
+        ExecRefreshInfo.sendEmptyMessage(1);
     }
 
     @Override
     public void UpdateMonitorInfo(KKDiagInfo DiagInfo) {
-        RefreshInfo(DiagInfo);
+        CurrDI=DiagInfo;
+        ExecRefreshInfo.sendEmptyMessage(1);
     }
 
     public interface OnFragmentInteractionListener {
@@ -103,38 +96,54 @@ public class frg_Diag extends Fragment implements IDiagUI {
     @Override
     public void onStart() {
         super.onStart();
+        Button btnRefresh=(Button)getView().findViewById(R.id.btnCERefresh);
+        btnRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DiagOperations.RequestDiagCE();
+            }
+        });
     }
 
-    private void RefreshInfo( KKDiagInfo DI)
-    {
-        //
-        TextView txtName=(TextView)getView().findViewById(R.id.txt_Diag_CEState);
-        txtName.setText(DI.MILString);
-        ImageView imgConnBT=(ImageView)getView().findViewById(R.id.img_diag_connectiontype_bt);
-        ImageView imgConnINET=(ImageView)getView().findViewById(R.id.img_diag_connectiontype_bt);
-        //
-        //
-        if (DI.DataFromBT) {
-            imgConnBT.setVisibility(View.VISIBLE);
-            imgConnINET.setVisibility(View.INVISIBLE);
+    Handler ExecRefreshInfo = new Handler() {
+
+        public void handleMessage(android.os.Message msg) {
+            RefreshInfo(CurrDI);
         }
-        else
+
+        private void RefreshInfo( KKDiagInfo DI)
         {
-            imgConnBT.setVisibility(View.INVISIBLE);
-            imgConnINET.setVisibility(View.VISIBLE);
+            //
+            TextView txtName=(TextView)getView().findViewById(R.id.txt_Diag_CEState);
+            txtName.setText(DI.MILString);
+            ImageView imgConnBT=(ImageView)getView().findViewById(R.id.img_diag_connectiontype_bt);
+            ImageView imgConnINET=(ImageView)getView().findViewById(R.id.img_diag_connectiontype_bt);
+            //
+            //
+            if (DI.DataFromBT) {
+                imgConnBT.setVisibility(View.VISIBLE);
+                imgConnINET.setVisibility(View.INVISIBLE);
+            }
+            else
+            {
+                imgConnBT.setVisibility(View.INVISIBLE);
+                imgConnINET.setVisibility(View.VISIBLE);
+
+            }
+            //
+            // находим список
+            ListView lvMain = (ListView) getView().findViewById(R.id.lst_Diag_DTC);
+
+            //
+            SimpleAdapter adapter = new SimpleAdapter(getView().getContext(),DI.GetDTCErrArray(),android.R.layout.simple_list_item_2,
+                    new String[] {"DTC_ID", "Description"},
+                    new int[] {android.R.id.text1, android.R.id.text2});
+
+            lvMain.setAdapter(adapter);
 
         }
-        //
-        // находим список
-        ListView lvMain = (ListView) getView().findViewById(R.id.lst_Diag_DTC);
+    };
 
-        //
-        SimpleAdapter adapter = new SimpleAdapter(getView().getContext(),DI.GetDTCErrArray(),android.R.layout.simple_list_item_2,
-                 new String[] {"DTC_ID", "Description"},
-                 new int[] {android.R.id.text1, android.R.id.text2});
 
-        lvMain.setAdapter(adapter);
-
-    }
 
 }

@@ -13,7 +13,7 @@ import kkdev.kksystem.base.classes.odb2.ODBConstants.KK_ODB_DATATYPE;
  * @author blinov_is
  */
 public class PinOdb2Data extends PinBaseData {
-    public KK_ODB_DATATYPE DataType;
+    public KK_ODB_DATATYPE Odb2DataType;
 
     public ODB2Data ODBData;
     public PinOdb2ConnectorInfo AdapterInfo;
