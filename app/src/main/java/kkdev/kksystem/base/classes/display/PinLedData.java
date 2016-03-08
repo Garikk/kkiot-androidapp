@@ -14,7 +14,8 @@ import kkdev.kksystem.base.classes.display.DisplayConstants.KK_DISPLAY_DATA;
  * @author blinov_is
  */
 public class PinLedData extends PinBaseData {
-    public KK_DISPLAY_DATA DataType;
+
+    public KK_DISPLAY_DATA LedDataType;
     //
     public String TargetPage;           //Target page
     //
@@ -27,8 +28,8 @@ public class PinLedData extends PinBaseData {
     //
     public DisplayInfo[] DisplayState;    //
 
-     public void FillFrameValues(String[] Keys,String[] Values) {
-         UIFrames=new UIFramesKeySet();
-          UIFrames.FillValues(Keys,Values);
+    public void FillFrameValues(String[] Keys, String[] Values) {
+        UIFrames = new UIFramesKeySet();
+        UIFrames.FillValues(Keys, Values);
     }
 }

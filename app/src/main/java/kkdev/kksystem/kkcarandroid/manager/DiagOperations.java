@@ -53,9 +53,16 @@ public class DiagOperations {
     }
 
     private static void UpdateDiagInfoInf(KKDiagInfo Info) {
+        if (CachedInfoInf==null)
+            CachedInfoInf=Info;
 
         if (Info.Timestamp > CachedInfoInf.Timestamp)
             CachedInfoInf = Info;
+
+        //TODO Fix it!
+        if (CurrentDiagUI==null)
+            return;
+
 
         CurrentDiagUI.UpdateErrorsList(Info);
     }

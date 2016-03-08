@@ -122,7 +122,7 @@ public class LCDDisplayManager {
 
     private void ProcessData(PinLedData Data) {
 
-        switch (Data.DataType) {
+        switch (Data.LedDataType) {
             case DISPLAY_KKSYS_TEXT_SIMPLE_OUT:
                 SendTextToPage(Data.FeatureID, Data.TargetPage, Data.Direct_DisplayText);
                 break;
@@ -161,7 +161,7 @@ public class LCDDisplayManager {
         //
         Ret = new PinLedData();
         Ret.DisplayState = DI;
-        Ret.DataType = DisplayConstants.KK_DISPLAY_DATA.DISPLAY_KKSYS_DISPLAY_STATE;
+        Ret.LedDataType = DisplayConstants.KK_DISPLAY_DATA.DISPLAY_KKSYS_DISPLAY_STATE;
         //
         // DISPLAY_SendPluginMessageData(CurrentFeature, Ret);
         //
