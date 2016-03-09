@@ -128,7 +128,11 @@ public class BTConnector  {
                     EXARequestProcessor.DecodeAndProcessPin( RL);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    ConnectionEnabled=false;
+                    ConnectionEnabled = false;
+                } catch (NullPointerException e){
+                 e.printStackTrace();
+                ConnectionEnabled = false;
+
                 }
 
             }

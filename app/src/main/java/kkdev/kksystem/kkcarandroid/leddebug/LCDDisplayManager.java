@@ -34,7 +34,7 @@ public class LCDDisplayManager {
 //            PluginSettings.InitConfig(Conn.GlobalConfID,Conn.PluginInfo.GetPluginInfo().PluginUUID);
         Settings.InitConfig();
         //
-        //          CurrentFeature = PluginSettings.MainConfiguration.DefaultFeature;
+                  //CurrentFeature = ;'//PluginSettings.MainConfiguration.DefaultFeature;
         //
         ConfigAndHWInit(Callback);
     }
@@ -201,6 +201,9 @@ public class LCDDisplayManager {
             DP.UIFramesValues = UIFrames;
         }
         //
+        if (CurrentFeature==null)
+            return;
+
         if (!CurrentFeature.equals(FeatureID))
             return;
         //

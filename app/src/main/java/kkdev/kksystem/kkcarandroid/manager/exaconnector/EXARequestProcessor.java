@@ -5,6 +5,8 @@ import android.widget.Switch;
 import com.google.gson.Gson;
 
 import kkdev.kksystem.base.classes.controls.PinControlData;
+import kkdev.kksystem.base.classes.display.PinLedCommand;
+import kkdev.kksystem.base.classes.display.PinLedData;
 import kkdev.kksystem.base.classes.odb2.ODBConstants;
 import kkdev.kksystem.base.classes.odb2.PinOdb2Data;
 import kkdev.kksystem.base.classes.plugins.PluginMessage;
@@ -36,7 +38,12 @@ public class EXARequestProcessor {
                 PinOdb2Data PD=(PinOdb2Data)gson.fromJson((String)PM.PinData,PinOdb2Data.class);
                 UpdateDiagInfo(PD);
                 break;
-            case PluginConsts.KK_PLUGIN_BASE_LED_DATA:
+            case PluginConsts.KK_PLUGIN_BASE_LED_COMMAND:
+                PM.PinData=(PinLedCommand)gson.fromJson((String)PM.PinData,PinLedCommand.class);
+                ProcessLedInfo(PM);
+                break;
+            case PluginConsts.KK_PLUGIN_BASE_LED_DATA :
+                PM.PinData=(PinLedData)gson.fromJson((String)PM.PinData,PinLedData.class);
                 ProcessLedInfo(PM);
                 break;
             case PluginConsts.KK_PLUGIN_BASE_CONTROL_DATA:
@@ -61,11 +68,23 @@ public class EXARequestProcessor {
 
     private static void ProcessLedInfo(PluginMessage PM)
     {
-
+        LedDisplayDiag.ReceiveExtData(PM);
     }
 
 
     public static String  RequestDiag_ODB2Data()
+    {
+        PluginMessage PM;
+        PM=new PluginMessage();
+        PM.PinName=PluginConsts.KK_PLUGIN_BASE_ODB2_COMMAND;
+        PM.PinData=gson.toJson(ODB_SendPluginMessageCommand_PMData(SystemConsts.KK_BASE_FEATURES_ODB_DIAG_ANDROIDAPP_UID, ODBConstants.KK_ODB_COMMANDTYPE.ODB_KKSYS_CAR_GETINFO, ODBConstants.KK_ODB_DATACOMMANDINFO.ODB_GETINFO_CE_ERRORS, null, null));
+        PM.FeatureID=SystemConsts.KK_BASE_FEATURES_ODB_DIAG_ANDROIDAPP_UID;
+        //
+        return gson.toJson(PM);
+
+    }
+
+    public static String  Request_LedDisplay()
     {
         PluginMessage PM;
         PM=new PluginMessage();
