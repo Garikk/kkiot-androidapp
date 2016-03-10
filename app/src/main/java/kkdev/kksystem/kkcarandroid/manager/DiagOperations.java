@@ -64,7 +64,8 @@ public class DiagOperations {
             return;
 
 
-        CurrentDiagUI.UpdateErrorsList(Info);
+        if (Info.CorrectCEData)
+            CurrentDiagUI.UpdateErrorsList(Info);
     }
 
     public static void RequestDiagCE()

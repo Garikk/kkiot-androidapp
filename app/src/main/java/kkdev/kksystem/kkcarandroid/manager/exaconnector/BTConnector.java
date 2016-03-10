@@ -123,7 +123,6 @@ public class BTConnector  {
             while (ConnectionEnabled)
             {
                 try {
-
                     String RL=br.readLine();
                     EXARequestProcessor.DecodeAndProcessPin( RL);
                 } catch (IOException e) {

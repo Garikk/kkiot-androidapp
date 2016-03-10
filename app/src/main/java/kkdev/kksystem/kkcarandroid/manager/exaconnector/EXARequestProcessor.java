@@ -4,6 +4,7 @@ import android.widget.Switch;
 
 import com.google.gson.Gson;
 
+import kkdev.kksystem.base.classes.base.PinBaseCommand;
 import kkdev.kksystem.base.classes.controls.PinControlData;
 import kkdev.kksystem.base.classes.display.PinLedCommand;
 import kkdev.kksystem.base.classes.display.PinLedData;
@@ -50,6 +51,10 @@ public class EXARequestProcessor {
                 PinControlData PC=(PinControlData)gson.fromJson((String)PM.PinData,PinControlData.class);
                 ProcessControlCmd(PC);
                 break;
+            case PluginConsts.KK_PLUGIN_BASE_PIN_COMMAND:
+                PM.PinData=(PinBaseCommand)gson.fromJson((String)PM.PinData,PinBaseCommand.class);
+                ProcessBaseCommand(PM,(PinBaseCommand)PM.PinData);
+                break;
 
         }
     }
@@ -60,7 +65,14 @@ public class EXARequestProcessor {
         DiagOperations.ReceiveExtData(PD);
 
     }
+    private static void ProcessBaseCommand(PluginMessage PM,PinBaseCommand BC)
+    {
+        if (BC.BaseCommand.equals(PinBaseCommand.BASE_COMMAND_TYPE.CHANGE_FEATURE))
+        {
+            LedDisplayDiag.ReceiveExtData(PM);
 
+        }
+    }
     private static void ProcessControlCmd(PinControlData PC)
     {
 

@@ -99,7 +99,6 @@ public class LCDDisplayManager {
             case PluginConsts.KK_PLUGIN_BASE_PIN_COMMAND:
                 PinBaseCommand BaseCMD;
                 BaseCMD = (PinBaseCommand) PinData;
-
                 ProcessBaseCommand(BaseCMD);
         }
     }
@@ -224,6 +223,9 @@ public class LCDDisplayManager {
         //
         CurrentPage.put(FeatureID, PageID);
         //
+        if (CurrentFeature==null)
+            return;
+        //
         if (!CurrentFeature.equals(FeatureID))
             return;
         //
@@ -231,6 +233,9 @@ public class LCDDisplayManager {
     }
 
     private void SetPageToInactive(String FeatureID, String PageID) {
+        if (CurrentFeature==null)
+            return;
+
         if (!FeatureID.equals(CurrentFeature)) {
             return;
         }
@@ -245,8 +250,10 @@ public class LCDDisplayManager {
     }
 
     private void ChangeFeature(String FeatureID) {
-        if (CurrentFeature.equals(FeatureID)) {
-            return;
+        if (CurrentFeature!=null) {
+            if (CurrentFeature.equals(FeatureID)) {
+                return;
+            }
         }
         // Set Current page of feature to Active
         SetPageToInactive(CurrentFeature, CurrentPage.get(CurrentFeature));

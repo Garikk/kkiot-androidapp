@@ -18,15 +18,21 @@ public class ODBDecoder {
     }
     public String GetTroubleCodePrefix(Integer PfxDigit)
     {
-        if (PfxDigit>=0 & PfxDigit<=3)
-            return "P"+PfxDigit.toString();
-        if (PfxDigit>=4 & PfxDigit<=7)
-            return "C"+PfxDigit.toString();
-        if (PfxDigit>=8 & PfxDigit<=0xB)
-            return "B"+PfxDigit.toString();
-        if (PfxDigit>=0xC & PfxDigit<=0xF)
-            return "U"+PfxDigit.toString();
-        
-        return PfxDigit.toString();
+        String Ret;
+        Ret= PfxDigit.toString();
+
+        if (PfxDigit>=0 & PfxDigit<=3) {
+            Ret= "P" + PfxDigit.toString();
+        }
+        else if (PfxDigit>=4 & PfxDigit<=7) {
+            Ret= "C" + PfxDigit.toString();
+        }
+        else if (PfxDigit>=8 & PfxDigit<=0xB) {
+            Ret= "B" + PfxDigit.toString();
+        }
+        else if (PfxDigit>=0xC & PfxDigit<=0xF) {
+            Ret= "U" + PfxDigit.toString();
+        }
+        return Ret;
     }
 }

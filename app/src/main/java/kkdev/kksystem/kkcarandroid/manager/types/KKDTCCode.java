@@ -9,6 +9,7 @@ public class KKDTCCode
     public String timestamp;
     public String value;
     public String localdesc;
+    public String DisplayName;
 
     public KKDTCCode() {}
     public KKDTCCode(String Param,String Val,String TStamp)
@@ -16,5 +17,6 @@ public class KKDTCCode
         paramid=Param;
         value=Val;
         timestamp=TStamp;
+        DisplayName=Param+Val;
     }
 }

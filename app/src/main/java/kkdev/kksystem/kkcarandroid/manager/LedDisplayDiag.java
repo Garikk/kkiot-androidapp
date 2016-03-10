@@ -36,6 +36,9 @@ public class LedDisplayDiag {
 
     }
     public static void ReceiveExtData(PluginMessage PM) {
+        if (LDM==null)
+            return;
+
             LDM.ReceivePin(PM.FeatureID,PM.PinName,PM.PinData);
 
     }
