@@ -1,5 +1,7 @@
 package kkdev.kksystem.kkcarandroid.manager;
 
+import java.util.Set;
+
 import kkdev.kksystem.kkcarandroid.manager.exaconnector.BTConnector;
 import kkdev.kksystem.kkcarandroid.manager.exaconnector.EXARequestProcessor;
 import kkdev.kksystem.kkcarandroid.manager.wmhttp.WebManager;
@@ -32,7 +34,30 @@ public class ConnectionManager {
     {
 
         if (BTC.ConnectionEnabled) {
-            BTC.SendData(EXARequestProcessor.RequestDiag_ODB2Data());
+            BTC.SendData(EXARequestProcessor.RequestDiag_ODB2_CE());
+        }
+
+    }
+    public static void DIAG_RequestDiagInfo(Set<String> Parameters)
+    {
+        int[] ReqPID=new int[Parameters.size()];
+
+        int i=0;
+        for (String Param:Parameters)
+        {
+            ReqPID[i]=Integer.valueOf(Param);
+            i++;
+        }
+
+        if (BTC.ConnectionEnabled) {
+            BTC.SendData(EXARequestProcessor.RequestDiag_ODB2_Params(ReqPID));
+        }
+
+    }
+    public static void DIAG_RequestDiagInfo_Stop()
+    {
+        if (BTC.ConnectionEnabled) {
+            BTC.SendData(EXARequestProcessor.RequestDiag_ODB2_Params_Stop());
         }
 
     }

@@ -30,6 +30,11 @@ import kkdev.kksystem.kkcarandroid.manager.types.KKDiagInfo;
 public class frg_Diag extends Fragment implements IDiagUI {
 
     KKDiagInfo CurrDI;
+    SimpleAdapter ErrorAdapter;
+    TextView txtName=(TextView)getView().findViewById(R.id.txt_Diag_CEState);
+
+    ImageView imgConnBT=(ImageView)getView().findViewById(R.id.img_diag_connectiontype_bt);
+    ImageView imgConnINET=(ImageView)getView().findViewById(R.id.img_diag_connectiontype_bt);
 
     private OnFragmentInteractionListener mListener;
 
@@ -68,6 +73,7 @@ public class frg_Diag extends Fragment implements IDiagUI {
     public void onAttach(Context context) {
         super.onAttach(context);
         DiagOperations.RegisterCallback(this);
+        DiagOperations.RequestDiagCE();
     }
 
     @Override
@@ -97,6 +103,10 @@ public class frg_Diag extends Fragment implements IDiagUI {
     public void onStart() {
         super.onStart();
         Button btnRefresh=(Button)getView().findViewById(R.id.btnCERefresh);
+        txtName=(TextView)getView().findViewById(R.id.txt_Diag_CEState);
+        imgConnBT=(ImageView)getView().findViewById(R.id.img_diag_connectiontype_bt);
+        imgConnINET=(ImageView)getView().findViewById(R.id.img_diag_connectiontype_bt);
+        //
         btnRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,10 +124,7 @@ public class frg_Diag extends Fragment implements IDiagUI {
         private void RefreshInfo( KKDiagInfo DI)
         {
             //
-            TextView txtName=(TextView)getView().findViewById(R.id.txt_Diag_CEState);
             txtName.setText(DI.MILString);
-            ImageView imgConnBT=(ImageView)getView().findViewById(R.id.img_diag_connectiontype_bt);
-            ImageView imgConnINET=(ImageView)getView().findViewById(R.id.img_diag_connectiontype_bt);
             //
             //
             if (DI.DataFromBT) {
@@ -130,16 +137,21 @@ public class frg_Diag extends Fragment implements IDiagUI {
                 imgConnINET.setVisibility(View.VISIBLE);
 
             }
-            //
-            // находим список
-            ListView lvMain = (ListView) getView().findViewById(R.id.lst_Diag_DTC);
+            if (ErrorAdapter==null) {
+                //
+                // находим список
+                ListView lvMain = (ListView) getView().findViewById(R.id.lst_Diag_DTC);
+                //
+                ErrorAdapter = new SimpleAdapter(getView().getContext(), DI.GetDTCErrArray(), android.R.layout.simple_list_item_2,
+                        new String[]{"DTC_ID", "Description"},
+                        new int[]{android.R.id.text1, android.R.id.text2});
 
-            //
-            SimpleAdapter adapter = new SimpleAdapter(getView().getContext(),DI.GetDTCErrArray(),android.R.layout.simple_list_item_2,
-                    new String[] {"DTC_ID", "Description"},
-                    new int[] {android.R.id.text1, android.R.id.text2});
-
-            lvMain.setAdapter(adapter);
+                lvMain.setAdapter(ErrorAdapter);
+            }
+            else
+            {
+                ErrorAdapter.notifyDataSetChanged();
+            }
 
         }
     };

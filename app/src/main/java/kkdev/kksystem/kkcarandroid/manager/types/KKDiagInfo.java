@@ -38,7 +38,20 @@ public class KKDiagInfo {
             }
         }
         return myArrList;
-
+    }
+    public ArrayList<HashMap<String, String>>  GetDiagArray()
+    {
+        ArrayList<HashMap<String, String>> myArrList = new ArrayList<HashMap<String, String>>();
+        HashMap<String, String> Item;
+        if (CurrentDTC!=null) {
+            for (KKDTCCode KK : CurrentDTC) {
+                Item = new HashMap<String, String>();
+                Item.put("Parameter", KK.DisplayName);
+                Item.put("Value", KK.localdesc);
+                myArrList.add(Item);
+            }
+        }
+        return myArrList;
     }
 
     public void InitValues()

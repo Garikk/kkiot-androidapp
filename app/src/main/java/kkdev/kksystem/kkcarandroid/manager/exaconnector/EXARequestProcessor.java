@@ -1,7 +1,5 @@
 package kkdev.kksystem.kkcarandroid.manager.exaconnector;
 
-import android.widget.Switch;
-
 import com.google.gson.Gson;
 
 import kkdev.kksystem.base.classes.base.PinBaseCommand;
@@ -84,7 +82,7 @@ public class EXARequestProcessor {
     }
 
 
-    public static String  RequestDiag_ODB2Data()
+    public static String RequestDiag_ODB2_CE()
     {
         PluginMessage PM;
         PM=new PluginMessage();
@@ -95,7 +93,28 @@ public class EXARequestProcessor {
         return gson.toJson(PM);
 
     }
+    public static String RequestDiag_ODB2_Params(int[] ReqPID)
+    {
+        PluginMessage PM;
+        PM=new PluginMessage();
+        PM.PinName=PluginConsts.KK_PLUGIN_BASE_ODB2_COMMAND;
+        PM.PinData=gson.toJson(ODB_SendPluginMessageCommand_PMData(SystemConsts.KK_BASE_FEATURES_ODB_DIAG_ANDROIDAPP_UID, ODBConstants.KK_ODB_COMMANDTYPE.ODB_KKSYS_CAR_GETINFO, ODBConstants.KK_ODB_DATACOMMANDINFO.ODB_GETINFO_PIDDATA, ReqPID, null));
+        PM.FeatureID=SystemConsts.KK_BASE_FEATURES_ODB_DIAG_ANDROIDAPP_UID;
+        //
+        return gson.toJson(PM);
 
+    }
+    public static String RequestDiag_ODB2_Params_Stop()
+    {
+        PluginMessage PM;
+        PM=new PluginMessage();
+        PM.PinName=PluginConsts.KK_PLUGIN_BASE_ODB2_COMMAND;
+        PM.PinData=gson.toJson(ODB_SendPluginMessageCommand_PMData(SystemConsts.KK_BASE_FEATURES_ODB_DIAG_ANDROIDAPP_UID, ODBConstants.KK_ODB_COMMANDTYPE.ODB_KKSYS_CAR_GETINFO_STOP, ODBConstants.KK_ODB_DATACOMMANDINFO.ODB_GETINFO_PIDDATA, null, null));
+        PM.FeatureID=SystemConsts.KK_BASE_FEATURES_ODB_DIAG_ANDROIDAPP_UID;
+        //
+        return gson.toJson(PM);
+
+    }
     public static String  Request_LedDisplay()
     {
         PluginMessage PM;

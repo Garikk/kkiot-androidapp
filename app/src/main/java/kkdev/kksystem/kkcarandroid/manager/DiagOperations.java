@@ -1,14 +1,10 @@
 package kkdev.kksystem.kkcarandroid.manager;
 
-import android.telecom.Call;
-
-import kkdev.kksystem.base.classes.odb2.ODB2Data;
 import kkdev.kksystem.base.classes.odb2.ODBConstants;
 import kkdev.kksystem.base.classes.odb2.PinOdb2Data;
 import kkdev.kksystem.kkcarandroid.manager.callback.IDiagUI;
-import kkdev.kksystem.kkcarandroid.manager.exaconnector.BTConnector;
+import kkdev.kksystem.kkcarandroid.manager.types.AppSettings;
 import kkdev.kksystem.kkcarandroid.manager.types.KKDiagInfo;
-import kkdev.kksystem.kkcarandroid.manager.wmhttp.WebManager;
 
 /**
  * Created by blinov_is on 18.11.2015.
@@ -68,6 +64,16 @@ public class DiagOperations {
             CurrentDiagUI.UpdateErrorsList(Info);
     }
 
+
+    public static void RequestDiagParams()
+    {
+        ConnectionManager.DIAG_RequestDiagInfo(AppSettings.DiagParameters);
+    }
+    public static void RequestDiagParams_Stop()
+    {
+        ConnectionManager.DIAG_RequestDiagInfo_Stop();
+
+    }
     public static void RequestDiagCE()
     {
         ConnectionManager.DIAG_RequestDiagInfoCE();
