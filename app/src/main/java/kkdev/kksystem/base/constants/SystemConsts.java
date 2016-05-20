@@ -39,7 +39,7 @@ public final class SystemConsts {
      public static final String KK_BASE_FEATURES_SYSTEM_POWEROFF_UID="00000000-0000-0000-0000-100000000010";
      public static final String KK_BASE_FEATURES_SYSTEM_REBOOT_UID="00000000-0000-0000-0000-100000000011";
      //
-     public static final String KK_BASE_FEATURES_SYSTEM_MENUMAKER_UID="00000000-0000-0000-0000-200000000001";
+     //public static final String KK_BASE_FEATURES_SYSTEM_MENUMAKER_UID="00000000-0000-0000-0000-200000000001";
     //
      public static final String KK_BASE_FEATURES_SYSTEM_BROADCAST_UID="00000000-0000-0000-0000-000000000000";
      public static final String KK_BASE_FEATURES_SYSTEM_MULTIFEATURE_UID="00000000-0000-0000-0000-000000000001";
@@ -48,9 +48,18 @@ public final class SystemConsts {
     public static final String KK_BASE_DEFAULT_CONTROLLER_CONFIG_UID="c44bcdfc-d72b-4db7-ab99-37916cc55bd1";
     public static final String KK_BASE_DEFAULT_CONTROLLER_CONFIG_STAMP_UID="201f7df6-bedc-4942-b295-bd98249e5513";
 
-     //CHANGE THIS
+    
+    public static final String KK_BASE_UICONTEXT_DEFAULT="DEFAULT_UI_CONTEXT";
+    public static final String KK_BASE_UICONTEXT_DEFAULT_VIRTUAL="DEFAULT_UI_CONTEXT_VIRTUAL";
+    public static final String KK_BASE_UICONTEXT_DEFAULT_DEBUG="DEFAULT_UI_CONTEXT_DEBUG";
+    public static final String KK_BASE_UICONTEXT_DEFAULT_MULTI="DEFAULT_UI_CONTEXT_MULTI";
+    public static final String KK_BASE_UICONTEXT_GFX1="DEFAULT_UI_CONTEXT_GFX_1";
+    public static final String KK_BASE_UICONTEXT_GFX2="DEFAULT_UI_CONTEXT_GFX_2";
+    //CHANGE THIS! It is must be dynamic
      public static final String KK_BASE_FEATURES_ODB_DIAG_UID="c01287e6-3e5c-48bb-9eae-680a20210531";
      public static final String KK_BASE_FEATURES_ODB_DIAG_ANDROIDAPP_UID="aaee9986-2d86-46c0-a199-e02785d062f3";
+    public static final String KK_BASE_FEATURES_MEDIAPLAYER_UID="61cf8b24-ac5c-4686-80b4-f882ca0c9808";
+     public static final String KK_BASE_FEATURES_BLUETOOTH_UID="eabf2eb9-2cb3-43f8-aff4-c52f6f08e871";
      
      //
      

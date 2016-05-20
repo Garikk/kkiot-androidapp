@@ -13,4 +13,5 @@ package kkdev.kksystem.base.classes.display;
     {
         public String Name;
         public String FrameData;
+        public int FontSize;
     }

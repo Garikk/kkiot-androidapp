@@ -12,7 +12,9 @@ package kkdev.kksystem.base.classes.base;
 public class PinBaseCommand {
     public enum BASE_COMMAND_TYPE
     {
+        GET_CURRENT_FEATURE,
         CHANGE_FEATURE,
+        CURRENT_FEATURE,
         PLUGIN,
         SYSTEM_RESTART_KKCONTROLLER,
         SYSTEM_REBOOT_HW,
@@ -29,6 +31,7 @@ public class PinBaseCommand {
     }
     
     public BASE_COMMAND_TYPE BaseCommand;
+    public String ChangeUIContextID;
     public String ChangeFeatureID;
     public String LogReason;
     

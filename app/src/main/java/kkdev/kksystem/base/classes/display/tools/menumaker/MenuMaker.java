@@ -23,6 +23,7 @@ public class MenuMaker {
     PluginManagerDataProcessor PManager;
     boolean InSystemMode = false;
     String MenuFeatureID;
+    String MenuContextID;
     MKMenuItem[] MenuItems;
     Deque<MKMenuItem[]> MenuTree;
     IMenuMakerItemSelected CallBack;
@@ -40,7 +41,7 @@ public class MenuMaker {
         public void SelectedItem(String ItemCMD);
     }
 
-    public MenuMaker(String FeatureID, String MenuTargetPage, IPluginBaseInterface BaseConnector, IMenuMakerItemSelected MenuCallback, String SystemLCD_ID) {
+    public MenuMaker(String FeatureID,String UIContextID, String MenuTargetPage, IPluginBaseInterface BaseConnector, IMenuMakerItemSelected MenuCallback, String SystemLCD_ID) {
         if (MenuTargetPage == null | MenuTargetPage == "") {
             TargetPage = MViewer.DEF_MENU_PAGE;
         } else {
@@ -53,10 +54,11 @@ public class MenuMaker {
         InSystemMode = true;
         SystemLCD = SystemLCD_ID;
         MenuFeatureID = FeatureID;
+        MenuContextID=UIContextID;
 
     }
 
-    public MenuMaker(String FeatureID, String MenuTargetPage, IPluginKKConnector PluginConnector, IMenuMakerItemSelected MenuCallback) {
+    public MenuMaker(String FeatureID,String UIContextID, String MenuTargetPage, IPluginKKConnector PluginConnector, IMenuMakerItemSelected MenuCallback) {
         if (MenuTargetPage == null | "".equals(MenuTargetPage)) {
             TargetPage = MKMenuView.DEF_MENU_PAGE;
         } else {
@@ -68,12 +70,13 @@ public class MenuMaker {
         PManager.Connector = PluginConnector;
         InSystemMode = false;
          MenuFeatureID = FeatureID;
+            MenuContextID=UIContextID;
     }
 
     public void AddMenuItems(MKMenuItem[] Items) {
         MenuTree = new ArrayDeque<>();
         MenuItems = Items;
-        MViewer = new MKMenuView(2, Items.length);
+        MViewer = new MKMenuView(5, Items.length);
 
         for (int i = 0; i < Items.length; i++) {
             MViewer.SetItemData(i, Items[i]);
@@ -97,39 +100,39 @@ public class MenuMaker {
 
         if (InSystemMode) {
             ActivePage=TargetPage;
-            PManager._DISPLAY_ActivatePageDirect(MenuFeatureID, SystemLCD, TargetPage);
-            PManager._DISPLAY_UpdateUIFramesDirect(MenuFeatureID, SystemLCD, TargetPage, MViewer.GetMenu());
+            PManager._DISPLAY_ActivatePageDirect(MenuFeatureID,MenuContextID,SystemLCD, TargetPage);
+            PManager._DISPLAY_UpdateUIFramesDirect(MenuFeatureID,MenuContextID, SystemLCD, TargetPage, MViewer.GetMenu());
             
         } else {
             ActivePage=TargetPage;
-            PManager.DISPLAY_ActivatePage(MenuFeatureID, TargetPage);
-            PManager.DISPLAY_UpdateUIFrames(MenuFeatureID, TargetPage, MViewer.GetMenu());
+            PManager.DISPLAY_ActivatePage(MenuFeatureID,MenuContextID, TargetPage);
+            PManager.DISPLAY_UpdateUIFrames(MenuFeatureID,MenuContextID, TargetPage, MViewer.GetMenu());
 
         }
     }
 
     public void MenuRefreshDisplay() {
         if (InSystemMode) {
-            PManager._DISPLAY_UpdateUIFramesDirect(MenuFeatureID, SystemLCD, TargetPage, MViewer.GetMenu());
+            PManager._DISPLAY_UpdateUIFramesDirect(MenuFeatureID,MenuContextID, SystemLCD, TargetPage, MViewer.GetMenu());
         } else {
-            PManager.DISPLAY_UpdateUIFrames(MenuFeatureID, TargetPage, MViewer.GetMenu());
+            PManager.DISPLAY_UpdateUIFrames(MenuFeatureID,MenuContextID, TargetPage, MViewer.GetMenu());
         }
     }
 
     public void MenuSelectUp() {
 
         if (InSystemMode) {
-            PManager._DISPLAY_UpdateUIFramesDirect(MenuFeatureID, SystemLCD, TargetPage, MViewer.MoveMenuUP());
+            PManager._DISPLAY_UpdateUIFramesDirect(MenuFeatureID,MenuContextID, SystemLCD, TargetPage, MViewer.MoveMenuUP());
         } else {
-            PManager.DISPLAY_UpdateUIFrames(MenuFeatureID, TargetPage, MViewer.MoveMenuUP());
+            PManager.DISPLAY_UpdateUIFrames(MenuFeatureID,MenuContextID, TargetPage, MViewer.MoveMenuUP());
         }
     }
 
     public void MenuSelectDown() {
         if (InSystemMode) {
-            PManager._DISPLAY_UpdateUIFramesDirect(MenuFeatureID, SystemLCD, TargetPage, MViewer.MoveMenuDown());
+            PManager._DISPLAY_UpdateUIFramesDirect(MenuFeatureID,MenuContextID, SystemLCD, TargetPage, MViewer.MoveMenuDown());
         } else {
-            PManager.DISPLAY_UpdateUIFrames(MenuFeatureID, TargetPage, MViewer.MoveMenuDown());
+            PManager.DISPLAY_UpdateUIFrames(MenuFeatureID,MenuContextID, TargetPage, MViewer.MoveMenuDown());
         }
     }
 

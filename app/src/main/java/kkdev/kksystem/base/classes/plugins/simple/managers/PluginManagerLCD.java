@@ -21,21 +21,7 @@ import static kkdev.kksystem.base.constants.PluginConsts.KK_PLUGIN_BASE_ODB2_COM
 public class PluginManagerLCD extends PluginManagerBase {
     
     
-    public void ODB_SendPluginMessageCommand(String FeatureID,ODBConstants.KK_ODB_COMMANDTYPE Command, ODBConstants.KK_ODB_DATACOMMANDINFO Request, int[] DataInt, int[] ReadInterval) {
-
-        PinOdb2Command PData = new PinOdb2Command();
-        PData.Command = Command;
-        PData.CommandData = Request;
-        //
-        PData.RequestPIDs = DataInt;
-        PData.DynamicRequestInterval = ReadInterval;
-        //
-
-        //
-        this.BASE_SendPluginMessage(FeatureID,KK_PLUGIN_BASE_ODB2_COMMAND, PData);
-    }
-
-    public void DISPLAY_SendPluginMessageCommand(String FeatureID,DisplayConstants.KK_DISPLAY_COMMAND Command,String PageID, String[] DataStr, int[] DataInt, boolean[] DataBool) {
+      public void DISPLAY_SendPluginMessageCommand(String UIContextID,String FeatureID,DisplayConstants.KK_DISPLAY_COMMAND Command,String PageID, String[] DataStr, int[] DataInt, boolean[] DataBool) {
         //
         PinLedCommand PData = new PinLedCommand();
         PData.Command = Command;
@@ -43,23 +29,22 @@ public class PluginManagerLCD extends PluginManagerBase {
         PData.INT = DataInt;
         PData.STRING = DataStr;
         PData.PageID=PageID;
+        PData.ChangeUIContextID=UIContextID;
         //
         //
         this.BASE_SendPluginMessage(FeatureID,KK_PLUGIN_BASE_LED_COMMAND, PData);
     }
 
     public void DISPLAY_SendPluginMessageData(String FeatureID, PinLedData PData) {
-
-        //
         this.BASE_SendPluginMessage(FeatureID,KK_PLUGIN_BASE_LED_DATA, PData);
     }
     
-     public void _DISPLAY_SendPluginMessageDataDirect(String TargetUUID,String FeatureID, PinLedData PData) {
+     public void _DISPLAY_SendPluginMessageDataDirect(String FeatureID,String UIContextID,String TargetUUID, PinLedData PData) {
         //PData.FeatureUID=FeatureID;
         //
         this._BASE_SendPluginMessageDirect(FeatureID,TargetUUID,KK_PLUGIN_BASE_LED_DATA, PData);
     }
-       public void _DISPLAY_SendPluginMessageCommandDirect(String TargetUUID,String FeatureID,DisplayConstants.KK_DISPLAY_COMMAND Command,String PageID, String[] DataStr, int[] DataInt, boolean[] DataBool) {
+       public void _DISPLAY_SendPluginMessageCommandDirect(String UIContextID,String TargetUUID,String FeatureID,DisplayConstants.KK_DISPLAY_COMMAND Command,String PageID, String[] DataStr, int[] DataInt, boolean[] DataBool) {
         
         PinLedCommand PData = new PinLedCommand();
         PData.Command = Command;
@@ -67,6 +52,7 @@ public class PluginManagerLCD extends PluginManagerBase {
         PData.INT = DataInt;
         PData.STRING = DataStr;
         PData.PageID=PageID;
+        PData.ChangeUIContextID=UIContextID;
         //
 
         //

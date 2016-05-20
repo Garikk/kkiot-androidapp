@@ -15,7 +15,8 @@ import kkdev.kksystem.base.constants.SystemConsts;
 import kkdev.kksystem.kkcarandroid.manager.DiagOperations;
 import kkdev.kksystem.kkcarandroid.manager.LedDisplayDiag;
 
-import static kkdev.kksystem.base.classes.plugins.simple.managers.PluginManagerDataProcessor.ODB_SendPluginMessageCommand_PMData;
+import static kkdev.kksystem.base.classes.plugins.simple.managers.PluginManagerODB.ODB_SendPluginMessageCommand_PMData;
+
 
 /**
  * Created by blinov_is on 28.01.2016.
@@ -87,7 +88,7 @@ public class EXARequestProcessor {
         PluginMessage PM;
         PM=new PluginMessage();
         PM.PinName=PluginConsts.KK_PLUGIN_BASE_ODB2_COMMAND;
-        PM.PinData=gson.toJson(ODB_SendPluginMessageCommand_PMData(SystemConsts.KK_BASE_FEATURES_ODB_DIAG_ANDROIDAPP_UID, ODBConstants.KK_ODB_COMMANDTYPE.ODB_KKSYS_CAR_GETINFO, ODBConstants.KK_ODB_DATACOMMANDINFO.ODB_GETINFO_CE_ERRORS, null, null));
+        PM.PinData=gson.toJson(ODB_SendPluginMessageCommand_PMData(ODBConstants.KK_ODB_COMMANDTYPE.ODB_KKSYS_CAR_GETINFO, ODBConstants.KK_ODB_DATACOMMANDINFO.ODB_GETINFO_CE_ERRORS, null, null));
         PM.FeatureID=SystemConsts.KK_BASE_FEATURES_ODB_DIAG_ANDROIDAPP_UID;
         //
         return gson.toJson(PM);
@@ -98,7 +99,7 @@ public class EXARequestProcessor {
         PluginMessage PM;
         PM=new PluginMessage();
         PM.PinName=PluginConsts.KK_PLUGIN_BASE_ODB2_COMMAND;
-        PM.PinData=gson.toJson(ODB_SendPluginMessageCommand_PMData(SystemConsts.KK_BASE_FEATURES_ODB_DIAG_ANDROIDAPP_UID, ODBConstants.KK_ODB_COMMANDTYPE.ODB_KKSYS_CAR_GETINFO, ODBConstants.KK_ODB_DATACOMMANDINFO.ODB_GETINFO_PIDDATA, ReqPID, null));
+        PM.PinData=gson.toJson(ODB_SendPluginMessageCommand_PMData( ODBConstants.KK_ODB_COMMANDTYPE.ODB_KKSYS_CAR_GETINFO, ODBConstants.KK_ODB_DATACOMMANDINFO.ODB_GETINFO_PIDDATA, ReqPID, null));
         PM.FeatureID=SystemConsts.KK_BASE_FEATURES_ODB_DIAG_ANDROIDAPP_UID;
         //
         return gson.toJson(PM);
@@ -109,7 +110,7 @@ public class EXARequestProcessor {
         PluginMessage PM;
         PM=new PluginMessage();
         PM.PinName=PluginConsts.KK_PLUGIN_BASE_ODB2_COMMAND;
-        PM.PinData=gson.toJson(ODB_SendPluginMessageCommand_PMData(SystemConsts.KK_BASE_FEATURES_ODB_DIAG_ANDROIDAPP_UID, ODBConstants.KK_ODB_COMMANDTYPE.ODB_KKSYS_CAR_GETINFO_STOP, ODBConstants.KK_ODB_DATACOMMANDINFO.ODB_GETINFO_PIDDATA, null, null));
+        PM.PinData=gson.toJson(ODB_SendPluginMessageCommand_PMData( ODBConstants.KK_ODB_COMMANDTYPE.ODB_KKSYS_CAR_GETINFO_STOP, ODBConstants.KK_ODB_DATACOMMANDINFO.ODB_GETINFO_PIDDATA, null, null));
         PM.FeatureID=SystemConsts.KK_BASE_FEATURES_ODB_DIAG_ANDROIDAPP_UID;
         //
         return gson.toJson(PM);
@@ -120,7 +121,7 @@ public class EXARequestProcessor {
         PluginMessage PM;
         PM=new PluginMessage();
         PM.PinName=PluginConsts.KK_PLUGIN_BASE_ODB2_COMMAND;
-        PM.PinData=gson.toJson(ODB_SendPluginMessageCommand_PMData(SystemConsts.KK_BASE_FEATURES_ODB_DIAG_ANDROIDAPP_UID, ODBConstants.KK_ODB_COMMANDTYPE.ODB_KKSYS_CAR_GETINFO, ODBConstants.KK_ODB_DATACOMMANDINFO.ODB_GETINFO_CE_ERRORS, null, null));
+        PM.PinData=gson.toJson(ODB_SendPluginMessageCommand_PMData(ODBConstants.KK_ODB_COMMANDTYPE.ODB_KKSYS_CAR_GETINFO, ODBConstants.KK_ODB_DATACOMMANDINFO.ODB_GETINFO_CE_ERRORS, null, null));
         PM.FeatureID=SystemConsts.KK_BASE_FEATURES_ODB_DIAG_ANDROIDAPP_UID;
         //
         return gson.toJson(PM);
@@ -132,7 +133,7 @@ public class EXARequestProcessor {
         PM=new PluginMessage();
         PM.PinName=PluginConsts.KK_PLUGIN_BASE_CONTROL_DATA;
 
-        PM.PinData=gson.toJson(PluginManagerControls.CONTROL_SendPluginMessageData_PData(SystemConsts.KK_BASE_FEATURES_SYSTEM_MULTIFEATURE_UID,ButtonID, PinControlData.KK_CONTROL_DATA.CONTROL_TRIGGERED,1));
+        PM.PinData=gson.toJson(PluginManagerControls.CONTROL_SendPluginMessageData_PData(SystemConsts.KK_BASE_UICONTEXT_DEFAULT,SystemConsts.KK_BASE_FEATURES_SYSTEM_MULTIFEATURE_UID,ButtonID, PinControlData.KK_CONTROL_DATA.CONTROL_TRIGGERED,1));
         PM.FeatureID=SystemConsts.KK_BASE_FEATURES_SYSTEM_MULTIFEATURE_UID;
         //
         return gson.toJson(PM);

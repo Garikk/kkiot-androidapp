@@ -20,7 +20,7 @@ public class ODBDecoder {
     {
         String Ret;
         Ret= PfxDigit.toString();
-
+        
         if (PfxDigit>=0 & PfxDigit<=3) {
             Ret= "P" + PfxDigit.toString();
         }

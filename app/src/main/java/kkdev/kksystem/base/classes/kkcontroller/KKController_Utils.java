@@ -23,6 +23,7 @@ public abstract class KKController_Utils
     public static enum RS232DevType {
         Dev3GModem,
         DevELM327,
+        DevSmarthead,
         Other,
         Error;
     }

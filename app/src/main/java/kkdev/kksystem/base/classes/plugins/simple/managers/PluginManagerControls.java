@@ -15,14 +15,15 @@ import static kkdev.kksystem.base.constants.PluginConsts.KK_PLUGIN_BASE_CONTROL_
  */
 public class PluginManagerControls extends PluginManagerBase {
 
-    public synchronized void CONTROL_SendPluginMessageData(String FeatureID, String ControlID, KK_CONTROL_DATA EventType, int IntValue) {
+    public synchronized void CONTROL_SendPluginMessageData(String FeatureID,String UIContextID , String ControlID, KK_CONTROL_DATA EventType, int IntValue) {
 
-        PinControlData PData = CONTROL_SendPluginMessageData_PData(FeatureID, ControlID, EventType, IntValue);
+        PinControlData PData = CONTROL_SendPluginMessageData_PData(FeatureID,UIContextID, ControlID, EventType, IntValue);
         //
+                    
         this.BASE_SendPluginMessage(FeatureID, KK_PLUGIN_BASE_CONTROL_DATA, PData);
     }
 
-    public static synchronized PinControlData CONTROL_SendPluginMessageData_PData(String FeatureID, String ControlID, KK_CONTROL_DATA EventType, int IntValue) {
+    public static synchronized PinControlData CONTROL_SendPluginMessageData_PData(String FeatureID,String UIContextID, String ControlID, KK_CONTROL_DATA EventType, int IntValue) {
 
         PinControlData PData = new PinControlData();
         //
@@ -30,6 +31,7 @@ public class PluginManagerControls extends PluginManagerBase {
         PData.ControlID = ControlID;
         PData.ControlDataType = EventType;
         PData.ControlValue = IntValue;
+        PData.UIContextID=UIContextID;
         //
         return PData;
     }

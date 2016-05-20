@@ -83,9 +83,9 @@ public class kk_DefPages {
             //
             DP[PAGE_SYSMENU] = new DisplayPage();
             DP[PAGE_SYSMENU].HaveDynamicElements = false;
-            DP[PAGE_SYSMENU].Features = new String[2];
+            DP[PAGE_SYSMENU].Features = new String[1];
             DP[PAGE_SYSMENU].Features[0] = SystemConsts.KK_BASE_FEATURES_SYSTEM_UID;
-            DP[PAGE_SYSMENU].Features[1] = SystemConsts.KK_BASE_FEATURES_SYSTEM_MENUMAKER_UID;
+           // DP[PAGE_SYSMENU].Features[1] = SystemConsts.KK_BASE_FEATURES_SYSTEM_MENUMAKER_UID;
             DP[PAGE_SYSMENU].PageName = "SYSMENU_1";
             DP[PAGE_SYSMENU].HWDisplays = new String[1];
             DP[PAGE_SYSMENU].HWDisplays[0] = DHW.HWDisplayName;

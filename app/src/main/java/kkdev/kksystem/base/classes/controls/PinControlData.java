@@ -25,6 +25,7 @@ public class PinControlData extends PinBaseData {
         CONTROL_LONGPRESS
     }
     
+    public String UIContextID;
     
     public KK_CONTROL_DATA ControlDataType;
     //

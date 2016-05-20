@@ -100,8 +100,10 @@ public class MKMenuView {
         Ret = new UIFramesKeySet(); 
         //
         for (int i = 0; i < ViewRowCount; i++) {
-            if (MenuRowCount==1 & i==1)
+            if ((i>=MenuRowCount))
+            {
                 Ret.AddKeySet(DEF_MENU_ITEM_PFX + i, ""); //if only one item in menu, set empty position
+            }
             else
             {
                 Ret.AddKeySet(DEF_MENU_ITEM_PFX + i, DisplayedMenu[CurrentViewPosition + i].DisplayName);

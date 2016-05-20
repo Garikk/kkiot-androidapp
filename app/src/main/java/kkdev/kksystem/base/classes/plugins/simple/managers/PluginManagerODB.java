@@ -19,16 +19,11 @@ import static kkdev.kksystem.base.constants.PluginConsts.KK_PLUGIN_BASE_ODB2_DAT
  * @author blinov_is
  */
 public class PluginManagerODB extends PluginManagerBase {
-    
+
     public void ODB_SendPluginMessageCommand(String FeatureID,ODBConstants.KK_ODB_COMMANDTYPE Command, ODBConstants.KK_ODB_DATACOMMANDINFO Request, int[] DataInt, int[] ReadInterval) {
-        PinOdb2Command PData = new PinOdb2Command();
-        PData.Command = Command;
-        PData.CommandData = Request;
+
         //
-        PData.RequestPIDs = DataInt;
-        PData.DynamicRequestInterval = ReadInterval;
-        //
-        this.BASE_SendPluginMessage(FeatureID,KK_PLUGIN_BASE_ODB2_COMMAND, PData);
+        this.BASE_SendPluginMessage(FeatureID,KK_PLUGIN_BASE_ODB2_COMMAND, ODB_SendPluginMessageCommand_PMData(Command,Request,DataInt,ReadInterval));
     }
     public void ODB_SendConnectionState(String FeatureID,PinOdb2ConnectorInfo ConnInfo) {
         //
@@ -37,9 +32,9 @@ public class PluginManagerODB extends PluginManagerBase {
         PData.AdapterInfo=ConnInfo;
         PData.FeatureID=FeatureID;
         //
-       this.BASE_SendPluginMessage(FeatureID,KK_PLUGIN_BASE_ODB2_DATA, PData);
+        this.BASE_SendPluginMessage(FeatureID,KK_PLUGIN_BASE_ODB2_DATA, PData);
     }
-     public void ODB_SendODBInfo(String FeatureID,PinOdb2ConnectorInfo ConnInfo, ODB2Data Data) {
+    public void ODB_SendODBInfo(String FeatureID,PinOdb2ConnectorInfo ConnInfo, ODB2Data Data) {
         //
         PinOdb2Data PData = new PinOdb2Data();
         PData.Odb2DataType=ODBConstants.KK_ODB_DATATYPE.ODB_DIAG_DATA;
@@ -47,16 +42,27 @@ public class PluginManagerODB extends PluginManagerBase {
         PData.AdapterInfo=ConnInfo;
         PData.FeatureID=FeatureID;
         //
-       this.BASE_SendPluginMessage(FeatureID,KK_PLUGIN_BASE_ODB2_DATA, PData);
+        this.BASE_SendPluginMessage(FeatureID,KK_PLUGIN_BASE_ODB2_DATA, PData);
     }
-      public void ODB_SendODBErrors(String FeatureID,PinOdb2ConnectorInfo ConnInfo, ODB2Data Data) {
+    public void ODB_SendODBErrors(String FeatureID,PinOdb2ConnectorInfo ConnInfo, ODB2Data Data) {
         //
         PinOdb2Data PData = new PinOdb2Data();
         PData.Odb2DataType=ODBConstants.KK_ODB_DATATYPE.ODB_DIAG_CE_ERRORS;
         PData.ODBData=Data;
         PData.AdapterInfo=ConnInfo;
-        PData.FeatureID=FeatureID;
+        PData.FeatureID = FeatureID;
         //
-       this.BASE_SendPluginMessage(FeatureID,KK_PLUGIN_BASE_ODB2_DATA, PData);
+        this.BASE_SendPluginMessage(FeatureID, KK_PLUGIN_BASE_ODB2_DATA, PData);
+    }
+
+    public static PinOdb2Command ODB_SendPluginMessageCommand_PMData(ODBConstants.KK_ODB_COMMANDTYPE Command, ODBConstants.KK_ODB_DATACOMMANDINFO Request, int[] DataInt, int[] ReadInterval) {
+        PinOdb2Command PData = new PinOdb2Command();
+        PData.Command = Command;
+        PData.CommandData = Request;
+        //
+        PData.RequestPIDs = DataInt;
+        PData.DynamicRequestInterval = ReadInterval;
+
+        return PData;
     }
 }

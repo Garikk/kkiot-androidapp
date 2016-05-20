@@ -15,6 +15,8 @@ import kkdev.kksystem.base.classes.display.DisplayConstants.KK_DISPLAY_DATA;
  */
 public class PinLedData extends PinBaseData {
 
+    public String UIContextID;
+    
     public KK_DISPLAY_DATA LedDataType;
     //
     public String TargetPage;           //Target page

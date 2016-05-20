@@ -17,24 +17,22 @@ import kkdev.kksystem.base.interfaces.IPluginKKConnector;
 public class PageMaker {
     String BackCommand;
     String CurrentFeature;
+    String CurrentContext;
     MKPageView PViewer;
     PluginManagerDataProcessor PManager;
     IPageMakerExecCommand CallBack;
 
-    
-
-
     public interface IPageMakerExecCommand {
 
         public void ExecCommand(String PageCMD);
-
         public void PageSelected(String PageName);
     }
 
-    public PageMaker(String FeatureID, IPluginKKConnector PluginConnector, IPageMakerExecCommand PageExecCallback) {
+    public PageMaker(String FeatureID,String UIContext, IPluginKKConnector PluginConnector, IPageMakerExecCommand PageExecCallback) {
         PManager = new PluginManagerDataProcessor();
         PManager.Connector = PluginConnector;
         CurrentFeature = FeatureID;
+        CurrentContext=UIContext;
         CallBack = PageExecCallback;
     }
 
@@ -88,12 +86,12 @@ public class PageMaker {
 
     private void UpdateUIFrames(String PageName) {
         MKPageItem Page = PViewer.GetPage();
-        PManager.DISPLAY_UpdateUIFrames(CurrentFeature, Page.PageName, Page.UIFrames);
+        PManager.DISPLAY_UpdateUIFrames(CurrentFeature,CurrentContext, Page.PageName, Page.UIFrames);
     }
 
     private void ShowPage(MKPageItem Page) {
-        PManager.DISPLAY_ActivatePage(CurrentFeature, Page.PageName);
-        PManager.DISPLAY_UpdateUIFrames(CurrentFeature, Page.PageName, Page.UIFrames);
+        PManager.DISPLAY_ActivatePage(CurrentFeature,CurrentContext, Page.PageName);
+        PManager.DISPLAY_UpdateUIFrames(CurrentFeature,CurrentContext, Page.PageName, Page.UIFrames);
         //
         CallBack.PageSelected(Page.PageName);
     }
