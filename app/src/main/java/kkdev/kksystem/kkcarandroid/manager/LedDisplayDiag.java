@@ -20,7 +20,6 @@ public class LedDisplayDiag {
         //
         ConnectionManager.CheckConnect();
         CurrentUI = Callback;
-
     }
 
     public static void ProcessControlButton(String ControlID)
@@ -33,6 +32,5 @@ public class LedDisplayDiag {
             return;
 
             LDM.ReceivePin(PM.FeatureID,PM.PinName,PM.PinData);
-
     }
 }

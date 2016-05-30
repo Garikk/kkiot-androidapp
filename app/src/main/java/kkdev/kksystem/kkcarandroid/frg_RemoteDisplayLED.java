@@ -10,7 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TableLayout;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import kkdev.kksystem.base.classes.controls.PinControlData;
 import kkdev.kksystem.kkcarandroid.manager.DiagOperations;
@@ -28,8 +31,9 @@ import kkdev.kksystem.kkcarandroid.manager.callback.ILedDebugUI;
  */
 public class frg_RemoteDisplayLED extends Fragment implements ILedDebugUI {
 
-     TextView TEXT1;
-    TextView TEXT2;
+    TextView[] DisplayROWS;
+    View MainView;
+
     private OnFragmentInteractionListener mListener;
 
     public static frg_RemoteDisplayLED newInstance() {
@@ -52,17 +56,15 @@ public class frg_RemoteDisplayLED extends Fragment implements ILedDebugUI {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View Ret;
-        Ret = inflater.inflate(R.layout.fragment_frg__remote_display_led, container, false);
+        MainView = inflater.inflate(R.layout.fragment_frg__remote_display_led, container, false);
 
 
-        Button btn_UP = (Button) Ret.findViewById(R.id.btn_LedDiag_UP);
-        Button btn_DOWN = (Button) Ret.findViewById(R.id.btn_LedDiag_DOWN);
-        Button btn_ENTER = (Button) Ret.findViewById(R.id.btn_LedDiag_ENTER);
-        Button btn_BACK = (Button) Ret.findViewById(R.id.btn_LedDiag_BACK);
+        Button btn_UP = (Button) MainView.findViewById(R.id.btn_LedDiag_UP);
+        Button btn_DOWN = (Button) MainView.findViewById(R.id.btn_LedDiag_DOWN);
+        Button btn_ENTER = (Button) MainView.findViewById(R.id.btn_LedDiag_ENTER);
+        Button btn_BACK = (Button) MainView.findViewById(R.id.btn_LedDiag_BACK);
 
-        TEXT1 = (TextView)Ret.findViewById(R.id.txtLEDD_Row1);
-        TEXT2 = (TextView)Ret.findViewById(R.id.txtLEDD_Row_2);
+
 
         btn_UP.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +93,7 @@ public class frg_RemoteDisplayLED extends Fragment implements ILedDebugUI {
             }
         });
         // Inflate the layout for this fragment
-        return Ret;
+        return MainView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -125,16 +127,27 @@ public class frg_RemoteDisplayLED extends Fragment implements ILedDebugUI {
         ExecRefreshInfo.sendMessage(MS);
     }
 
+    @Override
+    public void SetRowCount(int ROW) {
+        DisplayROWS=new TextView[ROW];
+        TableLayout TLA=(TableLayout) MainView.findViewById(R.id.tla_DebugDisplay);
+
+
+        for (int i=1;i<ROW;i++)
+        {
+            DisplayROWS[i]= new TextView(MainView.getContext());
+            TLA.addView(DisplayROWS[i]);
+        }
+
+    }
+
     Handler ExecRefreshInfo = new Handler() {
 
         public void handleMessage(android.os.Message msg) {
-            if (msg.getData().getInt("POS")==0)
-                TEXT1.setText(msg.getData().getString("DAT"));
-            else if (msg.getData().getInt("POS")==1)
-                TEXT2.setText(msg.getData().getString("DAT"));
-        }
-    };
 
+                DisplayROWS[msg.getData().getInt("POS")].setText(msg.getData().getString("DAT"));
+               }
+    };
 
 
 

@@ -7,5 +7,6 @@ import kkdev.kksystem.kkcarandroid.manager.types.KKDiagInfo;
  */
 public interface ILedDebugUI {
     public void SetRowText(int RowString, String Dat);
+    public void SetRowCount(int ROW);
 
 }

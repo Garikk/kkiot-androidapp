@@ -22,9 +22,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="er.wer.SettingsActivity_Test"
-            android:label="@string/title_activity_settings_activity__test"></activity>
+
     </application>
 
 </manifest>
