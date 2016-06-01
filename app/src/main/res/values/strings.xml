@@ -67,4 +67,27 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="str_bt_connect">Подключится</string>
+    <string name="str_btconnect_cancel">Назад</string>
+    <string name="str_login_btn_connect">Подключится к автомобилю</string>
+
+    <string name="str_drawer_connect_dingocloud">Подключится к Dingo cloud</string>
+    <string name="str_drawer_connect_dingoclud_ok">Dingo Cloud подключен</string>
+    <string name="str_drawer_connect_bluetooth">Подключится к автомобилю</string>
+    <string name="str_drawer_connect_bluetooth_ok">Автомобиль подключен</string>
+    <string name="str_drawer_connect_bluetooth_wait">Ожидание подключения к автомобилю</string>
 </resources>

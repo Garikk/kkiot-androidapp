@@ -18,15 +18,15 @@
             android:title="Параметры" />
     </group>
 
-    <!--
+
     <item android:title="Подключение">
         <menu>
-            <item android:id="@+id/nav_remdisplay_l" android:icon="@android:drawable/ic_menu_share"
-                android:title="Share" />
-            <item android:id="@+id/nav_display_settings" android:icon="@android:drawable/ic_menu_send"
-                android:title="Send" />
+            <item android:id="@+id/nav_connect_dingocloud" android:icon="@android:drawable/ic_menu_share"
+                android:title="@string/str_drawer_connect_dingocloud" />
+            <item android:id="@+id/nav_connect_bluetooth" android:icon="@android:drawable/ic_menu_send"
+                android:title="@string/str_drawer_connect_bluetooth" />
         </menu>
     </item>
-    -->
+
 
 </menu>
