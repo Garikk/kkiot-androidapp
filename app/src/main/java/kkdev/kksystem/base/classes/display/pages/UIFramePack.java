@@ -10,9 +10,9 @@ package kkdev.kksystem.base.classes.display.pages;
  * @author blinov_is
  */
 public class UIFramePack {
-    public String Name;
-    public String PackID;
-    public UIFrameData[] Data;
+    public String name;
+    public String packID;
+    public UIFrameData[] data;
     
  
 }

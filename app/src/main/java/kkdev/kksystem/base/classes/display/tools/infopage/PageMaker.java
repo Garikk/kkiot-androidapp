@@ -5,8 +5,9 @@
  */
 package kkdev.kksystem.base.classes.display.tools.infopage;
 
+import java.util.Set;
 import kkdev.kksystem.base.classes.controls.PinControlData;
-import kkdev.kksystem.base.classes.display.UIFramesKeySet;
+import kkdev.kksystem.base.classes.display.pages.framesKeySet;
 import kkdev.kksystem.base.classes.plugins.simple.managers.PluginManagerDataProcessor;
 import kkdev.kksystem.base.interfaces.IPluginKKConnector;
 
@@ -15,85 +16,86 @@ import kkdev.kksystem.base.interfaces.IPluginKKConnector;
  * @author blinov_is
  */
 public class PageMaker {
-    String BackCommand;
-    String CurrentFeature;
-    String CurrentContext;
+    String commandBack;
+    String currentFeature;
+    String currentContext;
     MKPageView PViewer;
     PluginManagerDataProcessor PManager;
-    IPageMakerExecCommand CallBack;
+    IPageMakerExecCommand callback;
 
     public interface IPageMakerExecCommand {
 
-        public void ExecCommand(String PageCMD);
-        public void PageSelected(String PageName);
+        public void execCommand(String PageCMD);
+        public void pageSelected(String PageName);
     }
 
     public PageMaker(String FeatureID,String UIContext, IPluginKKConnector PluginConnector, IPageMakerExecCommand PageExecCallback) {
         PManager = new PluginManagerDataProcessor();
-        PManager.Connector = PluginConnector;
-        CurrentFeature = FeatureID;
-        CurrentContext=UIContext;
-        CallBack = PageExecCallback;
+        PManager.connector = PluginConnector;
+        currentFeature = FeatureID;
+        currentContext=UIContext;
+        callback = PageExecCallback;
     }
 
-    public void AddPages(MKPageItem[] Page) {
+    public void addPages(MKPageItem[] Page) {
         PViewer = new MKPageView(Page.length);
 
         for (int i = 0; i < Page.length; i++) {
-            PViewer.SetPageData(i, Page[i]);
+            PViewer.setPageData(i, Page[i]);
         }
     }
 
-    public void ProcessControlCommand(String ControlID) {
-        switch (ControlID) {
-            case PinControlData.DEF_BTN_UP:
-                SelectPrevPage();
-                break;
-            case PinControlData.DEF_BTN_DOWN:
-                SelectNextPage();
-                break;
-            case PinControlData.DEF_BTN_ENTER:
-                ExecCommand();
-                break;
-            case PinControlData.DEF_BTN_BACK:
-                break;
+    public void processControlCommand(Set<String> ControlID) {
+        for (String btnCtrl : ControlID) {
+            switch (btnCtrl) {
+                case PinControlData.DEF_BTN_UP:
+                    selectPrevPage();
+                    break;
+                case PinControlData.DEF_BTN_DOWN:
+                    selectNextPage();
+                    break;
+                case PinControlData.DEF_BTN_ENTER:
+                    execCommand();
+                    break;
+                case PinControlData.DEF_BTN_BACK:
+                    break;
 
+            }
         }
+    }
+
+    public void showInfoPage() {
+        showPage(PViewer.getPage());
+    }
+
+    public void selectNextPage() {
+        showPage(PViewer.movePageNext());
+    }
+
+    public void selectPrevPage() {
+        showPage(PViewer.movePagePrev());
+    }
+
+    public void execCommand() {
+        callback.execCommand(PViewer.getPage().pageCommand);
+    }
+
+    public void updatePageFrames(String PageName, framesKeySet Frames) {
+        PViewer.updateUIFrames(PageName, Frames);
+        updateUIFrames(PageName);
 
     }
 
-    public void ShowInfoPage() {
-        ShowPage(PViewer.GetPage());
+    private void updateUIFrames(String PageName) {
+        MKPageItem Page = PViewer.getPage();
+        PManager.DISPLAY_UpdateUIFrames(currentFeature,currentContext, Page.pageName, Page.pageFrames);
     }
 
-    public void SelectNextPage() {
-        ShowPage(PViewer.MovePageNext());
-    }
-
-    public void SelectPrevPage() {
-        ShowPage(PViewer.MovePagePrev());
-    }
-
-    public void ExecCommand() {
-        CallBack.ExecCommand(PViewer.GetPage().PageCommand);
-    }
-
-    public void UpdatePageFrames(String PageName, UIFramesKeySet Frames) {
-        PViewer.UpdateUIFrames(PageName, Frames);
-        UpdateUIFrames(PageName);
-
-    }
-
-    private void UpdateUIFrames(String PageName) {
-        MKPageItem Page = PViewer.GetPage();
-        PManager.DISPLAY_UpdateUIFrames(CurrentFeature,CurrentContext, Page.PageName, Page.UIFrames);
-    }
-
-    private void ShowPage(MKPageItem Page) {
-        PManager.DISPLAY_ActivatePage(CurrentFeature,CurrentContext, Page.PageName);
-        PManager.DISPLAY_UpdateUIFrames(CurrentFeature,CurrentContext, Page.PageName, Page.UIFrames);
+    private void showPage(MKPageItem Page) {
+        PManager.DISPLAY_ActivatePage(currentFeature,currentContext, Page.pageName);
+        PManager.DISPLAY_UpdateUIFrames(currentFeature,currentContext, Page.pageName, Page.pageFrames);
         //
-        CallBack.PageSelected(Page.PageName);
+        callback.pageSelected(Page.pageName);
     }
 
 }

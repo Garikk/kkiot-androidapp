@@ -1,6 +1,12 @@
 package kkdev.kksystem.kkcarandroid.manager.exaconnector;
 
+import android.util.ArraySet;
+import android.widget.Button;
+
 import com.google.gson.Gson;
+
+import java.util.Set;
+import java.util.TreeSet;
 
 import kkdev.kksystem.base.classes.base.PinBaseCommand;
 import kkdev.kksystem.base.classes.controls.PinControlData;
@@ -66,7 +72,7 @@ public class EXARequestProcessor {
     }
     private static void ProcessBaseCommand(PluginMessage PM,PinBaseCommand BC)
     {
-        if (BC.BaseCommand.equals(PinBaseCommand.BASE_COMMAND_TYPE.CHANGE_FEATURE))
+        if (BC.baseCommand.equals(PinBaseCommand.BASE_COMMAND_TYPE.CHANGE_FEATURE))
         {
             LedDisplayDiag.ReceiveExtData(PM);
 
@@ -132,8 +138,10 @@ public class EXARequestProcessor {
         PluginMessage PM;
         PM=new PluginMessage();
         PM.PinName=PluginConsts.KK_PLUGIN_BASE_CONTROL_DATA;
+        Set<String> Btn=new TreeSet<>();
+        Btn.add(ButtonID);
 
-        PM.PinData=gson.toJson(PluginManagerControls.CONTROL_SendPluginMessageData_PData(SystemConsts.KK_BASE_UICONTEXT_DEFAULT,SystemConsts.KK_BASE_FEATURES_SYSTEM_MULTIFEATURE_UID,ButtonID, PinControlData.KK_CONTROL_DATA.CONTROL_TRIGGERED,1));
+        PM.PinData=gson.toJson(PluginManagerControls.CONTROL_SendPluginMessageData_PData(SystemConsts.KK_BASE_UICONTEXT_DEFAULT,SystemConsts.KK_BASE_FEATURES_SYSTEM_MULTIFEATURE_UID,Btn, PinControlData.KK_CONTROL_DATA.CONTROL_TRIGGERED,1));
         PM.FeatureID=SystemConsts.KK_BASE_FEATURES_SYSTEM_MULTIFEATURE_UID;
         //
         return gson.toJson(PM);

@@ -41,9 +41,9 @@ public class ODBSimpleData {
      
     public void SetODBData(ODB2Data Data)
     {
-        for (int Key:Data.GetHT().keySet())
+        for (int Key:Data.getHT().keySet())
         {
-            ODBData.put(Key, Data.GetHT().get(Key));
+            ODBData.put(Key, Data.getHT().get(Key));
         }
     }
     

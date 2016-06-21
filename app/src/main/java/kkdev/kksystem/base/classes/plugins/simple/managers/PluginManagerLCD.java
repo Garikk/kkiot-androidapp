@@ -24,12 +24,12 @@ public class PluginManagerLCD extends PluginManagerBase {
       public void DISPLAY_SendPluginMessageCommand(String UIContextID,String FeatureID,DisplayConstants.KK_DISPLAY_COMMAND Command,String PageID, String[] DataStr, int[] DataInt, boolean[] DataBool) {
         //
         PinLedCommand PData = new PinLedCommand();
-        PData.Command = Command;
-        PData.BOOL = DataBool;
-        PData.INT = DataInt;
-        PData.STRING = DataStr;
-        PData.PageID=PageID;
-        PData.ChangeUIContextID=UIContextID;
+        PData.command = Command;
+        PData.dataBOOL = DataBool;
+        PData.dataINT = DataInt;
+        PData.dataSTRING = DataStr;
+        PData.pageID=PageID;
+        PData.changeUIContextID=UIContextID;
         //
         //
         this.BASE_SendPluginMessage(FeatureID,KK_PLUGIN_BASE_LED_COMMAND, PData);
@@ -47,12 +47,12 @@ public class PluginManagerLCD extends PluginManagerBase {
        public void _DISPLAY_SendPluginMessageCommandDirect(String UIContextID,String TargetUUID,String FeatureID,DisplayConstants.KK_DISPLAY_COMMAND Command,String PageID, String[] DataStr, int[] DataInt, boolean[] DataBool) {
         
         PinLedCommand PData = new PinLedCommand();
-        PData.Command = Command;
-        PData.BOOL = DataBool;
-        PData.INT = DataInt;
-        PData.STRING = DataStr;
-        PData.PageID=PageID;
-        PData.ChangeUIContextID=UIContextID;
+        PData.command = Command;
+        PData.dataBOOL = DataBool;
+        PData.dataINT = DataInt;
+        PData.dataSTRING = DataStr;
+        PData.pageID=PageID;
+        PData.changeUIContextID=UIContextID;
         //
 
         //

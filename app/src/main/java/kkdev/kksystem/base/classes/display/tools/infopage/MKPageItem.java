@@ -5,14 +5,14 @@
  */
 package kkdev.kksystem.base.classes.display.tools.infopage;
 
-import kkdev.kksystem.base.classes.display.UIFramesKeySet;
+import kkdev.kksystem.base.classes.display.pages.framesKeySet;
 
 /**
  *
  * @author blinov_is
  */
 public class MKPageItem {
-    public String PageName;
-    public String PageCommand;
-    public UIFramesKeySet UIFrames;
+    public String pageName;
+    public String pageCommand;
+    public framesKeySet pageFrames;
 }

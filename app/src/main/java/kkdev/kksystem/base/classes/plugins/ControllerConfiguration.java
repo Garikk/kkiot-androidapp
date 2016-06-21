@@ -12,15 +12,15 @@ import kkdev.kksystem.base.classes.display.tools.menumaker.MKMenuItem;
  * @author blinov_is
  */
 public class ControllerConfiguration {
-    public String ConfigurationUID;
-    public String ConfigurationStamp;
-    public FeatureConfiguration[] Features;
+    public String configurationUID;
+    public String configurationStamp;
+    public FeatureConfiguration[] features;
     //
-    public String SystemDisplay_UID;
-    public String SystemHID_UID;
+    public String systemDisplay_UID;
+    public String systemHID_UID;
     //
-    public String DefaultFeature;
-    public MKMenuItem[] SystemMenuItems;
+    public String defaultFeature;
+    public MKMenuItem[] systemMenuItems;
     
     //
 }

@@ -7,7 +7,7 @@ package kkdev.kksystem.base.classes.display.tools.infopage;
 
 import java.util.HashMap;
 import java.util.Map;
-import kkdev.kksystem.base.classes.display.UIFramesKeySet;
+import kkdev.kksystem.base.classes.display.pages.framesKeySet;
 
 /**
  *
@@ -15,55 +15,55 @@ import kkdev.kksystem.base.classes.display.UIFramesKeySet;
  */
 public class MKPageView {
 
-    int PageSelector;
-    MKPageItem[] CurrentPages;
-    Map<String, Integer> PageIndex;
+    int pageSelector;
+    MKPageItem[] currentPages;
+    Map<String, Integer> pageIndex;
 
     public MKPageView(int CountPages) {
-        CurrentPages = new MKPageItem[CountPages];
-        PageIndex = new HashMap<>();
+        currentPages = new MKPageItem[CountPages];
+        pageIndex = new HashMap<>();
     }
 
-    public MKPageItem MovePageNext() {
-        if (CurrentPages.length == 1) {
-            return GetPage();
+    public MKPageItem movePageNext() {
+        if (currentPages.length == 1) {
+            return getPage();
         }
 
-        if (PageSelector < CurrentPages.length - 1) {
-            PageSelector++;
+        if (pageSelector < currentPages.length - 1) {
+            pageSelector++;
         } else {
-            PageSelector = 0;
+            pageSelector = 0;
         }
 
-        return GetPage();
+        return getPage();
     }
 
-    public MKPageItem MovePagePrev() {
-        if (CurrentPages.length == 1) {
-            return GetPage();
+    public MKPageItem movePagePrev() {
+        if (currentPages.length == 1) {
+            return getPage();
         }
 
-        if (PageSelector > 0) {
-            PageSelector--;
+        if (pageSelector > 0) {
+            pageSelector--;
         } else {
-            PageSelector = CurrentPages.length - 1;
+            pageSelector = currentPages.length - 1;
         }
 
-        return GetPage();
+        return getPage();
     }
 
-    public void SetPageData(int Position, MKPageItem Page) {
-        CurrentPages[Position] = Page;
-        if (!PageIndex.containsKey(Page.PageName)) {
-            PageIndex.put(Page.PageName, Position);
+    public void setPageData(int Position, MKPageItem Page) {
+        currentPages[Position] = Page;
+        if (!pageIndex.containsKey(Page.pageName)) {
+            pageIndex.put(Page.pageName, Position);
         }
     }
 
-    public MKPageItem GetPage() {
-        return CurrentPages[PageSelector];
+    public MKPageItem getPage() {
+        return currentPages[pageSelector];
     }
 
-    public void UpdateUIFrames(String PageName, UIFramesKeySet Frames) {
-        CurrentPages[PageIndex.get(PageName)].UIFrames = Frames;
+    public void updateUIFrames(String PageName, framesKeySet Frames) {
+        currentPages[pageIndex.get(PageName)].pageFrames = Frames;
     }
 }

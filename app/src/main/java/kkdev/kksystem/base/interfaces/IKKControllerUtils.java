@@ -28,6 +28,6 @@ public interface IKKControllerUtils {
     // UIContexts
     public void UICONTEXT_AddUIContext(String UIContextID);
     public UIContextInfo UICONTEXT_GetUIContextInfo(String ContextID);
-    public void UICONTEXT_UpdateDisplayInUIContext(String ContextID, DisplayInfo DI);
+    public void UICONTEXT_UpdateDisplayInUIContext(String ContextID,DisplayInfo DI);
      
 }

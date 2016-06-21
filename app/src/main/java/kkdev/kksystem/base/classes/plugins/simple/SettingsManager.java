@@ -20,22 +20,22 @@ import kkdev.kksystem.base.constants.SystemConsts;
  */
 public class SettingsManager {
 
-    String ConfigurationFile;
-    Type SettingsClassType;
+    String configurationFile;
+    Type settingsClassType;
 
     public SettingsManager(String FileName, Type SettingsClass) {
-        SettingsClassType = SettingsClass;
-        ConfigurationFile = FileName;
+        settingsClassType = SettingsClass;
+        configurationFile = FileName;
     }
 
-    public void SaveConfig(Object Configuration) {
+    public void saveConfig(Object Configuration) {
         try {
             Gson gson = new Gson();
 
             String Res = gson.toJson(Configuration);
 
             FileWriter fw;
-            fw = new FileWriter(SystemConsts.KK_BASE_CONFPATH + "/" + ConfigurationFile);
+            fw = new FileWriter(SystemConsts.KK_BASE_CONFPATH + "/" + configurationFile);
             fw.write(Res);
             fw.flush();
             fw.close();
@@ -45,16 +45,17 @@ public class SettingsManager {
         }
     }
 
-    public Object LoadConfig() {
+    public Object loadConfig() {
         Object Ret;
         try {
             Gson gson = new Gson();
-            BufferedReader br = new BufferedReader(
-                    new FileReader(SystemConsts.KK_BASE_CONFPATH + "/" + ConfigurationFile));
             //
-            Ret = gson.fromJson(br, SettingsClassType);
-            //
-            br.close();
+            try (BufferedReader br = new BufferedReader(
+                    new FileReader(SystemConsts.KK_BASE_CONFPATH + "/" + configurationFile))) {
+                //
+                Ret = gson.fromJson(br, settingsClassType);
+                //
+            }
             //
             return Ret;
         } catch (FileNotFoundException  ex ) {

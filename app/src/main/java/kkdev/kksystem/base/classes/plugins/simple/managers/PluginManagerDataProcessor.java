@@ -8,7 +8,7 @@ package kkdev.kksystem.base.classes.plugins.simple.managers;
 import kkdev.kksystem.base.classes.display.DisplayConstants;
 import kkdev.kksystem.base.classes.display.PinLedCommand;
 import kkdev.kksystem.base.classes.display.PinLedData;
-import kkdev.kksystem.base.classes.display.UIFramesKeySet;
+import kkdev.kksystem.base.classes.display.pages.framesKeySet;
 import static kkdev.kksystem.base.constants.PluginConsts.KK_PLUGIN_BASE_LED_COMMAND;
 import static kkdev.kksystem.base.constants.PluginConsts.KK_PLUGIN_BASE_LED_DATA;
 
@@ -26,21 +26,21 @@ public class PluginManagerDataProcessor extends PluginManagerBase {
         _DISPLAY_SendPluginMessageCommandDirect(FeatureID,UIContextID, TargetID, DisplayConstants.KK_DISPLAY_COMMAND.DISPLAY_KKSYS_PAGE_ACTIVATE, PageName, null, null, null);
     }
 
-    public void _DISPLAY_UpdateUIFramesDirect(String FeatureID,String UIContextID, String TargetID, String PageName, UIFramesKeySet UIFrames) {
+    public void _DISPLAY_UpdateUIFramesDirect(String FeatureID,String UIContextID, String TargetID, String PageName, framesKeySet UIFrames) {
         DISPLAY_UpdateUIFrames_Internal(FeatureID,UIContextID,true, TargetID, PageName, UIFrames);
     }
 
-    public void DISPLAY_UpdateUIFrames(String FeatureID,String UIContextID, String PageName, UIFramesKeySet UIFrames) {
+    public void DISPLAY_UpdateUIFrames(String FeatureID,String UIContextID, String PageName, framesKeySet UIFrames) {
         DISPLAY_UpdateUIFrames_Internal(FeatureID,UIContextID,false,  null, PageName, UIFrames);
     }
 
-    private void DISPLAY_UpdateUIFrames_Internal(String FeatureID,String UIContextID,boolean Direct,  String TargetID, String PageName, UIFramesKeySet UIFrames) {
+    private void DISPLAY_UpdateUIFrames_Internal(String FeatureID,String UIContextID,boolean Direct,  String TargetID, String PageName, framesKeySet UIFrames) {
         PinLedData PLD = new PinLedData();
-        PLD.UIFrames = UIFrames;
-        PLD.FeatureID = FeatureID;
-        PLD.TargetPage = PageName;
-        PLD.LedDataType = DisplayConstants.KK_DISPLAY_DATA.DISPLAY_KKSYS_TEXT_UPDATE_FRAME;
-        PLD.UIContextID=UIContextID;
+        PLD.displayFrames = UIFrames;
+        PLD.featureID = FeatureID;
+        PLD.targetPage = PageName;
+        PLD.ledDataType = DisplayConstants.KK_DISPLAY_DATA.DISPLAY_KKSYS_TEXT_UPDATE_FRAME;
+        PLD.contextID=UIContextID;
 
         
         
@@ -61,13 +61,13 @@ public class PluginManagerDataProcessor extends PluginManagerBase {
 
     private void DISPLAY_SendPluginMessageCommand_Internal(String FeatureID,String UIContextID,boolean Direct, String TargetID, DisplayConstants.KK_DISPLAY_COMMAND Command, String PageID, String[] DataStr, int[] DataInt, boolean[] DataBool) {
         PinLedCommand PData = new PinLedCommand();
-        PData.Command = Command;
-        PData.BOOL = DataBool;
-        PData.INT = DataInt;
-        PData.STRING = DataStr;
-        PData.PageID = PageID;
-        PData.ChangeFeatureID=FeatureID;
-        PData.ChangeUIContextID=UIContextID;
+        PData.command = Command;
+        PData.dataBOOL = DataBool;
+        PData.dataINT = DataInt;
+        PData.dataSTRING = DataStr;
+        PData.pageID = PageID;
+        PData.changeFeatureID=FeatureID;
+        PData.changeUIContextID=UIContextID;
 
         if (Direct) {
             this._BASE_SendPluginMessageDirect(FeatureID, TargetID, KK_PLUGIN_BASE_LED_COMMAND, PData);

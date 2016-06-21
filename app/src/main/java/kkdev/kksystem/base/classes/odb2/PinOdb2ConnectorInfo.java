@@ -16,6 +16,6 @@ public class PinOdb2ConnectorInfo {
         ODB_CONNECTOR_READY
     }
     
-    public ODB_State OdbAdapterState;
-    public String OdbAdapterDescripton;
+    public ODB_State odbAdapterState;
+    public String odbAdapterDescripton;
 }

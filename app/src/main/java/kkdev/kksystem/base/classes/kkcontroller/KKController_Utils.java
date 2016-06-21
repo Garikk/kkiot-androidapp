@@ -5,11 +5,13 @@
  */
 package kkdev.kksystem.base.classes.kkcontroller;
 
+import kkdev.kksystem.base.classes.display.DisplayInfo;
+
 /**
  *
  * @author blinov_is
  */
-public abstract class KKController_Utils
+public class KKController_Utils
 {
  public static class RS232Device {
 
@@ -27,6 +29,9 @@ public abstract class KKController_Utils
         Other,
         Error;
     }
+    
+
+    
     
     public static final String KKController_Util_Act_RS232Devices="1";
 }

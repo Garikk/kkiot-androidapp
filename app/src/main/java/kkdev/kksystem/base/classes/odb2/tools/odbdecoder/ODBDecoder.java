@@ -10,13 +10,13 @@ package kkdev.kksystem.base.classes.odb2.tools.odbdecoder;
  * @author blinov_is
  */
 public class ODBDecoder {
-    public ODBSimpleData SimpleData;
+    public ODBSimpleData simpleData;
     
     public ODBDecoder()
     {
-        SimpleData=new ODBSimpleData();
+        simpleData=new ODBSimpleData();
     }
-    public String GetTroubleCodePrefix(Integer PfxDigit)
+    public String getTroubleCodePrefix(Integer PfxDigit)
     {
         String Ret;
         Ret= PfxDigit.toString();

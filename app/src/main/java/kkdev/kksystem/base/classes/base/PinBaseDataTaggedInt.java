@@ -14,8 +14,8 @@ public class PinBaseDataTaggedInt extends PinBaseData {
 
     public PinBaseDataTaggedInt()
     {
-        this.DataType=BASE_DATA_TYPE.TAGGED_INT;
+        this.dataType=BASE_DATA_TYPE.TAGGED_INT;
     }
-    public String Tag;
-    public int Value;
+    public String tag;
+    public int value;
 }

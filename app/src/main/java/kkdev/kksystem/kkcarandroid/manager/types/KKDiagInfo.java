@@ -79,11 +79,11 @@ public class KKDiagInfo {
         if (Dat.Odb2DataType== ODBConstants.KK_ODB_DATATYPE.ODB_DIAG_CE_ERRORS)
         {
             Ret.CorrectCEData=true;
-            for (Integer Pfx:Dat.ODBData.GetCEError().keySet())
+            for (Integer Pfx:Dat.ODBData.getCEError().keySet())
             {
-                for (Byte Err:Dat.ODBData.GetCEError().get(Pfx))
+                for (Byte Err:Dat.ODBData.getCEError().get(Pfx))
                 {
-                    RetCE.add(new KKDTCCode(ODBDataDecoder.GetTroubleCodePrefix(Pfx),Err.toString(),"0"));
+                    RetCE.add(new KKDTCCode(ODBDataDecoder.getTroubleCodePrefix(Pfx),Err.toString(),"0"));
                 }
 
             }

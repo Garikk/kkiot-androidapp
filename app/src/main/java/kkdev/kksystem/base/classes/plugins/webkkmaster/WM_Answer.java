@@ -13,8 +13,8 @@ public class WM_Answer {
     public int KKM_ANS_State_OK=0;
     public int KKM_ANS_State_ERR=1;
     
-    public int AnswerState;
-    public int Version;
-    public String JsonData;
+    public int answerState;
+    public int version;
+    public String jsonData;
     
 }

@@ -10,5 +10,5 @@ package kkdev.kksystem.base.classes.plugins;
  * @author blinov_is
  */
 public class ExternalConfiguration {
-    public String ConfigurationUUID;
+    public String configurationUUID;
 }

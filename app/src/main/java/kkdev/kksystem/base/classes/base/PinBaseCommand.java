@@ -27,12 +27,12 @@ public class PinBaseCommand {
     
     public PinBaseCommand()
     {
-        BaseCommand=BASE_COMMAND_TYPE.PLUGIN;
+        baseCommand=BASE_COMMAND_TYPE.PLUGIN;
     }
     
-    public BASE_COMMAND_TYPE BaseCommand;
-    public String ChangeUIContextID;
-    public String ChangeFeatureID;
-    public String LogReason;
+    public BASE_COMMAND_TYPE baseCommand;
+    public String changeUIContextID;
+    public String changeFeatureID;
+    public String logReason;
     
 }

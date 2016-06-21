@@ -13,8 +13,8 @@ import kkdev.kksystem.base.classes.notify.NotifyConsts.NOTIFY_TYPE;
  * @author blinov_is
  */
 public class PinNotifyData {
-    public NOTIFY_TYPE NotifyType;
-    public NOTIFY_METHOD[] NotifyMethod;
+    public NOTIFY_TYPE notifyType;
+    public NOTIFY_METHOD[] notifyMethod;
     
-    public String NotifyText;
+    public String notifyText;
 }

@@ -13,12 +13,12 @@ import kkdev.kksystem.base.classes.display.DisplayConstants.KK_DISPLAY_COMMAND;
  * @author blinov_is
  */
 public class PinLedCommand extends PinBaseCommand {
-    public KK_DISPLAY_COMMAND Command;
+    public KK_DISPLAY_COMMAND command;
     
-    public String PageID;
-    public int[] INT;
-    public String[] STRING;
-    public boolean[] BOOL;
+    public String pageID;
+    public int[] dataINT;
+    public String[] dataSTRING;
+    public boolean[] dataBOOL;
     //
     
     

@@ -56,12 +56,13 @@ public final class SystemConsts {
     public static final String KK_BASE_UICONTEXT_GFX1="DEFAULT_UI_CONTEXT_GFX_1";
     public static final String KK_BASE_UICONTEXT_GFX2="DEFAULT_UI_CONTEXT_GFX_2";
     //CHANGE THIS! It is must be dynamic
-     public static final String KK_BASE_FEATURES_ODB_DIAG_UID="c01287e6-3e5c-48bb-9eae-680a20210531";
-     public static final String KK_BASE_FEATURES_ODB_DIAG_ANDROIDAPP_UID="aaee9986-2d86-46c0-a199-e02785d062f3";
-    public static final String KK_BASE_FEATURES_MEDIAPLAYER_UID="61cf8b24-ac5c-4686-80b4-f882ca0c9808";
-     public static final String KK_BASE_FEATURES_BLUETOOTH_UID="eabf2eb9-2cb3-43f8-aff4-c52f6f08e871";
-     
+    public static final String KK_BASE_FEATURES_ODB_DIAG_UID = "c01287e6-3e5c-48bb-9eae-680a20210531";
+    public static final String KK_BASE_FEATURES_ODB_DIAG_ANDROIDAPP_UID = "aaee9986-2d86-46c0-a199-e02785d062f3";
+    public static final String KK_BASE_FEATURES_MEDIAPLAYER_UID = "61cf8b24-ac5c-4686-80b4-f882ca0c9808";
+    public static final String KK_BASE_FEATURES_BLUETOOTH_UID = "eabf2eb9-2cb3-43f8-aff4-c52f6f08e871";
+
      //
+
      
     
 }

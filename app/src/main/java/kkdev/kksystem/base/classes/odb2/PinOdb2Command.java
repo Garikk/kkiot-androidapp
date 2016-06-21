@@ -15,9 +15,9 @@ import kkdev.kksystem.base.classes.odb2.ODBConstants.KK_ODB_DATACOMMANDINFO;
  * @author blinov_is
  */
 public class PinOdb2Command extends PinBaseCommand{
-    public KK_ODB_COMMANDTYPE Command;      //Type of command for ODB Plugin
-    public KK_ODB_DATACOMMANDINFO CommandData;   //Type of Data
-    public int[] RequestPIDs;               //pid numbers
-    public int[] DynamicRequestInterval;    //0 - one request, other - seconds for dynamic requests
-    public Object ObjectData;               //any raw data for plugin interconnection
+    public KK_ODB_COMMANDTYPE command;      //Type of command for ODB Plugin
+    public KK_ODB_DATACOMMANDINFO commandData;   //Type of Data
+    public int[] requestPIDs;               //pid numbers
+    public int[] dynamicRequestInterval;    //0 - one request, other - seconds for dynamic requests
+    public Object objectData;               //any raw data for plugin interconnection
 }

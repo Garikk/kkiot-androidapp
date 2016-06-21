@@ -10,71 +10,71 @@ package kkdev.kksystem.base.classes.display.pages;
  * @author blinov_is
  */
 public class DisplayPage {
-    public final String DP_COUNT_PREFIX="[$COUNT]";
-    public String PageName;         //ID
-    public boolean DynamicElements; //want to exec anmimation by thread
-    public boolean IsDefaultPage;
-    public boolean IsMultifeaturePage;  //Page available in all features
+    public static final String DP_COUNT_PREFIX="[$COUNT]";
+    public String pageName;         //ID
+    public boolean dynamicElements; //want to exec anmimation by thread
+    public boolean isDefaultPage;
+    public boolean isMultifeaturePage;  //Page available in all features
     //
-    public String[] Features;
+    public String[] features;
     //
-    public String[] UIContexts;         //links to HWDisplays
+    public String[] contexts;         //links to HWDisplays
     //
-    public UIFramePack UIFramesPack;
+    public UIFramePack framesPack;
     //
-    public  String[] UIFrames;
-    public  UIFramesKeySet UIFramesValues;
+    public  String[] frames;
+    public  framesKeySet framesValues;
     
-    public DisplayPage GetInstance()
+    public DisplayPage getInstance()
     {
-        DisplayPage Ret;
-        Ret=new DisplayPage();
-        Ret.Features=this.Features;
-        Ret.UIContexts=this.UIContexts;
-        Ret.UIFramesPack=this.UIFramesPack;
-        Ret.UIFrames=this.UIFrames;
-        Ret.UIFramesValues=this.UIFramesValues;
-        Ret.PageName=this.PageName;
-        Ret.DynamicElements=this.DynamicElements;
-        Ret.IsDefaultPage=this.IsDefaultPage;
-        Ret.IsMultifeaturePage=this.IsMultifeaturePage;
+        DisplayPage ret;
+        ret=new DisplayPage();
+        ret.features=this.features;
+        ret.contexts=this.contexts;
+        ret.framesPack=this.framesPack;
+        ret.frames=this.frames;
+        ret.framesValues=this.framesValues;
+        ret.pageName=this.pageName;
+        ret.dynamicElements=this.dynamicElements;
+        ret.isDefaultPage=this.isDefaultPage;
+        ret.isMultifeaturePage=this.isMultifeaturePage;
         
-        return Ret;
+        return ret;
     }
    
-     public void InitUIFrames() {
+     public void initUIFrames() {
         int i=0;
-        UIFrames = new String[UIFramesPack.Data.length];
-        for (UIFrameData FrameData : UIFramesPack.Data) {
-           UIFrames[i]=FrameData.FrameData;
+        frames = new String[framesPack.data.length];
+        for (UIFrameData FrameData : framesPack.data) {
+           frames[i]=FrameData.frameData;
            i++;
            
         }
     }
      
-     public String[] GetUIContexts()
+     public String[] getUIContexts()
      {
-         return UIContexts;
+         return contexts;
      }
    
-     public void InitUIFrames(int RowCount)
+     public void initUIFrames(int RowCount)
      {
-        InitUIFrames();
+        DisplayPage.this.initUIFrames();
         String Template="";
 
         
-         for (int i = 0; i < UIFrames.length; i++) {
-             if (!UIFrames[i].contains(DP_COUNT_PREFIX))
+         for (int i = 0; i < frames.length; i++) {
+             if (!frames[i].contains(DP_COUNT_PREFIX))
                  continue;
              
              for (int ii = 0; ii < RowCount; ii++) {
                  if (ii == 0) {
-                     Template = UIFrames[i];
-                     UIFrames[i]=Template.replace(DP_COUNT_PREFIX, String.valueOf(ii));
+                     Template = frames[i];
+                     frames[i]=Template.replace(DP_COUNT_PREFIX, String.valueOf(ii));
                  }
                  else
                  {
-                    UIFrames[i] = UIFrames[i] + Template.replace(DP_COUNT_PREFIX, String.valueOf(ii));
+                    frames[i] = frames[i] + Template.replace(DP_COUNT_PREFIX, String.valueOf(ii));
                  }
              }
          }

@@ -23,22 +23,22 @@ public class ODB2Data {
         PIDValues=new HashMap<>();
         CE_Errors=new HashMap<>();
     }
-    public Map<Integer,Double> GetHT()
+    public Map<Integer,Double> getHT()
     {
         return PIDValues;
 
     }
-     public Map<Integer,List<Byte>> GetCEError()
+     public Map<Integer,List<Byte>> getCEError()
     {
         return CE_Errors;
 
     }
     
-    public void AddPID(Integer PID, Double Value)
+    public void addPID(Integer PID, Double Value)
     {
         PIDValues.put(PID, Value);
     }
-    public void AddError(int Prefix, Byte Value)
+    public void addError(int Prefix, Byte Value)
     {
         
         if (!CE_Errors.containsKey(Prefix))

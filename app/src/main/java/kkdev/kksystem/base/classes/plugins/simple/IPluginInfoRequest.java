@@ -12,5 +12,5 @@ import kkdev.kksystem.base.classes.plugins.PluginInfo;
  * @author blinov_is
  */
 public interface IPluginInfoRequest {
-    public PluginInfo GetPluginInfo();
+    public PluginInfo getPluginInfo();
 }

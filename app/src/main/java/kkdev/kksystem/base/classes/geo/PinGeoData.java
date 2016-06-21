@@ -39,7 +39,7 @@ public class PinGeoData extends PinBaseData{
     {
         String[] NMEA = Data.split(",");
         
-        if (NMEA[NMEA_0183_HEADER]=="$GPRMC")
+        if ("$GPRMC".equals(NMEA[NMEA_0183_HEADER]))
         {
             DataType=GEO_DATA_TYPE.GEO_GPRMC;
             SatTime=NMEA[NMEA_0183_RMC_TIME];

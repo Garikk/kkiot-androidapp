@@ -15,46 +15,46 @@ import kkdev.kksystem.base.interfaces.IPluginKKConnector;
  * @author blinov_is
  */
 public class KKPluginBase implements IPluginKKConnector{
-    public String GlobalConfID;
+    public String globalConfID;
     
-    public IPluginInfoRequest PluginInfo;
-    IPluginBaseInterface Connector;
+    public IPluginInfoRequest pluginInfo;
+    IPluginBaseInterface connector;
     
     public KKPluginBase(IPluginInfoRequest PluginInfoClass)
     {
-       PluginInfo=PluginInfoClass;
+       pluginInfo=PluginInfoClass;
     }
     
     @Override
-    public PluginInfo GetPluginInfo() {
-        return PluginInfo.GetPluginInfo();
+    public PluginInfo getPluginInfo() {
+        return pluginInfo.getPluginInfo();
     }
 
     @Override
-    public PluginMessage ExecutePin(PluginMessage Pin) {
+    public PluginMessage executePin(PluginMessage Pin) {
        //must be override!
         return null;
     }
 
     @Override
-    public void SendPinMessage(PluginMessage Pin) {
-        Pin.SenderUID=PluginInfo.GetPluginInfo().PluginUUID;
-        Connector.ExecutePinCommand(Pin);
+    public void sendPinMessage(PluginMessage Pin) {
+        Pin.SenderUID=pluginInfo.getPluginInfo().PluginUUID;
+        connector.executePinCommand(Pin);
     }
 
     @Override
-    public void PluginInit(IPluginBaseInterface BaseConnector,String GlobalConfUID) {
-        Connector=BaseConnector;
-        GlobalConfID=GlobalConfUID;
+    public void pluginInit(IPluginBaseInterface BaseConnector,String GlobalConfUID) {
+        connector=BaseConnector;
+        globalConfID=GlobalConfUID;
     }
 
     @Override
-    public void PluginStart() {
+    public void pluginStart() {
        //Must be override
     }
 
     @Override
-    public void PluginStop() {
+    public void pluginStop() {
        //Must be override
     }
     

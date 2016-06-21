@@ -19,7 +19,7 @@ import static kkdev.kksystem.base.constants.PluginConsts.KK_PLUGIN_BASE_ODB2_DAT
  * @author blinov_is
  */
 public class PluginManagerODB extends PluginManagerBase {
-
+    
     public void ODB_SendPluginMessageCommand(String FeatureID,ODBConstants.KK_ODB_COMMANDTYPE Command, ODBConstants.KK_ODB_DATACOMMANDINFO Request, int[] DataInt, int[] ReadInterval) {
 
         //
@@ -30,38 +30,38 @@ public class PluginManagerODB extends PluginManagerBase {
         PinOdb2Data PData = new PinOdb2Data();
         PData.Odb2DataType=ODBConstants.KK_ODB_DATATYPE.ODB_BASE_CONNECTOR;
         PData.AdapterInfo=ConnInfo;
-        PData.FeatureID=FeatureID;
+        PData.featureID=FeatureID;
         //
-        this.BASE_SendPluginMessage(FeatureID,KK_PLUGIN_BASE_ODB2_DATA, PData);
+       this.BASE_SendPluginMessage(FeatureID,KK_PLUGIN_BASE_ODB2_DATA, PData);
     }
-    public void ODB_SendODBInfo(String FeatureID,PinOdb2ConnectorInfo ConnInfo, ODB2Data Data) {
+     public void ODB_SendODBInfo(String FeatureID,PinOdb2ConnectorInfo ConnInfo, ODB2Data Data) {
         //
         PinOdb2Data PData = new PinOdb2Data();
         PData.Odb2DataType=ODBConstants.KK_ODB_DATATYPE.ODB_DIAG_DATA;
         PData.ODBData=Data;
         PData.AdapterInfo=ConnInfo;
-        PData.FeatureID=FeatureID;
+        PData.featureID=FeatureID;
         //
-        this.BASE_SendPluginMessage(FeatureID,KK_PLUGIN_BASE_ODB2_DATA, PData);
+       this.BASE_SendPluginMessage(FeatureID,KK_PLUGIN_BASE_ODB2_DATA, PData);
     }
-    public void ODB_SendODBErrors(String FeatureID,PinOdb2ConnectorInfo ConnInfo, ODB2Data Data) {
+      public void ODB_SendODBErrors(String FeatureID,PinOdb2ConnectorInfo ConnInfo, ODB2Data Data) {
         //
         PinOdb2Data PData = new PinOdb2Data();
         PData.Odb2DataType=ODBConstants.KK_ODB_DATATYPE.ODB_DIAG_CE_ERRORS;
         PData.ODBData=Data;
         PData.AdapterInfo=ConnInfo;
-        PData.FeatureID = FeatureID;
+        PData.featureID = FeatureID;
         //
         this.BASE_SendPluginMessage(FeatureID, KK_PLUGIN_BASE_ODB2_DATA, PData);
     }
 
     public static PinOdb2Command ODB_SendPluginMessageCommand_PMData(ODBConstants.KK_ODB_COMMANDTYPE Command, ODBConstants.KK_ODB_DATACOMMANDINFO Request, int[] DataInt, int[] ReadInterval) {
         PinOdb2Command PData = new PinOdb2Command();
-        PData.Command = Command;
-        PData.CommandData = Request;
+        PData.command = Command;
+        PData.commandData = Request;
         //
-        PData.RequestPIDs = DataInt;
-        PData.DynamicRequestInterval = ReadInterval;
+        PData.requestPIDs = DataInt;
+        PData.dynamicRequestInterval = ReadInterval;
 
         return PData;
     }

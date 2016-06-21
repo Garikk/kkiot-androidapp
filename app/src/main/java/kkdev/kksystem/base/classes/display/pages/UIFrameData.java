@@ -11,7 +11,7 @@ package kkdev.kksystem.base.classes.display.pages;
  */
    public class UIFrameData
     {
-        public String Name;
-        public String FrameData;
-        public int FontSize;
+        public String name;
+        public String frameData;
+        public int fontSize;
     }

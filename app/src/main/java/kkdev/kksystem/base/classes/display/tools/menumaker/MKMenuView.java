@@ -5,7 +5,8 @@
  */
 package kkdev.kksystem.base.classes.display.tools.menumaker;
 
-import kkdev.kksystem.base.classes.display.UIFramesKeySet;
+import static kkdev.kksystem.base.classes.display.pages.PageConsts.KK_DISPLAY_PAGES_SIMPLEMENU_TXT_C1RX_PREFIX;
+import kkdev.kksystem.base.classes.display.pages.framesKeySet;
 
 /**
  *
@@ -13,107 +14,112 @@ import kkdev.kksystem.base.classes.display.UIFramesKeySet;
  */
 public class MKMenuView {
 
-    private int MenuRowCount;
+    private int menuRowCount;
 
-    public MKMenuItem[] DisplayedMenu;
+    public MKMenuItem[] displayedMenu;
    // public HashMap TemplateKeys;
 
     public static final String DEF_MENU_ITEM_PFX = "SYSMENU_";
     public static final String DEF_MENU_SELECTOR_PFX = "SEL_";
-    public static final String DEF_MENU_PAGE = "SYSMENU_1";
+   
+    private int currentViewPosition = 0;
+    private int selectorPosition = 0;
 
-    private int CurrentViewPosition = 0;
-    private int SelectorPosition = 0;
-
-    private int ViewRowCount;
+    private int viewRowCount;
 
     public MKMenuView(int ViewRows, int MenuRows) {
-        DisplayedMenu = new MKMenuItem[MenuRows];
-        MenuRowCount = MenuRows;
-        ViewRowCount = ViewRows;
+        displayedMenu = new MKMenuItem[MenuRows];
+        menuRowCount = MenuRows;
+        viewRowCount = ViewRows;
 
     }
 
-    public void ResetMenuView(int MenuRows) {
-        CurrentViewPosition = 0;
-        SelectorPosition = 0;
-        MenuRowCount = MenuRows;
-        DisplayedMenu = new MKMenuItem[MenuRows];
+    public void resetMenuView(int MenuRows) {
+        currentViewPosition = 0;
+        selectorPosition = 0;
+        menuRowCount = MenuRows;
+        displayedMenu = new MKMenuItem[MenuRows];
     }
     
 
-    public void SetItemData(int Position, MKMenuItem MenuItem) {
-        DisplayedMenu[Position] = MenuItem;
+    public void setItemData(int Position, MKMenuItem MenuItem) {
+        displayedMenu[Position] = MenuItem;
 
     }
 
-    public UIFramesKeySet GetMenu() {
-        return GetView();
+    public framesKeySet getMenu() {
+        return getView();
     }
 
-    public UIFramesKeySet MoveMenuUP() {
-       if (MenuRowCount==1)
-            return GetView();
+    public framesKeySet moveMenuUP() {
+       if (menuRowCount==1)
+            return getView();
        
-        if (SelectorPosition > 0) {
-            SelectorPosition--;
+        if (selectorPosition > 0) {
+            selectorPosition--;
         } else {
-            if (CurrentViewPosition == 0) {
-                CurrentViewPosition = MenuRowCount - ViewRowCount;
-                SelectorPosition = ViewRowCount-1;
+            if (currentViewPosition == 0) {
+                if (menuRowCount>viewRowCount)
+                {
+                    currentViewPosition = menuRowCount - viewRowCount;
+                    selectorPosition = viewRowCount-1;
+                }
+                else
+                {
+                    selectorPosition = menuRowCount-1;
+                }
             } else {
-                CurrentViewPosition--;
+                currentViewPosition--;
             }
         }
-
-        return GetView();
+        return getView();
     }
 
-    public UIFramesKeySet MoveMenuDown() {
-         // System.out.println(SelectorPosition + " " +ViewRowCount + " "+ MenuRowCount);
-        if (MenuRowCount==1)
-            return GetView();
+    public framesKeySet moveMenuDown() {
+        if (menuRowCount==1)
+            return getView();
         
         
-        if (SelectorPosition < ViewRowCount - 1) {
-            SelectorPosition++;
+        if ((selectorPosition < viewRowCount - 1) & (selectorPosition<menuRowCount)) {
+            selectorPosition++;
         } else {
-            if ((CurrentViewPosition + ViewRowCount) > MenuRowCount - 1) {
-                CurrentViewPosition = 0;
-                SelectorPosition = 0;
+            if (((currentViewPosition + viewRowCount) > menuRowCount - 1) | (selectorPosition==menuRowCount-1)) {
+                currentViewPosition = 0;
+                selectorPosition = 0;
             } else {
-                CurrentViewPosition++;
+                currentViewPosition++;
             }
         }
-
-        return GetView();
+        
+        return getView();
 
     }
 
-    public MKMenuItem GetCurrentMenuItem()
+    public MKMenuItem getCurrentMenuItem()
     {
-        return DisplayedMenu[CurrentViewPosition+SelectorPosition];
+        return displayedMenu[currentViewPosition+selectorPosition];
     }
 
-    public UIFramesKeySet GetView() {
-        UIFramesKeySet Ret;
-        Ret = new UIFramesKeySet(); 
+    public framesKeySet getView() {
+        framesKeySet Ret;
+        Ret = new framesKeySet(); 
         //
-        for (int i = 0; i < ViewRowCount; i++) {
-            if ((i>=MenuRowCount))
+        for (int i = 0; i < viewRowCount; i++) {
+            if ((i>=menuRowCount))
             {
-                Ret.AddKeySet(DEF_MENU_ITEM_PFX + i, ""); //if only one item in menu, set empty position
+                Ret.addKeySet(DEF_MENU_ITEM_PFX + i, ""); //if only one item in menu, set empty position
             }
             else
             {
-                Ret.AddKeySet(DEF_MENU_ITEM_PFX + i, DisplayedMenu[CurrentViewPosition + i].DisplayName);
+               
+                Ret.addKeySet(DEF_MENU_ITEM_PFX + i, displayedMenu[currentViewPosition + i].displayName);
             }
             
             
-            if (i == SelectorPosition) {
-                Ret.AddKeySet(DEF_MENU_SELECTOR_PFX+i,"*");
+            if (i == selectorPosition) {
+                Ret.addKeySet(DEF_MENU_SELECTOR_PFX+i,"*");
             } else {
-                Ret.AddKeySet(DEF_MENU_SELECTOR_PFX+i," ");
+                Ret.addKeySet(DEF_MENU_SELECTOR_PFX+i," ");
             }
         }
         return Ret;

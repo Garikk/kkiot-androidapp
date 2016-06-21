@@ -14,8 +14,8 @@ public class PinBaseDataTaggedObj extends PinBaseData {
     
     public PinBaseDataTaggedObj()
     {
-        this.DataType=BASE_DATA_TYPE.TAGGED_OBJ;
+        this.dataType=BASE_DATA_TYPE.TAGGED_OBJ;
     }
-    public String Tag;
-    public Object Value;
+    public String tag;
+    public Object value;
 }

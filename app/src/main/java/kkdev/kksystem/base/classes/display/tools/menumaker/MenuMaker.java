@@ -7,8 +7,13 @@ package kkdev.kksystem.base.classes.display.tools.menumaker;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Set;
 import kkdev.kksystem.base.classes.controls.PinControlData;
+import kkdev.kksystem.base.classes.display.pages.PageConsts;
+import kkdev.kksystem.base.classes.notify.NotifyConsts;
 import kkdev.kksystem.base.classes.plugins.simple.managers.PluginManagerDataProcessor;
+import kkdev.kksystem.base.constants.PluginConsts;
+import kkdev.kksystem.base.interfaces.IKKControllerUtils;
 import kkdev.kksystem.base.interfaces.IPluginBaseInterface;
 import kkdev.kksystem.base.interfaces.IPluginKKConnector;
 
@@ -21,165 +26,236 @@ public class MenuMaker {
     public static final String KK_MENUMAKER_SPECIALCMD_SUBMENU = "KK_SUBMENU";
 
     PluginManagerDataProcessor PManager;
-    boolean InSystemMode = false;
-    String MenuFeatureID;
-    String MenuContextID;
-    MKMenuItem[] MenuItems;
-    Deque<MKMenuItem[]> MenuTree;
-    IMenuMakerItemSelected CallBack;
+    boolean inSystemMode = false;
+    String menuFeatureID;
+    String menuContextID;
+    MKMenuItem[] menuItems;
+    Deque<MKMenuItem[]> menuTree;
+    IMenuMakerItemSelected callback;
     MKMenuView MViewer;
-    String SystemLCD;
-    String TargetPage;
-    String ActivePage;
+    String systemLCD;
+    String targetPage;
+    String activePage;
+    String currentBackCMD;
+    String specialPluginUUID;
+    boolean sendNotifications;
+    private IKKControllerUtils utils;
     //
-    public String GetActivePage()
+    public String getActivePage()
     {
-        return ActivePage;
+        return activePage;
     }
     public interface IMenuMakerItemSelected {
 
-        public void SelectedItem(String ItemCMD);
+        public void selectedItem(String ItemCMD);
+        public void stepBack(String BackCMD);
+        public void activeMenuElement(String ItemText,String ItemCMD);
+    }
+    public void setPluginUUID(String UUID)
+    {
+        specialPluginUUID=UUID;
     }
 
-    public MenuMaker(String FeatureID,String UIContextID, String MenuTargetPage, IPluginBaseInterface BaseConnector, IMenuMakerItemSelected MenuCallback, String SystemLCD_ID) {
-        if (MenuTargetPage == null | MenuTargetPage == "") {
-            TargetPage = MViewer.DEF_MENU_PAGE;
+    public MenuMaker(IKKControllerUtils KKUtils, String FeatureID,String UIContextID, String MenuTargetPage, IPluginBaseInterface BaseConnector, IMenuMakerItemSelected MenuCallback, String SystemLCD_ID, boolean SendNarratorNotifications) {
+      
+        if (MenuTargetPage == null) {
+            targetPage = PageConsts.KK_DISPLAY_PAGES_SIMPLEMENU_TXT_C1RX_PREFIX;
         } else {
-            TargetPage = MenuTargetPage;
+            targetPage = MenuTargetPage;
         }
-
-        CallBack = MenuCallback;
+        utils=KKUtils;
+        sendNotifications=SendNarratorNotifications;
+        callback = MenuCallback;
         PManager = new PluginManagerDataProcessor();
-        PManager.BaseConnector = BaseConnector;
-        InSystemMode = true;
-        SystemLCD = SystemLCD_ID;
-        MenuFeatureID = FeatureID;
-        MenuContextID=UIContextID;
+        PManager.baseConnector = BaseConnector;
+        inSystemMode = true;
+        systemLCD = SystemLCD_ID;
+        menuFeatureID = FeatureID;
+        menuContextID=UIContextID;
+        
 
     }
 
-    public MenuMaker(String FeatureID,String UIContextID, String MenuTargetPage, IPluginKKConnector PluginConnector, IMenuMakerItemSelected MenuCallback) {
+    public MenuMaker(IKKControllerUtils KKUtils, String FeatureID, String UIContextID, String MenuTargetPage, IPluginKKConnector PluginConnector, IMenuMakerItemSelected MenuCallback, boolean SendNarratorNotifications) {
         if (MenuTargetPage == null | "".equals(MenuTargetPage)) {
-            TargetPage = MKMenuView.DEF_MENU_PAGE;
+            targetPage = PageConsts.KK_DISPLAY_PAGES_SIMPLEMENU_TXT_C1RX_PREFIX ;
         } else {
-            TargetPage = MenuTargetPage;
+            targetPage = MenuTargetPage;
         }
         //        
-        CallBack = MenuCallback;
+        utils=KKUtils;
+          sendNotifications=SendNarratorNotifications;
+        callback = MenuCallback;
         PManager = new PluginManagerDataProcessor();
-        PManager.Connector = PluginConnector;
-        InSystemMode = false;
-         MenuFeatureID = FeatureID;
-            MenuContextID=UIContextID;
+        PManager.connector = PluginConnector;
+        inSystemMode = false;
+        menuFeatureID = FeatureID;
+        menuContextID = UIContextID;
     }
 
-    public void AddMenuItems(MKMenuItem[] Items) {
-        MenuTree = new ArrayDeque<>();
-        MenuItems = Items;
-        MViewer = new MKMenuView(5, Items.length);
+    public void addMenuItems(MKMenuItem[] Items)
+    {
+       addMenuItems(utils.UICONTEXT_GetUIContextInfo(menuContextID).UIDisplay.textMode_Rows,Items);
+    }
+    public void addMenuItems(int PageRows,MKMenuItem[] Items) {
+        menuTree = new ArrayDeque<>();
+        menuItems = Items;
+        MViewer = new MKMenuView(PageRows, Items.length);
 
         for (int i = 0; i < Items.length; i++) {
-            MViewer.SetItemData(i, Items[i]);
+            MViewer.setItemData(i, Items[i]);
         }
     }
 
-    public void UpdateMenuItems(MKMenuItem[] Items, boolean IsBackCommand) {
+    public void updateMenuItems(MKMenuItem[] Items,String BackCMD, boolean IsBackCommand) {
         if (!IsBackCommand) {
-            MenuTree.push(MenuItems);
+            menuTree.push(menuItems);
         }
 
-        MenuItems = Items;
-        MViewer.ResetMenuView(Items.length);
+        menuItems = Items;
+        MViewer.resetMenuView(Items.length);
         for (int i = 0; i < Items.length; i++) {
-            MViewer.SetItemData(i, Items[i]);
+            if (Items[i].itemBackFromSubItemCommand==null || Items[i].itemBackFromSubItemCommand.equals(""))
+                Items[i].itemBackFromSubItemCommand=BackCMD;
+            //
+            MViewer.setItemData(i, Items[i]);
         }
-        MenuRefreshDisplay();
+        menuRefreshDisplay();
     }
 
-    public void ShowMenu() {
+    public void showMenu() {
 
-        if (InSystemMode) {
-            ActivePage=TargetPage;
-            PManager._DISPLAY_ActivatePageDirect(MenuFeatureID,MenuContextID,SystemLCD, TargetPage);
-            PManager._DISPLAY_UpdateUIFramesDirect(MenuFeatureID,MenuContextID, SystemLCD, TargetPage, MViewer.GetMenu());
+        if (inSystemMode) {
+            activePage=targetPage;
+            PManager._DISPLAY_ActivatePageDirect(menuFeatureID,menuContextID,systemLCD, targetPage);
+            PManager._DISPLAY_UpdateUIFramesDirect(menuFeatureID,menuContextID, systemLCD, targetPage, MViewer.getMenu());
             
         } else {
-            ActivePage=TargetPage;
-            PManager.DISPLAY_ActivatePage(MenuFeatureID,MenuContextID, TargetPage);
-            PManager.DISPLAY_UpdateUIFrames(MenuFeatureID,MenuContextID, TargetPage, MViewer.GetMenu());
+            activePage=targetPage;
+            PManager.DISPLAY_ActivatePage(menuFeatureID,menuContextID, targetPage);
+            PManager.DISPLAY_UpdateUIFrames(menuFeatureID,menuContextID, targetPage, MViewer.getMenu());
 
         }
     }
 
-    public void MenuRefreshDisplay() {
-        if (InSystemMode) {
-            PManager._DISPLAY_UpdateUIFramesDirect(MenuFeatureID,MenuContextID, SystemLCD, TargetPage, MViewer.GetMenu());
+    public void menuRefreshDisplay() {
+        if (inSystemMode) {
+            PManager._DISPLAY_UpdateUIFramesDirect(menuFeatureID,menuContextID, systemLCD, targetPage, MViewer.getMenu());
         } else {
-            PManager.DISPLAY_UpdateUIFrames(MenuFeatureID,MenuContextID, TargetPage, MViewer.GetMenu());
+            PManager.DISPLAY_UpdateUIFrames(menuFeatureID,menuContextID, targetPage, MViewer.getMenu());
         }
     }
 
-    public void MenuSelectUp() {
+    public void menuSelectUp() {
 
-        if (InSystemMode) {
-            PManager._DISPLAY_UpdateUIFramesDirect(MenuFeatureID,MenuContextID, SystemLCD, TargetPage, MViewer.MoveMenuUP());
+        if (inSystemMode) {
+            PManager._DISPLAY_UpdateUIFramesDirect(menuFeatureID,menuContextID, systemLCD, targetPage, MViewer.moveMenuUP());
         } else {
-            PManager.DISPLAY_UpdateUIFrames(MenuFeatureID,MenuContextID, TargetPage, MViewer.MoveMenuUP());
+            PManager.DISPLAY_UpdateUIFrames(menuFeatureID,menuContextID, targetPage, MViewer.moveMenuUP());
         }
     }
 
-    public void MenuSelectDown() {
-        if (InSystemMode) {
-            PManager._DISPLAY_UpdateUIFramesDirect(MenuFeatureID,MenuContextID, SystemLCD, TargetPage, MViewer.MoveMenuDown());
+    public void menuSelectDown() {
+        if (inSystemMode) {
+            PManager._DISPLAY_UpdateUIFramesDirect(menuFeatureID,menuContextID, systemLCD, targetPage, MViewer.moveMenuDown());
         } else {
-            PManager.DISPLAY_UpdateUIFrames(MenuFeatureID,MenuContextID, TargetPage, MViewer.MoveMenuDown());
+            PManager.DISPLAY_UpdateUIFrames(menuFeatureID,menuContextID, targetPage, MViewer.moveMenuDown());
         }
     }
 
-    public void MenuSelectBack() {
-
-        if (MenuTree.size() > 0) {
-            UpdateMenuItems(MenuTree.pop(), true);
+    public void menuSelectBack() {
+        if (menuTree.size() > 0) {
+            MKMenuItem[] MI;
+            callback.stepBack(currentBackCMD);
+            MI=menuTree.pop();
+            currentBackCMD=MI[0].itemBackFromSubItemCommand;
+            updateMenuItems(MI,currentBackCMD, true);
+            
+        }
+        else
+        {
+            callback.selectedItem("LEAVE");
         }
 
     }
 
-    public void MenuExec() {
-        if (!ExecSpecialCommand(GetCurrentSelection())) {
-            CallBack.SelectedItem(GetCurrentSelection().ItemCommand);
+    public void menuExec() {
+        String CMD=execSpecialCommand(getCurrentSelection());
+        if (!CMD.equals("")) {
+            callback.selectedItem(CMD);
         }
 
     }
 
-    private boolean ExecSpecialCommand(MKMenuItem Item) {
-        switch (Item.ItemCommand) {
+    private String execSpecialCommand(MKMenuItem Item) {
+        if (Item.itemCommand==null)
+            return "";
+        
+        String CMD;
+        String RetCMD;
+               
+                
+        
+        if (Item.itemCommand.contains(" "))
+        {
+            CMD=Item.itemCommand.split(" ")[0];
+            RetCMD=Item.itemCommand.substring(CMD.length()+1);
+        }
+        else 
+        {
+            CMD=Item.itemCommand;
+            RetCMD="";
+        }
+        
+        switch (CMD) {
             case KK_MENUMAKER_SPECIALCMD_SUBMENU:
-                UpdateMenuItems(Item.SubItems, false);
-                return true;
+                currentBackCMD=Item.itemBackFromSubItemCommand;
+                updateMenuItems(Item.subItems,currentBackCMD, false);
+                return RetCMD;
         }
 
-        return false;
+        return Item.itemCommand;
     }
 
-    public MKMenuItem GetCurrentSelection() {
-        return MViewer.GetCurrentMenuItem();
+    public MKMenuItem getCurrentSelection() {
+        return MViewer.getCurrentMenuItem();
     }
-    
-     public void ProcessControlCommand(String ControlID) {
-        switch (ControlID) {
-            case PinControlData.DEF_BTN_UP:
-                MenuSelectUp();
-                break;
-            case PinControlData.DEF_BTN_DOWN:
-                MenuSelectDown();
-                break;
-            case PinControlData.DEF_BTN_ENTER:
-                MenuExec();
-                break;
-            case PinControlData.DEF_BTN_BACK:
-                MenuSelectBack();
-                break;
 
+    public void processControlCommand(Set<String> ControlID) {
+        for (String btnCtrl : ControlID) {
+            switch (btnCtrl) {
+                case PinControlData.DEF_BTN_UP:
+                    menuSelectUp();
+                    sendNarratorNotification(getCurrentSelection().displayName);
+                    callback.activeMenuElement(getCurrentSelection().displayName, getCurrentSelection().itemCommand);
+                    break;
+                case PinControlData.DEF_BTN_DOWN:
+                    menuSelectDown();
+                    sendNarratorNotification(getCurrentSelection().displayName);
+                    callback.activeMenuElement(getCurrentSelection().displayName, getCurrentSelection().itemCommand);
+                    break;
+                case PinControlData.DEF_BTN_ENTER:
+                    menuExec();
+                    break;
+                case PinControlData.DEF_BTN_BACK:
+                    menuSelectBack();
+                    //SendNarratorNotification(getCurrentSelection().displayName);
+                    //CallBack.activeMenuElement(getCurrentSelection().displayName, getCurrentSelection().itemCommand);
+                    break;
+            }
+        }
+    }
+
+    private void sendNarratorNotification(String Text) {
+        if (!sendNotifications) {
+            return;
+        }
+        NotifyConsts.NOTIFY_METHOD[] NM = new NotifyConsts.NOTIFY_METHOD[1];
+        NM[0] = NotifyConsts.NOTIFY_METHOD.VOICE;
+        if (inSystemMode) {
+            PManager._NOTIFY_SendNotifyMessage(PluginConsts.KK_PLUGIN_BASE_PLUGIN_UUID, menuFeatureID, NotifyConsts.NOTIFY_TYPE.SYSTEM_INFO, NM, Text);
+        } else {
+            PManager.NOTIFY_SendNotifyMessage(menuFeatureID, NotifyConsts.NOTIFY_TYPE.SYSTEM_INFO, NM, Text);
         }
 
     }

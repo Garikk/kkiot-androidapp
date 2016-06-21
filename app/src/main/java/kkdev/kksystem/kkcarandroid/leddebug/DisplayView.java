@@ -28,7 +28,7 @@ public class DisplayView {
         public DisplayView(IDisplayConnectorHW InitConn) {
             Connector = InitConn;
             //
-            DisplayID = Connector.GetDisplayInfo().DisplayID;
+            DisplayID = Connector.GetDisplayInfo().displayID;
             //
             Enabled = true; //Change this!
         }

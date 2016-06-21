@@ -13,12 +13,12 @@ import kkdev.kksystem.base.classes.plugins.PluginMessage;
  * @author blinov_is
  */
 public interface IPluginKKConnector {
-    public PluginInfo GetPluginInfo();
+    public PluginInfo getPluginInfo();
     
-    public PluginMessage ExecutePin(PluginMessage Pin);
-    public void SendPinMessage(PluginMessage Pin);
+    public PluginMessage executePin(PluginMessage Pin);
+    public void sendPinMessage(PluginMessage Pin);
     
-    public void PluginInit(IPluginBaseInterface BaseConnector, String GlobalConfUID);
-    public void PluginStart();
-    public void PluginStop();
+    public void pluginInit(IPluginBaseInterface BaseConnector, String GlobalConfUID);
+    public void pluginStart();
+    public void pluginStop();
 }

@@ -17,8 +17,8 @@ public class PinBaseData {
        TAGGED_INT,
        TAGGED_OBJ
     }
-  public String FeatureID;
-  public String LogReason;
-  public BASE_DATA_TYPE DataType;
+  public String featureID;
+  public String logReason;
+  public BASE_DATA_TYPE dataType;
 
 }

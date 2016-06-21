@@ -5,7 +5,7 @@
  */
 package kkdev.kksystem.base.classes.display;
 
-import java.util.HashMap;
+import kkdev.kksystem.base.classes.display.pages.framesKeySet;
 import kkdev.kksystem.base.classes.base.PinBaseData;
 import kkdev.kksystem.base.classes.display.DisplayConstants.KK_DISPLAY_DATA;
 
@@ -15,23 +15,23 @@ import kkdev.kksystem.base.classes.display.DisplayConstants.KK_DISPLAY_DATA;
  */
 public class PinLedData extends PinBaseData {
 
-    public String UIContextID;
+    public String contextID;
     
-    public KK_DISPLAY_DATA LedDataType;
+    public KK_DISPLAY_DATA ledDataType;
     //
-    public String TargetPage;           //Target page
+    public String targetPage;           //Target page
     //
-    public UIFramesKeySet UIFrames;
+    public framesKeySet displayFrames;
     //
-    public String[] Direct_DisplayText;        //Text for display
-    public String[] Direct_DisplayTextUpdate;    //Updated text (using positions)
-    public int[] Direct_StartPositionColumn;     //Position for update text
-    public int[] Direct_StartPositionLine;       //Position for update text
+    public String[] directDisplayText;        //Text for display
+    public String[] directDisplayTextUpdate;    //Updated text (using positions)
+    public int[] directStartPositionCol;     //Position for update text
+    public int[] directStartPositionRow;       //Position for update text
     //
-    public DisplayInfo[] DisplayState;    //
+    public DisplayInfo[] displayState;    //
 
-    public void FillFrameValues(String[] Keys, String[] Values) {
-        UIFrames = new UIFramesKeySet();
-        UIFrames.FillValues(Keys, Values);
+    public void fillFrameValues(String[] Keys, String[] Values) {
+        displayFrames = new framesKeySet();
+        displayFrames.fillValues(Keys, Values);
     }
 }

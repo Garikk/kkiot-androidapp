@@ -13,6 +13,7 @@ import kkdev.kksystem.base.classes.display.DisplayInfo;
 import kkdev.kksystem.base.classes.display.PinLedCommand;
 import kkdev.kksystem.base.classes.display.PinLedData;
 import kkdev.kksystem.base.classes.display.UIFramesKeySet;
+import kkdev.kksystem.base.classes.display.pages.framesKeySet;
 import kkdev.kksystem.base.constants.PluginConsts;
 import kkdev.kksystem.kkcarandroid.manager.callback.ILedDebugUI;
 
@@ -107,10 +108,10 @@ public class LCDDisplayManager {
     ///////////////////
     private void ProcessCommand(String FeatureID, PinLedCommand Command) {
 
-        switch (Command.Command) {
+        switch (Command.command) {
             case DISPLAY_KKSYS_PAGE_ACTIVATE:
-                System.out.println("[LCDDisplay][MANAGER] Acti " + FeatureID + " " + Command.PageID);
-                SetPageToActive(FeatureID, Command.PageID);
+                System.out.println("[LCDDisplay][MANAGER] Acti " + FeatureID + " " + Command.pageID);
+                SetPageToActive(FeatureID, Command.pageID);
                 break;
             case DISPLAY_KKSYS_GETINFO:
                 AnswerDisplayInfo();
@@ -121,23 +122,23 @@ public class LCDDisplayManager {
 
     private void ProcessData(PinLedData Data) {
 
-        switch (Data.LedDataType) {
+        switch (Data.ledDataType) {
             case DISPLAY_KKSYS_TEXT_SIMPLE_OUT:
-                SendTextToPage(Data.FeatureID, Data.TargetPage, Data.Direct_DisplayText);
+                SendTextToPage(Data.featureID, Data.targetPage, Data.directDisplayText);
                 break;
             case DISPLAY_KKSYS_TEXT_UPDATE_DIRECT:
 
                 break;
             case DISPLAY_KKSYS_TEXT_UPDATE_FRAME:
-                UpdatePageUIFrames(Data.FeatureID, Data.TargetPage, false, Data.UIFrames);
+                UpdatePageUIFrames(Data.featureID, Data.targetPage, false, Data.displayFrames);
                 break;
         }
     }
 
     private void ProcessBaseCommand(PinBaseCommand Command) {
-        switch (Command.BaseCommand) {
+        switch (Command.baseCommand) {
             case CHANGE_FEATURE:
-                ChangeFeature(Command.ChangeFeatureID);
+                ChangeFeature(Command.changeFeatureID);
                 break;
             case PLUGIN:
                 break;
@@ -159,8 +160,8 @@ public class LCDDisplayManager {
         }
         //
         Ret = new PinLedData();
-        Ret.DisplayState = DI;
-        Ret.LedDataType = DisplayConstants.KK_DISPLAY_DATA.DISPLAY_KKSYS_DISPLAY_STATE;
+        Ret.displayState = DI;
+        Ret.ledDataType = DisplayConstants.KK_DISPLAY_DATA.DISPLAY_KKSYS_DISPLAY_STATE;
         //
         // DISPLAY_SendPluginMessageData(CurrentFeature, Ret);
         //
@@ -192,12 +193,12 @@ public class LCDDisplayManager {
 
     }
 
-    private void UpdatePageUIFrames(String FeatureID, String PageID, boolean SetUIFrames, UIFramesKeySet UIFrames) {
+    private void UpdatePageUIFrames(String FeatureID, String PageID, boolean SetUIFrames, framesKeySet UIFrames) {
 
         DisplayPage DP = DPages.get(PageID);
 
         if (UIFrames != null) {
-            DP.UIFramesValues = UIFrames;
+            DP.UIFrames = UIFrames.values();
         }
         //
         if (CurrentFeature==null)
