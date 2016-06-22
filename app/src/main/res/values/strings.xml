@@ -86,8 +86,14 @@
     <string name="str_login_btn_connect">Подключится к автомобилю</string>
 
     <string name="str_drawer_connect_dingocloud">Подключится к Dingo cloud</string>
-    <string name="str_drawer_connect_dingoclud_ok">Dingo Cloud подключен</string>
+    <string name="str_drawer_connect_dingocloud_ok">Dingo Cloud подключен</string>
+    <string name="str_drawer_connect_dingocloud_wait">Ожидание подключения к Dingo cloud</string>
+    <string name="str_drawer_connect_dingocloud_error">Dingo Cloud подключен</string>
+    <string name="str_drawer_connect_dingocloud_disable">Dingo cloud не подключен</string>
+
     <string name="str_drawer_connect_bluetooth">Подключится к автомобилю</string>
     <string name="str_drawer_connect_bluetooth_ok">Автомобиль подключен</string>
-    <string name="str_drawer_connect_bluetooth_wait">Ожидание подключения к автомобилю</string>
+    <string name="str_drawer_connect_bluetooth_wait">Ожидание подключения к авто</string>
+    <string name="str_drawer_connect_bluetooth_error">Ошибка подключения к авто</string>
+    <string name="str_drawer_connect_bluetooth_disable">Автомобиль не подключен</string>
 </resources>

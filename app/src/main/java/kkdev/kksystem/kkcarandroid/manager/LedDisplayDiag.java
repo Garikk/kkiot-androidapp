@@ -18,7 +18,7 @@ public class LedDisplayDiag {
         //
         LDM.Init(Callback);
         //
-        ConnectionManager.CheckConnect();
+        ConnectionManager.CheckConnect(false);
         CurrentUI = Callback;
     }
 

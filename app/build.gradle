@@ -7,9 +7,9 @@ android {
     buildToolsVersion '23.0.2'
     defaultConfig {
         applicationId 'kkdev.kksystem.kkcarandroid'
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 23
-        versionCode 3
+        versionCode 4
         versionName "1.0"
     }
     buildTypes {

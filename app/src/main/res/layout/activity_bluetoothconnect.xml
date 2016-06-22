@@ -15,14 +15,22 @@
         android:id="@+id/lstBTDevices"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_above="@+id/button7" />
+        android:layout_above="@+id/btn_BT_Back" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/str_btconnect_cancel"
-        android:id="@+id/button7"
+        android:id="@+id/btn_BT_Back"
+        android:layout_alignTop="@+id/btnRefresh"
+        android:layout_alignEnd="@+id/lstBTDevices" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Обновить"
+        android:id="@+id/btnRefresh"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

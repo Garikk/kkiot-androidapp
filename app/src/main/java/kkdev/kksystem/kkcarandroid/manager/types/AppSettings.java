@@ -7,5 +7,15 @@ import java.util.Set;
  */
 public class AppSettings {
     public static Set<String> DiagParameters;
-    public static String KKBluetoothDevice;
+
+    public static boolean KKBluetoothDevice_Enabled;
+    public static String KKBluetoothDevice_Name;
+    public static String KKBluetoothDevice_Addr;
+    public static String KKBluetoothDevice_Key;
+
+    public static boolean DingoCloud_Enabled;
+    public static String DingoCloud_Addr;
+    public static String DingoCloud_Login;
+    public static String DingoCloud_Hash;
+
 }

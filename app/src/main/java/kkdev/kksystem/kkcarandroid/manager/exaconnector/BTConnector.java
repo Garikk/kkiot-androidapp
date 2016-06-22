@@ -16,12 +16,12 @@ package kkdev.kksystem.kkcarandroid.manager.exaconnector;
  import android.bluetooth.BluetoothAdapter;
  import android.bluetooth.BluetoothDevice;
  import android.bluetooth.BluetoothSocket;
- import android.content.Intent;
  import android.util.Log;
+
+ import kkdev.kksystem.kkcarandroid.manager.types.AppSettings;
 
 public class BTConnector  {
 //
-    private String _____TEMPRORARY_DEV_ADDR="00:15:83:3D:0A:57";
     //
 
 
@@ -31,20 +31,33 @@ public class BTConnector  {
     private InputStream inStream = null;
     private BufferedWriter bw;
     private boolean ConnectorState=false;
-    public boolean ConnectionEnabled=false;
+    public boolean ConnectionActive =false;
 
 
     public void InitConnector()
     {
+        //
+        if (!AppSettings.KKBluetoothDevice_Enabled)
+            return;
+        //
         btAdapter = BluetoothAdapter.getDefaultAdapter();
         //
         ConnectorState=checkBTState();
         //
-        if (!ConnectorState)
+    }
+    public void checkConnection()
+    {
+        if (!AppSettings.KKBluetoothDevice_Enabled)
             return;
+
         //
-        ConnectToEXADevice();
+        ConnectorState=checkBTState();
         //
+        if (!ConnectionActive)
+        {
+            ConnectToEXADevice();
+        }
+
     }
 
     public void SendData(String Data)
@@ -54,7 +67,10 @@ public class BTConnector  {
 
     private void ConnectToEXADevice()
     {
-        BluetoothDevice device = btAdapter.getRemoteDevice(_____TEMPRORARY_DEV_ADDR);
+        if (ConnectorState==false)
+            return;
+
+        BluetoothDevice device = btAdapter.getRemoteDevice(AppSettings.KKBluetoothDevice_Addr);
         try {
              btSocket = device.createRfcommSocketToServiceRecord(UUID.fromString("09846431-0000-1000-8000-00805F9B34FB"));
         } catch (IOException e) {
@@ -62,7 +78,7 @@ public class BTConnector  {
         }
         //
         try {
-            ConnectionEnabled=true;
+            ConnectionActive =true;
             btSocket.connect();
             Log.d("BTEXA", "...Connect OK...");
         } catch (IOException e) {
@@ -120,17 +136,17 @@ public class BTConnector  {
         public void run() {
             br= new BufferedReader(new InputStreamReader(inStream));
             Log.d("BTEXA", "BT Reader start");
-            while (ConnectionEnabled)
+            while (ConnectionActive)
             {
                 try {
                     String RL=br.readLine();
                     EXARequestProcessor.DecodeAndProcessPin( RL);
                 } catch (IOException e) {
                     e.printStackTrace();
-                    ConnectionEnabled = false;
+                    ConnectionActive = false;
                 } catch (NullPointerException e){
                  e.printStackTrace();
-                ConnectionEnabled = false;
+                ConnectionActive = false;
 
                 }
 

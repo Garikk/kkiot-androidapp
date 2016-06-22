@@ -18,7 +18,7 @@ public class DiagOperations {
 
 
     public static void RegisterCallback(IDiagUI Callback) {
-        ConnectionManager.CheckConnect();
+        ConnectionManager.CheckConnect(false);
         CurrentDiagUI = Callback;
 
     }

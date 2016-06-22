@@ -15,25 +15,30 @@ public class ConnectionManager {
     public static WebManager WMG;
 
 
-    public static void CheckConnect()
-    {
-        if (BTC==null) {
+    public static void CheckConnect(boolean Renew) {
+        if (BTC == null) {
             BTC = new BTConnector();
             BTC.InitConnector();
+        } else if (Renew) {
+            BTC.InitConnector();
+        } else
+        {
+            BTC.checkConnection();
         }
+
         //
-        if (WMG==null) {
+        if (WMG == null) {
             WMG = new WebManager();
         }
+
 
     }
 
 
     //DIAGINFO
-    public static void DIAG_RequestDiagInfoCE()
-    {
+    public static void DIAG_RequestDiagInfoCE() {
 
-        if (BTC.ConnectionEnabled) {
+        if (BTC.ConnectionActive) {
             BTC.SendData(EXARequestProcessor.RequestDiag_ODB2_CE());
         }
 
@@ -49,14 +54,14 @@ public class ConnectionManager {
             i++;
         }
 
-        if (BTC.ConnectionEnabled) {
+        if (BTC.ConnectionActive) {
             BTC.SendData(EXARequestProcessor.RequestDiag_ODB2_Params(ReqPID));
         }
 
     }
     public static void DIAG_RequestDiagInfo_Stop()
     {
-        if (BTC.ConnectionEnabled) {
+        if (BTC.ConnectionActive) {
             BTC.SendData(EXARequestProcessor.RequestDiag_ODB2_Params_Stop());
         }
 
@@ -70,7 +75,7 @@ public class ConnectionManager {
     //DISPLAY
     public static void DISPLAY_SendControlCommands(String ControlID)
     {
-        if (BTC.ConnectionEnabled) {
+        if (BTC.ConnectionActive) {
             BTC.SendData(EXARequestProcessor.Controls_ControlData(ControlID));
         }
 
