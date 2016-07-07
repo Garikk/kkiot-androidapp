@@ -125,9 +125,9 @@ public class act_bluetoothconnect extends AppCompatActivity {
         }
 
         IntentFilter filter=new IntentFilter(BluetoothDevice.ACTION_FOUND);
-        unregisterReceiver(mReceiver);
         registerReceiver(mReceiver, filter);
-
-
     }
 }
+
+
+//unregisterReceiver(mReceiver);

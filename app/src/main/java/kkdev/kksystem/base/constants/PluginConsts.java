@@ -21,12 +21,15 @@ public final class PluginConsts {
     public final static String KK_PLUGIN_BASE_PIN_ANY="PIN_KK_ANYPIN";
     
     public final static String KK_PLUGIN_BASE_PIN_COMMAND="PIN_KK_COMMAND";
+    public final static String KK_PLUGIN_BASE_PIN_SYSTEMOPERATION="PIN_KK_SYSOPERATION";
+    public final static String KK_PLUGIN_BASE_PIN_SYSTEMSTATE="PIN_KK_SYSSTATE";
     //
     public final static String KK_PLUGIN_BASE_BASIC_TAGGEDINT_DATA="PIN_KK_BASIC_TAGGED_INT";
     public final static String KK_PLUGIN_BASE_BASIC_TAGGEDOBJ_DATA="PIN_KK_BASIC_TAGGED_OBJ";
+    public final static String KK_PLUGIN_BASE_BASIC_TAGGEDSTR_DATA="PIN_KK_BASIC_TAGGED_STR";
     //
     // Default KKController
-    public final static String KK_KKCONTROLLER_UTIL="PIN_KKTRLR_UTILITY";
+    public final static String KK_KKCONTROLLER_PIN_UTIL="PIN_KKTRLR_UTILITY";
     
     // Default ODB2 Pins
     public final static String KK_PLUGIN_BASE_ODB2_COMMAND="PIN_KK_ODB2_COMMAND";

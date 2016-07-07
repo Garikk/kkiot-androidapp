@@ -8,7 +8,7 @@ package kkdev.kksystem.base.interfaces;
 import java.util.List;
 import kkdev.kksystem.base.classes.display.DisplayInfo;
 import kkdev.kksystem.base.classes.display.pages.DisplayPage;
-import kkdev.kksystem.base.classes.kkcontroller.KKController_Utils.RS232Device;
+import kkdev.kksystem.base.classes.kkcontroller.RS232Device;
 import kkdev.kksystem.base.classes.kkcontroller.UIContextInfo;
 import kkdev.kksystem.base.classes.plugins.PluginInfo;
 
@@ -17,6 +17,17 @@ import kkdev.kksystem.base.classes.plugins.PluginInfo;
  * @author blinov_is
  */
 public interface IKKControllerUtils {
+    public enum ControllerUtilsPinRequestTypes
+    {
+        HWDev_GetRS232Devices,
+        PLUGINS_GetLoadedPlugins,
+        DISPLAY_GetUIDisplayPages,
+        DISPLAY_GetUIDisplayPage,
+        DISPLAY_AddUIDisplayPage,
+        UICONTEXT_AddUIContext,
+        UICONTEXT_GetUIContext,
+        UICONTEXT_UpdateUIContext
+    }
     //HWDevices
     public List<RS232Device> HWDEVICES_GetRS232Devices();
     // Plugin information

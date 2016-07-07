@@ -31,6 +31,6 @@ public class LedDisplayDiag {
         if (LDM==null)
             return;
 
-            LDM.ReceivePin(PM.FeatureID,PM.PinName,PM.PinData);
+            LDM.ReceivePin(PM.FeatureID,PM.pinName,PM.getPinData());
     }
 }

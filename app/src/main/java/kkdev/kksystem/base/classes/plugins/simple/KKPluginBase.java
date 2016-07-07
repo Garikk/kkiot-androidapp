@@ -31,9 +31,9 @@ public class KKPluginBase implements IPluginKKConnector{
     }
 
     @Override
-    public PluginMessage executePin(PluginMessage Pin) {
+    public void executePin(PluginMessage Pin) {
        //must be override!
-        return null;
+        return;
     }
 
     @Override

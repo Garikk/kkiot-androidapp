@@ -5,27 +5,39 @@
  */
 package kkdev.kksystem.base.classes.plugins;
 
-import kkdev.kksystem.base.classes.base.PinBaseCommand;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import kkdev.kksystem.base.classes.base.PinData;
 
 /**
  *
  * @author blinov_is
  */
-public class PluginMessage {
+public abstract class PluginMessage {
     public String SenderUID;    //Sender plugin ID
-    public String FeatureID;    //Feature ID
-    public String PinName; 
-    public Object PinData;
+    public Set<String> FeatureID;    //Feature ID
+    public String UIContextID;
+    public String pinName; 
+    private PinData pinData;
     
-    public PluginMessage newInstance()
+    public PluginMessage(PinData newPinData)
     {
-        PluginMessage Ret;
-        Ret=new PluginMessage();
-        Ret.SenderUID=this.SenderUID;
-        Ret.FeatureID=this.FeatureID;
-        Ret.PinName=this.PinName;
-        Ret.PinData=this.PinData;
-        
-        return Ret;
+        pinData=newPinData;
+        FeatureID=new LinkedHashSet<>();
+    }
+    
+    public PluginMessage cloneMessage()
+    {
+        return this;
+    }
+    
+    public Object getPinData()
+    {
+        return pinData;
+    }
+    
+    public void setPinData(PinData PinData)
+    {
+        pinData=PinData;
     }
 }

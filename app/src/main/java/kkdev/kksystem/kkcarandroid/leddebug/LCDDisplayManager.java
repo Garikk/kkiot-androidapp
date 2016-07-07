@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import kkdev.kksystem.base.classes.base.PinBaseCommand;
 import kkdev.kksystem.base.classes.display.DisplayConstants;
@@ -30,13 +31,7 @@ public class LCDDisplayManager {
     static Map<String, Map<String, List<DisplayView>>> DViews;
 
     public void Init(ILedDebugUI Callback) {
-        //Connector = Conn;
-
-//            PluginSettings.InitConfig(Conn.GlobalConfID,Conn.PluginInfo.GetPluginInfo().PluginUUID);
         Settings.InitConfig();
-        //
-                  //CurrentFeature = ;'//PluginSettings.MainConfiguration.DefaultFeature;
-        //
         ConfigAndHWInit(Callback);
     }
 
@@ -84,13 +79,13 @@ public class LCDDisplayManager {
     }
 
 
-    public void ReceivePin(String FeatureID, String PinName, Object PinData) {
+    public void ReceivePin(Set<String> FeatureID, String PinName, Object PinData) {
 
         switch (PinName) {
             case PluginConsts.KK_PLUGIN_BASE_LED_COMMAND:
                 PinLedCommand CMD;
                 CMD = (PinLedCommand) PinData;
-                ProcessCommand(FeatureID, CMD);
+                ProcessCommand(FeatureID.iterator().next(), CMD);
                 break;
             case PluginConsts.KK_PLUGIN_BASE_LED_DATA:
                 PinLedData DAT;

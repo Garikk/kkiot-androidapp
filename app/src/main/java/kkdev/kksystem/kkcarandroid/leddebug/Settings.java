@@ -11,7 +11,7 @@ public class Settings {
 
         public static void InitConfig()
         {
-          MainConfiguration=kk_DefPages.MakeDefaultConfig();
+          //MainConfiguration=kk_DefPages.MakeDefaultConfig();
         }
 
 

@@ -5,9 +5,10 @@
  */
 package kkdev.kksystem.base.classes.plugins.simple.managers;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
-import kkdev.kksystem.base.classes.controls.PinControlData;
-import kkdev.kksystem.base.classes.controls.PinControlData.KK_CONTROL_DATA;
+import kkdev.kksystem.base.classes.controls.PinDataControl;
+import kkdev.kksystem.base.classes.controls.PinDataControl.KK_CONTROL_DATA;
 import static kkdev.kksystem.base.constants.PluginConsts.KK_PLUGIN_BASE_CONTROL_DATA;
 
 /**
@@ -16,19 +17,19 @@ import static kkdev.kksystem.base.constants.PluginConsts.KK_PLUGIN_BASE_CONTROL_
  */
 public class PluginManagerControls extends PluginManagerBase {
 
-    public synchronized void CONTROL_SendPluginMessageData(String FeatureID,String UIContextID , Set<String> ControlID, KK_CONTROL_DATA EventType, int IntValue) {
+    public synchronized void CONTROL_SendPluginMessageData(Set<String> FeatureID,String UIContextID , Set<String> TargetFeatures, Set<String> ControlID, KK_CONTROL_DATA EventType, int IntValue) {
 
-        PinControlData PData = CONTROL_SendPluginMessageData_PData(FeatureID,UIContextID, ControlID, EventType, IntValue);
+        PinDataControl PData = CONTROL_SendPluginMessageData_PData(TargetFeatures,UIContextID, ControlID, EventType, IntValue);
         //
-                    
-        this.BASE_SendPluginMessage(FeatureID, KK_PLUGIN_BASE_CONTROL_DATA, PData);
+     //    System.out.println("[BSE][CTL] " + PData.featureID.toString() + " " + EventType + " " + ControlID.toString());           
+        this.BASE_SendPluginMessage(FeatureID, UIContextID,KK_PLUGIN_BASE_CONTROL_DATA, PData);
     }
 
-    public static synchronized PinControlData CONTROL_SendPluginMessageData_PData(String FeatureID,String UIContextID, Set<String> ControlID, KK_CONTROL_DATA EventType, int IntValue) {
+    public static synchronized PinDataControl CONTROL_SendPluginMessageData_PData(Set<String> FeatureID,String UIContextID, Set<String> ControlID, KK_CONTROL_DATA EventType, int IntValue) {
 
-        PinControlData PData = new PinControlData();
+        PinDataControl PData = new PinDataControl();
         //
-        PData.featureID = FeatureID;
+        PData.featureID=FeatureID;
         PData.controlID = ControlID;
         PData.controlDataType = EventType;
         PData.controlValue = IntValue;

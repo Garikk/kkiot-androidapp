@@ -26,7 +26,8 @@ public class NotifyConsts {
         LOG,
         DISPLAY,
         VOICE,
-        SIGNAL
+        SIGNAL,
+        INFO
     }
             
 }

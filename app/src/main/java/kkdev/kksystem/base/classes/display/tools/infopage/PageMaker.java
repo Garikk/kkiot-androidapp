@@ -6,7 +6,7 @@
 package kkdev.kksystem.base.classes.display.tools.infopage;
 
 import java.util.Set;
-import kkdev.kksystem.base.classes.controls.PinControlData;
+import kkdev.kksystem.base.classes.controls.PinDataControl;
 import kkdev.kksystem.base.classes.display.pages.framesKeySet;
 import kkdev.kksystem.base.classes.plugins.simple.managers.PluginManagerDataProcessor;
 import kkdev.kksystem.base.interfaces.IPluginKKConnector;
@@ -27,11 +27,13 @@ public class PageMaker {
 
         public void execCommand(String PageCMD);
         public void pageSelected(String PageName);
+        public void pageStepFwd();
+        public void pageStepBwd();
     }
 
     public PageMaker(String FeatureID,String UIContext, IPluginKKConnector PluginConnector, IPageMakerExecCommand PageExecCallback) {
         PManager = new PluginManagerDataProcessor();
-        PManager.connector = PluginConnector;
+        PManager.setPluginConnector(PluginConnector);
         currentFeature = FeatureID;
         currentContext=UIContext;
         callback = PageExecCallback;
@@ -48,16 +50,16 @@ public class PageMaker {
     public void processControlCommand(Set<String> ControlID) {
         for (String btnCtrl : ControlID) {
             switch (btnCtrl) {
-                case PinControlData.DEF_BTN_UP:
+                case PinDataControl.DEF_BTN_UP:
                     selectPrevPage();
                     break;
-                case PinControlData.DEF_BTN_DOWN:
+                case PinDataControl.DEF_BTN_DOWN:
                     selectNextPage();
                     break;
-                case PinControlData.DEF_BTN_ENTER:
+                case PinDataControl.DEF_BTN_ENTER:
                     execCommand();
                     break;
-                case PinControlData.DEF_BTN_BACK:
+                case PinDataControl.DEF_BTN_BACK:
                     break;
 
             }
@@ -70,10 +72,12 @@ public class PageMaker {
 
     public void selectNextPage() {
         showPage(PViewer.movePageNext());
+        callback.pageStepFwd();
     }
 
     public void selectPrevPage() {
         showPage(PViewer.movePagePrev());
+        callback.pageStepBwd();
     }
 
     public void execCommand() {
@@ -88,7 +92,7 @@ public class PageMaker {
 
     private void updateUIFrames(String PageName) {
         MKPageItem Page = PViewer.getPage();
-        PManager.DISPLAY_UpdateUIFrames(currentFeature,currentContext, Page.pageName, Page.pageFrames);
+        PManager.DISPLAY_UpdateUIFrames(currentFeature, currentContext, Page.pageName, Page.pageFrames);
     }
 
     private void showPage(MKPageItem Page) {

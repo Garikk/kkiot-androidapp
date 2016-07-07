@@ -5,6 +5,7 @@
  */
 package kkdev.kksystem.base.interfaces;
 
+import kkdev.kksystem.base.classes.base.PluginMessageData;
 import kkdev.kksystem.base.classes.plugins.PluginInfo;
 import kkdev.kksystem.base.classes.plugins.PluginMessage;
 
@@ -15,7 +16,7 @@ import kkdev.kksystem.base.classes.plugins.PluginMessage;
 public interface IPluginKKConnector {
     public PluginInfo getPluginInfo();
     
-    public PluginMessage executePin(PluginMessage Pin);
+    public void executePin(PluginMessage Pin);
     public void sendPinMessage(PluginMessage Pin);
     
     public void pluginInit(IPluginBaseInterface BaseConnector, String GlobalConfUID);

@@ -8,7 +8,7 @@ package kkdev.kksystem.base.classes.display.tools.menumaker;
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Set;
-import kkdev.kksystem.base.classes.controls.PinControlData;
+import kkdev.kksystem.base.classes.controls.PinDataControl;
 import kkdev.kksystem.base.classes.display.pages.PageConsts;
 import kkdev.kksystem.base.classes.notify.NotifyConsts;
 import kkdev.kksystem.base.classes.plugins.simple.managers.PluginManagerDataProcessor;
@@ -67,7 +67,7 @@ public class MenuMaker {
         sendNotifications=SendNarratorNotifications;
         callback = MenuCallback;
         PManager = new PluginManagerDataProcessor();
-        PManager.baseConnector = BaseConnector;
+        PManager.setBaseConnector(BaseConnector);
         inSystemMode = true;
         systemLCD = SystemLCD_ID;
         menuFeatureID = FeatureID;
@@ -87,7 +87,7 @@ public class MenuMaker {
           sendNotifications=SendNarratorNotifications;
         callback = MenuCallback;
         PManager = new PluginManagerDataProcessor();
-        PManager.connector = PluginConnector;
+        PManager.setPluginConnector(PluginConnector);
         inSystemMode = false;
         menuFeatureID = FeatureID;
         menuContextID = UIContextID;
@@ -224,20 +224,20 @@ public class MenuMaker {
     public void processControlCommand(Set<String> ControlID) {
         for (String btnCtrl : ControlID) {
             switch (btnCtrl) {
-                case PinControlData.DEF_BTN_UP:
+                case PinDataControl.DEF_BTN_UP:
                     menuSelectUp();
                     sendNarratorNotification(getCurrentSelection().displayName);
                     callback.activeMenuElement(getCurrentSelection().displayName, getCurrentSelection().itemCommand);
                     break;
-                case PinControlData.DEF_BTN_DOWN:
+                case PinDataControl.DEF_BTN_DOWN:
                     menuSelectDown();
                     sendNarratorNotification(getCurrentSelection().displayName);
                     callback.activeMenuElement(getCurrentSelection().displayName, getCurrentSelection().itemCommand);
                     break;
-                case PinControlData.DEF_BTN_ENTER:
+                case PinDataControl.DEF_BTN_ENTER:
                     menuExec();
                     break;
-                case PinControlData.DEF_BTN_BACK:
+                case PinDataControl.DEF_BTN_BACK:
                     menuSelectBack();
                     //SendNarratorNotification(getCurrentSelection().displayName);
                     //CallBack.activeMenuElement(getCurrentSelection().displayName, getCurrentSelection().itemCommand);
