@@ -23,8 +23,8 @@ import kkdev.kksystem.kkcarandroid.manager.types.AppSettings;
 public class act_bluetoothconnect extends AppCompatActivity {
 
     private final static int REQUEST_ENABLE_BT = 1;
-    final int KK_ACTIVITY_REQUEST_RESULT_OK=1;
-    final int KK_ACTIVITY_REQUEST_RESULT_CANCEL=5;
+    final int KK_ACTIVITY_REQUEST_RESULT_OK = 1;
+    final int KK_ACTIVITY_REQUEST_RESULT_CANCEL = 5;
 
     BluetoothAdapter bluetooth;
     ArrayAdapter DevicesList;
@@ -34,33 +34,33 @@ public class act_bluetoothconnect extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetoothconnect);
 
-        bluetooth= BluetoothAdapter.getDefaultAdapter();
-        DevicesList=new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1);
+        bluetooth = BluetoothAdapter.getDefaultAdapter();
+        DevicesList = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_2);
         ListView lstBTDevices;
-        lstBTDevices = (ListView)findViewById(R.id.lstBTDevices);
+        lstBTDevices = (ListView) findViewById(R.id.lstBTDevices);
         lstBTDevices.setAdapter(DevicesList);
         lstBTDevices.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 setResult(KK_ACTIVITY_REQUEST_RESULT_OK);
-                AppSettings.KKBluetoothDevice_Name=((TextView) view.findViewById(android.R.id.text1)).getText().toString();
-                AppSettings.KKBluetoothDevice_Addr=((TextView) view.findViewById(android.R.id.text2)).getText().toString();
+                AppSettings.KKBluetoothDevice_Name = ((TextView) view.findViewById(android.R.id.text1)).getText().toString();
+                AppSettings.KKBluetoothDevice_Addr = ((TextView) view.findViewById(android.R.id.text2)).getText().toString();
                 SettingsManager.saveSettings(getApplicationContext());
                 finish();
             }
         });
 
-        Button btnRefresh = (Button)findViewById(R.id.btnRefresh);
-        Button btnBack = (Button)findViewById(R.id.btn_BT_Back);
+        Button btnRefresh = (Button) findViewById(R.id.btnRefresh);
+        Button btnBack = (Button) findViewById(R.id.btn_BT_Back);
 
 
-         btnRefresh.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    fillBTDevices();
-                }
-            });
+        btnRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fillBTDevices();
+            }
+        });
 
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,15 +70,12 @@ public class act_bluetoothconnect extends AppCompatActivity {
             }
         });
 
-        if(bluetooth==null)
-        {
+        if (bluetooth == null) {
             return;
         }
         if (bluetooth.isEnabled()) {
             // Bluetooth включен. Работаем.
-        }
-        else
-        {
+        } else {
             // Bluetooth выключен. Предложим пользователю включить его.
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
@@ -87,12 +84,13 @@ public class act_bluetoothconnect extends AppCompatActivity {
         fillBTDevices();
 
     }
-    private final BroadcastReceiver mReceiver=new BroadcastReceiver(){
-        public void onReceive(Context context, Intent intent){
-            String action= intent.getAction();
-            if(BluetoothDevice.ACTION_FOUND.equals(action)){
-                BluetoothDevice device= intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                DevicesList.add(device.getName()+"\n"+ device.getAddress());
+
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                DevicesList.add(device.getName() + "\n" + device.getAddress());
             }
         }
     };
@@ -115,16 +113,15 @@ public class act_bluetoothconnect extends AppCompatActivity {
         }
     }
 
-    private void fillBTDevices()
-    {
+    private void fillBTDevices() {
         DevicesList.clear();
-        Set<BluetoothDevice> pairedDevices= bluetooth.getBondedDevices();
+        Set<BluetoothDevice> pairedDevices = bluetooth.getBondedDevices();
         //
-        for(BluetoothDevice device: pairedDevices) {
-            DevicesList.add(device.getName()+"\n"+ device.getAddress());
+        for (BluetoothDevice device : pairedDevices) {
+            DevicesList.add(device.getName() + "\n" + device.getAddress());
         }
 
-        IntentFilter filter=new IntentFilter(BluetoothDevice.ACTION_FOUND);
+        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
         registerReceiver(mReceiver, filter);
     }
 }
