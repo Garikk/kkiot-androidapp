@@ -1,4 +1,4 @@
-# kkcar-androidapp
-Android app for KKCar project
+# kkiot-androidapp
+Android app for kkIOT project
 
-https://github.com/Garikk/kkdev-carsystem
+https://github.com/Garikk/kkdev-iotsystem
