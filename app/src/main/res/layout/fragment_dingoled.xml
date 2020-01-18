@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <SurfaceView
+        android:id="@+id/sfwLedEmulator"
+        android:layout_width="match_parent"
+        android:layout_height="372dp" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <Button
+                android:id="@+id/btnLedUp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="up" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <Button
+                android:id="@+id/btnLedBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Back" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <Button
+                android:id="@+id/btnLedLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Left" />
+
+            <Button
+                android:id="@+id/btnLedDown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Down" />
+
+            <Button
+                android:id="@+id/btnLedRight"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Right" />
+
+            <Button
+                android:id="@+id/btnLedEnter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enter" />
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>
